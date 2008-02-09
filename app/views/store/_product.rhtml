@@ -1,0 +1,15 @@
+<%
+	@image = product.images[0]
+	if @image then
+    image_url = @image.public_filename(:small)
+	else
+		image_url = '/plugin_assets/substruct/images/public-ui/no-product-image.gif'
+	end
+-%>
+<%= 
+	make_product(
+		image_url, 
+		url_for(:controller => 'store', :action => 'show', :id => product.code), 
+		product.name, 
+		product.display_price) 
+-%>

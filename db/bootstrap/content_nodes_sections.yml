@@ -1,0 +1,31 @@
+--- 
+join_00002: 
+  section_id: "10"
+  content_node_id: "2"
+join_00003: 
+  section_id: "2"
+  content_node_id: "4"
+join_00004: 
+  section_id: "3"
+  content_node_id: "5"
+join_00005: 
+  section_id: "7"
+  content_node_id: "6"
+join_00006: 
+  section_id: "9"
+  content_node_id: "6"
+join_00007: 
+  section_id: "12"
+  content_node_id: "7"
+join_00008: 
+  section_id: "11"
+  content_node_id: "8"
+join_00009: 
+  section_id: "14"
+  content_node_id: "9"
+join_00000: 
+  section_id: "8"
+  content_node_id: "2"
+join_00001: 
+  section_id: "9"
+  content_node_id: "2"

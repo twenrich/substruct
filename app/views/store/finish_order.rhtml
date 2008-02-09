@@ -1,0 +1,21 @@
+<div id="fullContent">
+	<h1>Thanks For Your Order! - #<%= @order.order_number %></h1>
+	<h3>You will receive an email confirmation shortly.</h3>
+
+	<div class="floatHalf">
+	  <h2>Billing Info</h2>
+		<%= render(:partial => 'address_table', :locals => {:address => @order.billing_address})%>
+	</div>
+	<div class="floatHalf">
+		<h2>Shipping Info</h2>
+		<%= render(:partial => 'address_table', :locals => {:address => @order.shipping_address})%>
+	</div>
+	<div style="clear:both;"></div>	
+
+	<h2>Order Items</h2>
+	<%= render(:partial => 'cart_contents', :locals => {:cart => @order}) %>
+	
+	<p>
+		<b><a href="/">Back to the home page</a></b>
+	</p>
+</div>

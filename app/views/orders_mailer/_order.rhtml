@@ -1,0 +1,48 @@
+Order #: <%= @order.order_number %>
+
+ORDER DETAILS
+============================================================
+BILLING ADDRESS
+--------------------
+First Name: <%= @order.billing_address.first_name %>
+Last Name: <%= @order.billing_address.last_name %>
+Address: <%= @order.billing_address.address %>
+City: <%= @order.billing_address.city %>
+State: <%= @order.billing_address.state %>
+Zip: <%= @order.billing_address.zip %>
+Country: <%= @order.billing_address.country.name %>
+
+SHIPPING ADDRESS
+--------------------
+First Name: <%= @order.shipping_address.first_name %>
+Last Name: <%= @order.shipping_address.last_name %>
+Address: <%= @order.shipping_address.address %>
+City: <%= @order.shipping_address.city %>
+State: <%= @order.shipping_address.state %>
+Zip: <%= @order.shipping_address.zip %>
+Country: <%= @order.shipping_address.country.name %>
+------------------------------------------------------------
+Email: <%= @order.order_user.email_address %>
+<% if @order.account.order_account_type_id == 0 || @order.account.order_account_type_id == 1  %>
+CC Number: <%= @order.account.cc_number %>
+CC Exp Month: <%= @order.account.expiration_month %>
+CC Exp Year: <%= @order.account.expiration_year %>
+<% else %>
+Bank Name: <%= @order.account.bank_name %>
+Account Number: <%= @order.account.account_number %>
+Routing Number: <%= @order.account.routing_number %>
+<% end %>
+------------------------------------------------------------
+<% for item in @order.order_line_items %>
+Item Description: <%= item.product.name %>
+Quantity: <%= item.quantity %>
+Amount Per Item: <%= number_to_currency(item.unit_price) %>
+Sub Total: <%= number_to_currency(item.total) %>
+<% end %>
+------------------------------------------------------------
+<% if !@order.order_shipping_type.nil? then %>
+Shipping Via: <%= @order.order_shipping_type.name %>
+<% end %>
+Ship/Handling: <%= number_to_currency(@order.shipping_cost) %>
+============================================================
+TOTAL: <%= number_to_currency(@order.total) %>

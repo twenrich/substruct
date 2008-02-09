@@ -1,0 +1,1573 @@
+--- 
+country_00038: 
+  name: Cayman Islands
+  fedex_code: KY
+  ufsi_code: "036"
+  number_of_orders: 0
+  id: 38
+country_00064: 
+  name: Faroe Islands
+  fedex_code: FO
+  ufsi_code: "062"
+  number_of_orders: 0
+  id: 64
+country_00091: 
+  name: Ireland
+  fedex_code: IE
+  ufsi_code: 091
+  number_of_orders: 21
+  id: 91
+country_00119: 
+  name: Martinique
+  fedex_code: MQ
+  ufsi_code: "119"
+  number_of_orders: 0
+  id: 119
+country_00145: 
+  name: Pitcairn Islands
+  fedex_code: PN
+  ufsi_code: "145"
+  number_of_orders: 0
+  id: 145
+country_00171: 
+  name: Suriname
+  fedex_code: SR
+  ufsi_code: "171"
+  number_of_orders: 0
+  id: 171
+country_00226: 
+  name: American Samoa
+  fedex_code: AS
+  ufsi_code: "248"
+  number_of_orders: 0
+  id: 226
+country_00252: 
+  name: Tajikistan
+  fedex_code: TJ
+  ufsi_code: "275"
+  number_of_orders: 0
+  id: 252
+country_00039: 
+  name: Central African Republic
+  fedex_code: CF
+  ufsi_code: "037"
+  number_of_orders: 0
+  id: 39
+country_00065: 
+  name: Fiji
+  fedex_code: FJ
+  ufsi_code: "063"
+  number_of_orders: 0
+  id: 65
+country_00146: 
+  name: Poland
+  fedex_code: PL
+  ufsi_code: "146"
+  number_of_orders: 0
+  id: 146
+country_00172: 
+  name: Swaziland
+  fedex_code: SZ
+  ufsi_code: "172"
+  number_of_orders: 0
+  id: 172
+country_00227: 
+  name: Antarctica
+  fedex_code: AQ
+  ufsi_code: "249"
+  number_of_orders: 0
+  id: 227
+country_00253: 
+  name: Tokelau
+  fedex_code: TK
+  ufsi_code: "276"
+  number_of_orders: 0
+  id: 253
+country_00066: 
+  name: Finland
+  fedex_code: FI
+  ufsi_code: "064"
+  number_of_orders: 4
+  id: 66
+country_00092: 
+  name: Israel
+  fedex_code: IL
+  ufsi_code: 092
+  number_of_orders: 6
+  id: 92
+country_00147: 
+  name: Portugal
+  fedex_code: PT
+  ufsi_code: "147"
+  number_of_orders: 0
+  id: 147
+country_00173: 
+  name: Sweden
+  fedex_code: SE
+  ufsi_code: "173"
+  number_of_orders: 13
+  id: 173
+country_00228: 
+  name: Bouvet Island
+  fedex_code: BV
+  ufsi_code: "250"
+  number_of_orders: 0
+  id: 228
+country_00067: 
+  name: France
+  fedex_code: FR
+  ufsi_code: "065"
+  number_of_orders: 6
+  id: 67
+country_00093: 
+  name: Italy
+  fedex_code: IT
+  ufsi_code: 093
+  number_of_orders: 6
+  id: 93
+country_00148: 
+  name: Qatar
+  fedex_code: QA
+  ufsi_code: "148"
+  number_of_orders: 0
+  id: 148
+country_00174: 
+  name: Switzerland
+  fedex_code: CH
+  ufsi_code: "174"
+  number_of_orders: 0
+  id: 174
+country_00229: 
+  name: British Indian Ocean Terri
+  fedex_code: IO
+  ufsi_code: "251"
+  number_of_orders: 0
+  id: 229
+country_00255: 
+  name: U.S. Virgin Islands
+  fedex_code: VI
+  ufsi_code: "278"
+  number_of_orders: 0
+  id: 255
+country_00068: 
+  name: French Guiana
+  fedex_code: GF
+  ufsi_code: "066"
+  number_of_orders: 0
+  id: 68
+country_00094: 
+  name: Jamaica
+  fedex_code: JM
+  ufsi_code: 094
+  number_of_orders: 2
+  id: 94
+country_00149: 
+  name: Reunion Island
+  fedex_code: RE
+  ufsi_code: "149"
+  number_of_orders: 0
+  id: 149
+country_00175: 
+  name: Syria
+  fedex_code: SY
+  ufsi_code: "175"
+  number_of_orders: 0
+  id: 175
+country_00256: 
+  name: Western Sahara
+  fedex_code: 
+  ufsi_code: "279"
+  number_of_orders: 0
+  id: 256
+country_00069: 
+  name: French Polynesia
+  fedex_code: PF
+  ufsi_code: "067"
+  number_of_orders: 0
+  id: 69
+country_00095: 
+  name: Japan
+  fedex_code: JP
+  ufsi_code: 095
+  number_of_orders: 6
+  id: 95
+country_00176: 
+  name: Taiwan
+  fedex_code: TW
+  ufsi_code: "176"
+  number_of_orders: 2
+  id: 176
+country_00257: 
+  name: Congo, The Democratic Republic
+  fedex_code: CD
+  ufsi_code: "300"
+  number_of_orders: 0
+  id: 257
+country_00096: 
+  name: Jordan
+  fedex_code: JO
+  ufsi_code: 096
+  number_of_orders: 0
+  id: 96
+country_00177: 
+  name: Tanzania
+  fedex_code: TZ
+  ufsi_code: "177"
+  number_of_orders: 0
+  id: 177
+country_00258: 
+  name: Lao People's Democratic Republic
+  fedex_code: 
+  ufsi_code: "302"
+  number_of_orders: 0
+  id: 258
+country_00097: 
+  name: Kampuchea
+  fedex_code: 
+  ufsi_code: 097
+  number_of_orders: 0
+  id: 97
+country_00178: 
+  name: Thailand
+  fedex_code: TH
+  ufsi_code: "178"
+  number_of_orders: 0
+  id: 178
+country_00259: 
+  name: Macedonia, The Former Yugo
+  fedex_code: MK
+  ufsi_code: "303"
+  number_of_orders: 0
+  id: 259
+country_00098: 
+  name: Kenya
+  fedex_code: KE
+  ufsi_code: 098
+  number_of_orders: 0
+  id: 98
+country_00179: 
+  name: Togo
+  fedex_code: TG
+  ufsi_code: "179"
+  number_of_orders: 0
+  id: 179
+country_00099: 
+  name: Kiribati
+  fedex_code: KI
+  ufsi_code: 099
+  number_of_orders: 0
+  id: 99
+country_00100: 
+  name: Korea, Democ. Peoples Rep.
+  fedex_code: 
+  ufsi_code: "100"
+  number_of_orders: 1
+  id: 100
+country_00020: 
+  name: Bangladesh
+  fedex_code: BD
+  ufsi_code: "017"
+  number_of_orders: 0
+  id: 20
+country_00101: 
+  name: Kuwait
+  fedex_code: KW
+  ufsi_code: "101"
+  number_of_orders: 36
+  id: 101
+country_00021: 
+  name: Barbados
+  fedex_code: BB
+  ufsi_code: 018
+  number_of_orders: 0
+  id: 21
+country_00102: 
+  name: Laos
+  fedex_code: LA
+  ufsi_code: "102"
+  number_of_orders: 0
+  id: 102
+country_00022: 
+  name: Belgium
+  fedex_code: BE
+  ufsi_code: 019
+  number_of_orders: 0
+  id: 22
+country_00103: 
+  name: Latvia
+  fedex_code: LV
+  ufsi_code: "103"
+  number_of_orders: 0
+  id: 103
+country_00210: 
+  name: Lithvania
+  fedex_code: 
+  ufsi_code: "233"
+  number_of_orders: 0
+  id: 210
+country_00104: 
+  name: Lebanon
+  fedex_code: LB
+  ufsi_code: "104"
+  number_of_orders: 2
+  id: 104
+country_00130: 
+  name: Netherlands
+  fedex_code: NL
+  ufsi_code: "130"
+  number_of_orders: 3
+  id: 130
+country_00211: 
+  name: MocDavia
+  fedex_code: 
+  ufsi_code: "234"
+  number_of_orders: 0
+  id: 211
+country_00023: 
+  name: Belize
+  fedex_code: BZ
+  ufsi_code: "020"
+  number_of_orders: 0
+  id: 23
+country_00050: 
+  name: Cyprus
+  fedex_code: CY
+  ufsi_code: 048
+  number_of_orders: 0
+  id: 50
+country_00105: 
+  name: Lesotho
+  fedex_code: LS
+  ufsi_code: "105"
+  number_of_orders: 0
+  id: 105
+country_00131: 
+  name: Netherlands Antilies
+  fedex_code: AN
+  ufsi_code: "131"
+  number_of_orders: 0
+  id: 131
+country_00212: 
+  name: Tadzhikistan
+  fedex_code: 
+  ufsi_code: "235"
+  number_of_orders: 0
+  id: 212
+country_00024: 
+  name: Benin
+  fedex_code: BJ
+  ufsi_code: "021"
+  number_of_orders: 0
+  id: 24
+country_00106: 
+  name: Liberia
+  fedex_code: LR
+  ufsi_code: "106"
+  number_of_orders: 0
+  id: 106
+country_00132: 
+  name: New Caledonia
+  fedex_code: NC
+  ufsi_code: "132"
+  number_of_orders: 0
+  id: 132
+country_00213: 
+  name: Turkmenistan
+  fedex_code: TM
+  ufsi_code: "236"
+  number_of_orders: 0
+  id: 213
+country_00025: 
+  name: Bermuda
+  fedex_code: BM
+  ufsi_code: "022"
+  number_of_orders: 0
+  id: 25
+country_00051: 
+  name: Czech Republic
+  fedex_code: CZ
+  ufsi_code: 049
+  number_of_orders: 4
+  id: 51
+country_00107: 
+  name: Libya
+  fedex_code: LY
+  ufsi_code: "107"
+  number_of_orders: 0
+  id: 107
+country_00133: 
+  name: New Zealand
+  fedex_code: NZ
+  ufsi_code: "133"
+  number_of_orders: 8
+  id: 133
+country_00214: 
+  name: Ukraine
+  fedex_code: UA
+  ufsi_code: "237"
+  number_of_orders: 0
+  id: 214
+country_00240: 
+  name: Mayotte
+  fedex_code: YT
+  ufsi_code: "263"
+  number_of_orders: 0
+  id: 240
+country_00026: 
+  name: Bhutan
+  fedex_code: BT
+  ufsi_code: "023"
+  number_of_orders: 0
+  id: 26
+country_00052: 
+  name: Denmark
+  fedex_code: DK
+  ufsi_code: "050"
+  number_of_orders: 16
+  id: 52
+country_00108: 
+  name: Liechtenstein
+  fedex_code: LI
+  ufsi_code: "108"
+  number_of_orders: 0
+  id: 108
+country_00134: 
+  name: Nicaragua
+  fedex_code: NI
+  ufsi_code: "134"
+  number_of_orders: 0
+  id: 134
+country_00160: 
+  name: Saudi Arabia
+  fedex_code: SA
+  ufsi_code: "160"
+  number_of_orders: 4
+  id: 160
+country_00215: 
+  name: Uzbekistan
+  fedex_code: UZ
+  ufsi_code: "238"
+  number_of_orders: 0
+  id: 215
+country_00241: 
+  name: Micronesia
+  fedex_code: FM
+  ufsi_code: "304"
+  number_of_orders: 0
+  id: 241
+country_00027: 
+  name: Bolivia
+  fedex_code: BO
+  ufsi_code: "024"
+  number_of_orders: 0
+  id: 27
+country_00053: 
+  name: Djibouti
+  fedex_code: DJ
+  ufsi_code: "051"
+  number_of_orders: 0
+  id: 53
+country_00080: 
+  name: Guinea
+  fedex_code: GN
+  ufsi_code: 079
+  number_of_orders: 0
+  id: 80
+country_00135: 
+  name: Niger
+  fedex_code: NE
+  ufsi_code: "135"
+  number_of_orders: 0
+  id: 135
+country_00161: 
+  name: Senegal
+  fedex_code: SN
+  ufsi_code: "161"
+  number_of_orders: 2
+  id: 161
+country_00216: 
+  name: Bosnia (Hercgovina)
+  fedex_code: BA
+  ufsi_code: "239"
+  number_of_orders: 0
+  id: 216
+country_00242: 
+  name: Moldova
+  fedex_code: MD
+  ufsi_code: "265"
+  number_of_orders: 0
+  id: 242
+country_00028: 
+  name: Botswana
+  fedex_code: BW
+  ufsi_code: "025"
+  number_of_orders: 0
+  id: 28
+country_00054: 
+  name: Dominica
+  fedex_code: DM
+  ufsi_code: "052"
+  number_of_orders: 0
+  id: 54
+country_00109: 
+  name: Lithuania
+  fedex_code: LT
+  ufsi_code: "109"
+  number_of_orders: 0
+  id: 109
+country_00136: 
+  name: Nigeria
+  fedex_code: NG
+  ufsi_code: "136"
+  number_of_orders: 3
+  id: 136
+country_00162: 
+  name: Seychelles
+  fedex_code: SC
+  ufsi_code: "162"
+  number_of_orders: 0
+  id: 162
+country_00217: 
+  name: Croatia
+  fedex_code: HR
+  ufsi_code: "240"
+  number_of_orders: 0
+  id: 217
+country_00243: 
+  name: Myanmar
+  fedex_code: MM
+  ufsi_code: "266"
+  number_of_orders: 0
+  id: 243
+country_00029: 
+  name: Brazil
+  fedex_code: BR
+  ufsi_code: "026"
+  number_of_orders: 4
+  id: 29
+country_00055: 
+  name: Dominican Republic
+  fedex_code: DO
+  ufsi_code: "053"
+  number_of_orders: 1
+  id: 55
+country_00081: 
+  name: Guinea-Bissau
+  fedex_code: GW
+  ufsi_code: 080
+  number_of_orders: 0
+  id: 81
+country_00163: 
+  name: Sierra Leone
+  fedex_code: SL
+  ufsi_code: "163"
+  number_of_orders: 0
+  id: 163
+country_00190: 
+  name: Uganda
+  fedex_code: UG
+  ufsi_code: "190"
+  number_of_orders: 0
+  id: 190
+country_00218: 
+  name: Serbia (Montenegro)
+  fedex_code: CS
+  ufsi_code: "241"
+  number_of_orders: 0
+  id: 218
+country_00244: 
+  name: Namibia
+  fedex_code: NA
+  ufsi_code: "267"
+  number_of_orders: 0
+  id: 244
+country_00056: 
+  name: East Timor
+  fedex_code: TL
+  ufsi_code: "054"
+  number_of_orders: 0
+  id: 56
+country_00082: 
+  name: Guyana
+  fedex_code: GY
+  ufsi_code: 081
+  number_of_orders: 0
+  id: 82
+country_00137: 
+  name: Norway
+  fedex_code: "NO"
+  ufsi_code: "137"
+  number_of_orders: 2
+  id: 137
+country_00164: 
+  name: Singapore
+  fedex_code: SG
+  ufsi_code: "164"
+  number_of_orders: 9
+  id: 164
+country_00219: 
+  name: Macedonia
+  fedex_code: MK
+  ufsi_code: "242"
+  number_of_orders: 0
+  id: 219
+country_00245: 
+  name: Niue
+  fedex_code: NU
+  ufsi_code: "268"
+  number_of_orders: 0
+  id: 245
+country_00057: 
+  name: Ecuador
+  fedex_code: EC
+  ufsi_code: "055"
+  number_of_orders: 0
+  id: 57
+country_00083: 
+  name: Haiti
+  fedex_code: HT
+  ufsi_code: 082
+  number_of_orders: 0
+  id: 83
+country_00138: 
+  name: Oman
+  fedex_code: OM
+  ufsi_code: "138"
+  number_of_orders: 0
+  id: 138
+country_00191: 
+  name: United Arab Emirates
+  fedex_code: AE
+  ufsi_code: "191"
+  number_of_orders: 14
+  id: 191
+country_00246: 
+  name: Norfolk Island
+  fedex_code: NF
+  ufsi_code: "305"
+  number_of_orders: 0
+  id: 246
+country_00058: 
+  name: Egypt
+  fedex_code: EG
+  ufsi_code: "056"
+  number_of_orders: 1
+  id: 58
+country_00084: 
+  name: Honduras
+  fedex_code: HN
+  ufsi_code: 083
+  number_of_orders: 0
+  id: 84
+country_00139: 
+  name: Pakistan
+  fedex_code: PK
+  ufsi_code: "139"
+  number_of_orders: 2
+  id: 139
+country_00165: 
+  name: Solomon Islands
+  fedex_code: SB
+  ufsi_code: "165"
+  number_of_orders: 0
+  id: 165
+country_00192: 
+  name: Uruguay
+  fedex_code: UY
+  ufsi_code: "192"
+  number_of_orders: 2
+  id: 192
+country_00247: 
+  name: Northern Mariana Islands
+  fedex_code: MP
+  ufsi_code: "306"
+  number_of_orders: 0
+  id: 247
+country_00059: 
+  name: El Salvador
+  fedex_code: SV
+  ufsi_code: "057"
+  number_of_orders: 2
+  id: 59
+country_00085: 
+  name: Hong Kong
+  fedex_code: HK
+  ufsi_code: 084
+  number_of_orders: 21
+  id: 85
+country_00166: 
+  name: Somalia
+  fedex_code: SO
+  ufsi_code: "166"
+  number_of_orders: 0
+  id: 166
+country_00248: 
+  name: Palau
+  fedex_code: PW
+  ufsi_code: "271"
+  number_of_orders: 0
+  id: 248
+country_00086: 
+  name: Hungary
+  fedex_code: HU
+  ufsi_code: 085
+  number_of_orders: 2
+  id: 86
+country_00167: 
+  name: South Africa
+  fedex_code: ZA
+  ufsi_code: "167"
+  number_of_orders: 10
+  id: 167
+country_00193: 
+  name: Vanuatu
+  fedex_code: VU
+  ufsi_code: "193"
+  number_of_orders: 0
+  id: 193
+country_00249: 
+  name: Puerto Rico
+  fedex_code: US
+  ufsi_code: "272"
+  number_of_orders: 0
+  id: 249
+country_00087: 
+  name: Iceland
+  fedex_code: IS
+  ufsi_code: 086
+  number_of_orders: 0
+  id: 87
+country_00168: 
+  name: Spain
+  fedex_code: ES
+  ufsi_code: "168"
+  number_of_orders: 8
+  id: 168
+country_00194: 
+  name: Vatican City
+  fedex_code: VA
+  ufsi_code: "194"
+  number_of_orders: 0
+  id: 194
+country_00088: 
+  name: Indonesia
+  fedex_code: ID
+  ufsi_code: 088
+  number_of_orders: 2
+  id: 88
+country_00169: 
+  name: Sri Lanka
+  fedex_code: LK
+  ufsi_code: "169"
+  number_of_orders: 0
+  id: 169
+country_00195: 
+  name: Venezuela
+  fedex_code: VE
+  ufsi_code: "195"
+  number_of_orders: 0
+  id: 195
+country_00089: 
+  name: Iran
+  fedex_code: IR
+  ufsi_code: 089
+  number_of_orders: 0
+  id: 89
+country_00196: 
+  name: Vietnam
+  fedex_code: VN
+  ufsi_code: "196"
+  number_of_orders: 0
+  id: 196
+country_00197: 
+  name: Yemen
+  fedex_code: YE
+  ufsi_code: "197"
+  number_of_orders: 0
+  id: 197
+country_00198: 
+  name: Yugoslavia
+  fedex_code: 
+  ufsi_code: "198"
+  number_of_orders: 0
+  id: 198
+country_00199: 
+  name: Zaire
+  fedex_code: 
+  ufsi_code: "199"
+  number_of_orders: 0
+  id: 199
+country_00010: 
+  name: Angola
+  fedex_code: AO
+  ufsi_code: "006"
+  number_of_orders: 0
+  id: 10
+country_00011: 
+  name: Anguilla
+  fedex_code: AI
+  ufsi_code: "007"
+  number_of_orders: 0
+  id: 11
+country_00012: 
+  name: Antigua & Barbuda
+  fedex_code: AG
+  ufsi_code: 008
+  number_of_orders: 0
+  id: 12
+country_00200: 
+  name: Zambia
+  fedex_code: ZM
+  ufsi_code: "200"
+  number_of_orders: 0
+  id: 200
+country_00013: 
+  name: Argentina
+  fedex_code: AR
+  ufsi_code: 009
+  number_of_orders: 0
+  id: 13
+country_00120: 
+  name: Mauritania
+  fedex_code: MR
+  ufsi_code: "120"
+  number_of_orders: 0
+  id: 120
+country_00201: 
+  name: Zimbabwe
+  fedex_code: ZW
+  ufsi_code: "201"
+  number_of_orders: 0
+  id: 201
+country_00014: 
+  name: Aruba
+  fedex_code: AW
+  ufsi_code: "010"
+  number_of_orders: 0
+  id: 14
+country_00040: 
+  name: Chad
+  fedex_code: TD
+  ufsi_code: 038
+  number_of_orders: 0
+  id: 40
+country_00121: 
+  name: Mauritius
+  fedex_code: MU
+  ufsi_code: "121"
+  number_of_orders: 0
+  id: 121
+country_00202: 
+  name: South Korea
+  fedex_code: KR
+  ufsi_code: "202"
+  number_of_orders: 0
+  id: 202
+country_00015: 
+  name: Ascension
+  fedex_code: 
+  ufsi_code: "011"
+  number_of_orders: 0
+  id: 15
+country_00041: 
+  name: Chile
+  fedex_code: CL
+  ufsi_code: 039
+  number_of_orders: 0
+  id: 41
+country_00122: 
+  name: Mexico
+  fedex_code: MX
+  ufsi_code: "122"
+  number_of_orders: 7
+  id: 122
+country_00203: 
+  name: Armenia
+  fedex_code: AM
+  ufsi_code: "225"
+  number_of_orders: 0
+  id: 203
+country_00016: 
+  name: Austria
+  fedex_code: AT
+  ufsi_code: "013"
+  number_of_orders: 0
+  id: 16
+country_00042: 
+  name: China
+  fedex_code: CN
+  ufsi_code: "040"
+  number_of_orders: 3
+  id: 42
+country_00123: 
+  name: Monaco
+  fedex_code: MC
+  ufsi_code: "123"
+  number_of_orders: 0
+  id: 123
+country_00204: 
+  name: Azerbaijan
+  fedex_code: AZ
+  ufsi_code: "226"
+  number_of_orders: 0
+  id: 204
+country_00230: 
+  name: Cambodia
+  fedex_code: KH
+  ufsi_code: "252"
+  number_of_orders: 0
+  id: 230
+country_00017: 
+  name: Azores
+  fedex_code: 
+  ufsi_code: "014"
+  number_of_orders: 2
+  id: 17
+country_00043: 
+  name: Columbia
+  fedex_code: CO
+  ufsi_code: "041"
+  number_of_orders: 0
+  id: 43
+country_00124: 
+  name: Mongolia
+  fedex_code: MN
+  ufsi_code: "124"
+  number_of_orders: 2
+  id: 124
+country_00150: 
+  name: Romania
+  fedex_code: RO
+  ufsi_code: "150"
+  number_of_orders: 0
+  id: 150
+country_00205: 
+  name: Byelorussia (Belarus)
+  fedex_code: 
+  ufsi_code: "227"
+  number_of_orders: 0
+  id: 205
+country_00231: 
+  name: Christmas Island
+  fedex_code: CX
+  ufsi_code: "253"
+  number_of_orders: 0
+  id: 231
+country_00018: 
+  name: Bahamas
+  fedex_code: BS
+  ufsi_code: "015"
+  number_of_orders: 1
+  id: 18
+country_00044: 
+  name: Comoros
+  fedex_code: KM
+  ufsi_code: "042"
+  number_of_orders: 0
+  id: 44
+country_00070: 
+  name: Gabon
+  fedex_code: GA
+  ufsi_code: 068
+  number_of_orders: 0
+  id: 70
+country_00125: 
+  name: Montserrat
+  fedex_code: MS
+  ufsi_code: "125"
+  number_of_orders: 0
+  id: 125
+country_00151: 
+  name: Russia
+  fedex_code: RU
+  ufsi_code: "151"
+  number_of_orders: 2
+  id: 151
+country_00206: 
+  name: Georgia, Republic Of
+  fedex_code: GE
+  ufsi_code: "229"
+  number_of_orders: 0
+  id: 206
+country_00232: 
+  name: Cocos (keeling) Islands
+  fedex_code: CC
+  ufsi_code: "254"
+  number_of_orders: 0
+  id: 232
+country_00019: 
+  name: Bahrain
+  fedex_code: BH
+  ufsi_code: "016"
+  number_of_orders: 0
+  id: 19
+country_00045: 
+  name: Congo
+  fedex_code: CG
+  ufsi_code: "043"
+  number_of_orders: 0
+  id: 45
+country_00071: 
+  name: Gambia
+  fedex_code: GM
+  ufsi_code: 069
+  number_of_orders: 0
+  id: 71
+country_00126: 
+  name: Morocco
+  fedex_code: MA
+  ufsi_code: "126"
+  number_of_orders: 0
+  id: 126
+country_00152: 
+  name: Rwanda
+  fedex_code: RW
+  ufsi_code: "152"
+  number_of_orders: 0
+  id: 152
+country_00207: 
+  name: Kazakhstan
+  fedex_code: KZ
+  ufsi_code: "230"
+  number_of_orders: 0
+  id: 207
+country_00233: 
+  name: Eritrea
+  fedex_code: ER
+  ufsi_code: "257"
+  number_of_orders: 0
+  id: 233
+country_00046: 
+  name: Corsica
+  fedex_code: 
+  ufsi_code: "044"
+  number_of_orders: 0
+  id: 46
+country_00072: 
+  name: Germany
+  fedex_code: DE
+  ufsi_code: "070"
+  number_of_orders: 10
+  id: 72
+country_00127: 
+  name: Mozambique
+  fedex_code: MZ
+  ufsi_code: "127"
+  number_of_orders: 0
+  id: 127
+country_00153: 
+  name: St. Christopher & Nevis
+  fedex_code: KN
+  ufsi_code: "153"
+  number_of_orders: 0
+  id: 153
+country_00208: 
+  name: Kyrgyzstan
+  fedex_code: KG
+  ufsi_code: "231"
+  number_of_orders: 0
+  id: 208
+country_00234: 
+  name: France, Metropolitan
+  fedex_code: FR
+  ufsi_code: "258"
+  number_of_orders: 0
+  id: 234
+country_00260: 
+  name: Palestine
+  fedex_code: PS
+  ufsi_code: "307"
+  number_of_orders: 0
+  id: 260
+country_00047: 
+  name: Costa Rica
+  fedex_code: CR
+  ufsi_code: "045"
+  number_of_orders: 0
+  id: 47
+country_00073: 
+  name: Ghana
+  fedex_code: GH
+  ufsi_code: "071"
+  number_of_orders: 0
+  id: 73
+country_00128: 
+  name: Nauru
+  fedex_code: NR
+  ufsi_code: "128"
+  number_of_orders: 0
+  id: 128
+country_00154: 
+  name: Saint Helena
+  fedex_code: SH
+  ufsi_code: "154"
+  number_of_orders: 0
+  id: 154
+country_00180: 
+  name: Tonga
+  fedex_code: TO
+  ufsi_code: "180"
+  number_of_orders: 0
+  id: 180
+country_00209: 
+  name: La Luia
+  fedex_code: 
+  ufsi_code: "232"
+  number_of_orders: 0
+  id: 209
+country_00235: 
+  name: French Southern Territorie
+  fedex_code: TF
+  ufsi_code: "259"
+  number_of_orders: 0
+  id: 235
+country_00261: 
+  name: Saint Vincent
+  fedex_code: VC
+  ufsi_code: "308"
+  number_of_orders: 0
+  id: 261
+country_00048: 
+  name: Cote d'Ivoire
+  fedex_code: CI
+  ufsi_code: "046"
+  number_of_orders: 0
+  id: 48
+country_00074: 
+  name: Gibraltar
+  fedex_code: GI
+  ufsi_code: "072"
+  number_of_orders: 0
+  id: 74
+country_00129: 
+  name: Nepal
+  fedex_code: NP
+  ufsi_code: "129"
+  number_of_orders: 2
+  id: 129
+country_00155: 
+  name: Saint Lucia
+  fedex_code: LC
+  ufsi_code: "155"
+  number_of_orders: 0
+  id: 155
+country_00181: 
+  name: Trinidad and Tobago
+  fedex_code: TT
+  ufsi_code: "181"
+  number_of_orders: 0
+  id: 181
+country_00236: 
+  name: Guam
+  fedex_code: GU
+  ufsi_code: "260"
+  number_of_orders: 0
+  id: 236
+country_00262: 
+  name: Slovakia Republic
+  fedex_code: SK
+  ufsi_code: "309"
+  number_of_orders: 0
+  id: 262
+country_00263: 
+  name: Taiwan, Province Of China
+  fedex_code: TW
+  ufsi_code: "312"
+  number_of_orders: 0
+  id: 263
+country_00049: 
+  name: Cuba
+  fedex_code: CU
+  ufsi_code: "047"
+  number_of_orders: 0
+  id: 49
+country_00075: 
+  name: Greece
+  fedex_code: GR
+  ufsi_code: "074"
+  number_of_orders: 4
+  id: 75
+country_00156: 
+  name: Saint Pierre & Miquelon
+  fedex_code: PM
+  ufsi_code: "156"
+  number_of_orders: 0
+  id: 156
+country_00182: 
+  name: Tristan da Cunha
+  fedex_code: 
+  ufsi_code: "182"
+  number_of_orders: 0
+  id: 182
+country_00237: 
+  name: Heard And Mc Donald Island
+  fedex_code: HM
+  ufsi_code: "261"
+  number_of_orders: 0
+  id: 237
+country_00076: 
+  name: Greenland
+  fedex_code: GL
+  ufsi_code: "075"
+  number_of_orders: 0
+  id: 76
+country_00157: 
+  name: St. Vincent&The Grenadines
+  fedex_code: VC
+  ufsi_code: "157"
+  number_of_orders: 0
+  id: 157
+country_00183: 
+  name: Tunisia
+  fedex_code: TN
+  ufsi_code: "183"
+  number_of_orders: 0
+  id: 183
+country_00238: 
+  name: Korea, Democratic People's
+  fedex_code: 
+  ufsi_code: "301"
+  number_of_orders: 0
+  id: 238
+country_00077: 
+  name: Grenada
+  fedex_code: GD
+  ufsi_code: "076"
+  number_of_orders: 0
+  id: 77
+country_00158: 
+  name: San Marino
+  fedex_code: SM
+  ufsi_code: "158"
+  number_of_orders: 0
+  id: 158
+country_00184: 
+  name: Turkey
+  fedex_code: TR
+  ufsi_code: "184"
+  number_of_orders: 0
+  id: 184
+country_00239: 
+  name: Marshall Islands
+  fedex_code: MH
+  ufsi_code: "262"
+  number_of_orders: 0
+  id: 239
+country_00078: 
+  name: Guadeloupe
+  fedex_code: GP
+  ufsi_code: "077"
+  number_of_orders: 1
+  id: 78
+country_00159: 
+  name: Sao Tome & Principe
+  fedex_code: ST
+  ufsi_code: "159"
+  number_of_orders: 0
+  id: 159
+country_00185: 
+  name: Turks & Caicos Islands
+  fedex_code: TC
+  ufsi_code: "185"
+  number_of_orders: 0
+  id: 185
+country_00079: 
+  name: Guatemala
+  fedex_code: GT
+  ufsi_code: 078
+  number_of_orders: 0
+  id: 79
+country_00186: 
+  name: Tuvalu
+  fedex_code: TV
+  ufsi_code: "186"
+  number_of_orders: 0
+  id: 186
+country_00187: 
+  name: Wallis & Futuna Islands
+  fedex_code: WF
+  ufsi_code: "187"
+  number_of_orders: 0
+  id: 187
+country_00188: 
+  name: Western Samoa
+  fedex_code: EH
+  ufsi_code: "188"
+  number_of_orders: 0
+  id: 188
+country_00189: 
+  name: U.S.S.R
+  fedex_code: 
+  ufsi_code: "189"
+  number_of_orders: 0
+  id: 189
+country_00001: 
+  name: United States of America
+  fedex_code: US
+  ufsi_code: "001"
+  number_of_orders: 4987
+  id: 1
+country_00002: 
+  name: Canada
+  fedex_code: CA
+  ufsi_code: "034"
+  number_of_orders: 121
+  id: 2
+country_00003: 
+  name: Great Britian
+  fedex_code: GB
+  ufsi_code: "073"
+  number_of_orders: 151
+  id: 3
+country_00110: 
+  name: Luxembourg
+  fedex_code: LU
+  ufsi_code: "110"
+  number_of_orders: 0
+  id: 110
+country_00111: 
+  name: Macao
+  fedex_code: MO
+  ufsi_code: "111"
+  number_of_orders: 0
+  id: 111
+country_00004: 
+  name: Australia
+  fedex_code: AU
+  ufsi_code: "012"
+  number_of_orders: 128
+  id: 4
+country_00030: 
+  name: British Virgin Islands
+  fedex_code: VG
+  ufsi_code: "027"
+  number_of_orders: 0
+  id: 30
+country_00031: 
+  name: Brunei
+  fedex_code: BN
+  ufsi_code: 028
+  number_of_orders: 0
+  id: 31
+country_00005: 
+  name: India
+  fedex_code: IN
+  ufsi_code: 087
+  number_of_orders: 58
+  id: 5
+country_00112: 
+  name: Madagascar
+  fedex_code: MG
+  ufsi_code: "112"
+  number_of_orders: 0
+  id: 112
+country_00113: 
+  name: Madeira Islands
+  fedex_code: 
+  ufsi_code: "113"
+  number_of_orders: 0
+  id: 113
+country_00032: 
+  name: Bulgaria
+  fedex_code: BG
+  ufsi_code: 029
+  number_of_orders: 0
+  id: 32
+country_00006: 
+  name: Afghanistan
+  fedex_code: AF
+  ufsi_code: "002"
+  number_of_orders: 1
+  id: 6
+country_00220: 
+  name: Slovenia
+  fedex_code: SI
+  ufsi_code: "243"
+  number_of_orders: 0
+  id: 220
+country_00221: 
+  name: Slovak Republic
+  fedex_code: SK
+  ufsi_code: "244"
+  number_of_orders: 0
+  id: 221
+country_00033: 
+  name: Burkina Faso
+  fedex_code: BF
+  ufsi_code: "030"
+  number_of_orders: 0
+  id: 33
+country_00007: 
+  name: Albania
+  fedex_code: AL
+  ufsi_code: "003"
+  number_of_orders: 2
+  id: 7
+country_00114: 
+  name: Malawi
+  fedex_code: MW
+  ufsi_code: "114"
+  number_of_orders: 0
+  id: 114
+country_00140: 
+  name: Panama
+  fedex_code: PA
+  ufsi_code: "140"
+  number_of_orders: 0
+  id: 140
+country_00222: 
+  name: Czech Republic
+  fedex_code: CZ
+  ufsi_code: "245"
+  number_of_orders: 0
+  id: 222
+country_00060: 
+  name: Equatorial Guinea
+  fedex_code: GQ
+  ufsi_code: 058
+  number_of_orders: 0
+  id: 60
+country_00034: 
+  name: Burma
+  fedex_code: MM
+  ufsi_code: "031"
+  number_of_orders: 0
+  id: 34
+country_00008: 
+  name: Algeria
+  fedex_code: DZ
+  ufsi_code: "004"
+  number_of_orders: 2
+  id: 8
+country_00115: 
+  name: Malaysia
+  fedex_code: MY
+  ufsi_code: "115"
+  number_of_orders: 10
+  id: 115
+country_00141: 
+  name: Papua New Guinea
+  fedex_code: PG
+  ufsi_code: "141"
+  number_of_orders: 0
+  id: 141
+country_00223: 
+  name: Scotland
+  fedex_code: GB
+  ufsi_code: "246"
+  number_of_orders: 2
+  id: 223
+country_00061: 
+  name: Estonia
+  fedex_code: EE
+  ufsi_code: 059
+  number_of_orders: 0
+  id: 61
+country_00035: 
+  name: Burundi
+  fedex_code: BI
+  ufsi_code: "032"
+  number_of_orders: 0
+  id: 35
+country_00009: 
+  name: Andorra
+  fedex_code: AD
+  ufsi_code: "005"
+  number_of_orders: 2
+  id: 9
+country_00116: 
+  name: Maldives
+  fedex_code: MV
+  ufsi_code: "116"
+  number_of_orders: 0
+  id: 116
+country_00142: 
+  name: Paraguay
+  fedex_code: PY
+  ufsi_code: "142"
+  number_of_orders: 0
+  id: 142
+country_00250: 
+  name: South Georgia And The Sout
+  fedex_code: GS
+  ufsi_code: "310"
+  number_of_orders: 0
+  id: 250
+country_00143: 
+  name: Peru
+  fedex_code: PE
+  ufsi_code: "143"
+  number_of_orders: 0
+  id: 143
+country_00117: 
+  name: Mali
+  fedex_code: MI
+  ufsi_code: "117"
+  number_of_orders: 0
+  id: 117
+country_00036: 
+  name: Cameroon
+  fedex_code: CM
+  ufsi_code: "033"
+  number_of_orders: 0
+  id: 36
+country_00062: 
+  name: Ethiopia
+  fedex_code: ET
+  ufsi_code: "060"
+  number_of_orders: 0
+  id: 62
+country_00224: 
+  name: Canary Islands
+  fedex_code: ES
+  ufsi_code: "247"
+  number_of_orders: 0
+  id: 224
+country_00170: 
+  name: Sudan
+  fedex_code: SD
+  ufsi_code: "170"
+  number_of_orders: 0
+  id: 170
+country_00090: 
+  name: Iraq
+  fedex_code: IQ
+  ufsi_code: 090
+  number_of_orders: 0
+  id: 90
+country_00063: 
+  name: Falkland Islands
+  fedex_code: FK
+  ufsi_code: "061"
+  number_of_orders: 0
+  id: 63
+country_00037: 
+  name: Cape Verde
+  fedex_code: CV
+  ufsi_code: "035"
+  number_of_orders: 0
+  id: 37
+country_00118: 
+  name: Malta
+  fedex_code: MT
+  ufsi_code: "118"
+  number_of_orders: 6
+  id: 118
+country_00144: 
+  name: Philippines
+  fedex_code: PH
+  ufsi_code: "144"
+  number_of_orders: 1
+  id: 144
+country_00225: 
+  name: British Forces Post Office
+  fedex_code: 
+  ufsi_code: "280"
+  number_of_orders: 1
+  id: 225
+country_00251: 
+  name: Svalbard And Jan Mayen Isl
+  fedex_code: SJ
+  ufsi_code: "311"
+  number_of_orders: 0
+  id: 251

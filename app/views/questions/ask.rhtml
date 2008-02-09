@@ -1,0 +1,22 @@
+<% @title = 'Contact Us' %>
+
+<div id="fullContent">
+	
+	<div class="form_block">
+		<h1>Contact Us</h1>
+	
+		<p>Ask your question below.</p>
+	
+		<%= form_tag :action => 'send_question' %>
+		
+			<p><label for="question_email_address">Your Email Address</label>
+			<%= text_field 'question', 'email_address', :size => 50, :maxlength => 50, :class => 'textInput'  %>
+
+			<p><label for="question_long_question">Question</label>
+			<%= text_area 'question', 'long_question', :cols => 60, :rows => 8, :class => 'textArea'  %></p>
+
+	    <%= submit_tag "Send your question to us", :class => 'button twohundred' %>
+	  </form>
+	</div>
+	
+</div>

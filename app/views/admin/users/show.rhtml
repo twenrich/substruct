@@ -1,0 +1,19 @@
+<div id="left">
+  <h1>Showing User</h1>
+
+  <table class="list" cellpadding="0" cellspacing="0">
+    <% for column in User.content_columns %>
+      <tr>
+        <th><%= column.human_name %></th>
+        <td><%=h @user.send(column.name) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <p>
+  <%= link_to 'Back to User List', :action => 'list' %>
+  </p>
+</div>
+
+
+<%= render(:partial => 'right_side') %>
