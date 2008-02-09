@@ -765,7 +765,7 @@ body {
 /* This holds "log out" and the current user name */
 #global_nav {
 	float:right;
-	margin-top: 10px;
+	margin-top: 30px;
 	margin-right: 20px !important;
 	font-size: 12px;
 	text-align: right;
