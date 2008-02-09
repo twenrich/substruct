@@ -62,6 +62,26 @@ namespace :substruct do
       schema_file = File.join(RAILS_ROOT, 'vendor/plugins/substruct/db/schema.rb')
       FileUtils.cp(schema_file, File.join(RAILS_ROOT, 'db'))
     
+      # Check for net/ssl
+      begin
+        require 'openssl'
+      rescue
+        puts
+        puts '=' * 80
+        puts
+        puts "!!! OPENSSL LOAD ERROR"
+        puts
+        puts "Your machine appears to be missing the openssl library."
+        puts
+        puts "On Debian/Ubuntu linux boxes this is _not_ included in the "
+        puts "default Ruby installer. If you are running one of these systems"
+        puts " it's as easy as typing 'apt-get install libopenssl-ruby1.8'."
+        puts
+        puts "You must install openssl before continuing."
+        puts
+        raise
+      end
+    
       %w(
         environment 
         db:drop
@@ -79,7 +99,9 @@ namespace :substruct do
       puts "visit: http://localhost:3000/admin, and log in with admin / admin."
       puts
       puts "For help, visit the following:"
-      puts "  Official Substruct Site - http://dev.subimage.com/projects/substruct"
+      puts "  Official Substruct Sites "
+      puts "    - http://substruct.subimage.com"
+      puts "    - http://code.google.com/p/substruct/"
       puts "  Substruct Google Group - http://groups.google.com/group/substruct"
       puts
       puts "- Subimage LLC - http://www.subimage.com"
