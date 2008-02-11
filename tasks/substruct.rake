@@ -247,13 +247,12 @@ namespace :substruct do
     end
     
     desc %q\
-    Tags a release. VERSION=new_version_number
+    Tags a release using the version string from Substruct::Version::STRING
     \
     task :tag => :environment do
-      version = ENV['VERSION']
-      raise "Please specify a VERSION." if version.nil?
+      version = ENV['VERSION'] || Substruct::Version::STRING
       puts "Tagging for version: #{version}"
-      puts `svn copy vendor/plugins ../tags/rel_#{version}`
+      puts `svn copy vendor ../tags/rel_#{version}`
     end
   
   end
