@@ -2,7 +2,7 @@ namespace :substruct do
       
   SUBSTRUCT_DATA_DUMP_MODELS = [
     'ContentNode', 'Country', 'Preference', 'OrderShippingType', 
-    'OrderShippingWeight', 'OrderStatusCode', 'Right', 'Role', 'User'
+    'OrderShippingWeight', 'OrderStatusCode', 'Right', 'Role', 'Tag', 'User'
   ]
   
   SUBSTRUCT_BOOTSTRAP_PATH = 'vendor/plugins/substruct/db/bootstrap'
@@ -50,17 +50,13 @@ namespace :substruct do
       
       # Check requirements
       require 'rubygems' unless Object.const_defined?(:Gem)
-      %w(RedCloth fastercsv mime-types mini_magick).each do |gem_name|
+      %w(RedCloth fastercsv mime-types mini_magick ezcrypto).each do |gem_name|
         check_installed_gem(gem_name)
       end
       
       mkdir_p File.join(RAILS_ROOT, 'log')
       
-      puts "Initializing database..."
-      
-      # Move our schema file into place so we can load it.
-      schema_file = File.join(RAILS_ROOT, 'vendor/plugins/substruct/db/schema.rb')
-      FileUtils.cp(schema_file, File.join(RAILS_ROOT, 'db'))
+      puts "Checking requirements..."
     
       # Check for net/ssl
       begin
@@ -73,14 +69,20 @@ namespace :substruct do
         puts
         puts "Your machine appears to be missing the openssl library."
         puts
-        puts "On Debian/Ubuntu linux boxes this is _not_ included in the "
+        puts "On Debian/Ubuntu linux boxes this is not included with the "
         puts "default Ruby installer. If you are running one of these systems"
-        puts " it's as easy as typing 'apt-get install libopenssl-ruby1.8'."
+        puts "it's as easy as typing 'apt-get install libopenssl-ruby1.8'."
         puts
         puts "You must install openssl before continuing."
         puts
         raise
       end
+    
+      puts "Initializing database..."
+      
+      # Move our schema file into place so we can load it.
+      schema_file = File.join(RAILS_ROOT, 'vendor/plugins/substruct/db/schema.rb')
+      FileUtils.cp(schema_file, File.join(RAILS_ROOT, 'db'))
     
       %w(
         environment 
@@ -90,6 +92,18 @@ namespace :substruct do
         substruct:db:load_authority_data
         tmp:create
       ).each { |t| Rake::Task[t].execute task_args}
+      
+      
+      # We have to set the proper plugin schema migration,
+      # because loading from bootstrap doesn't do it.
+      #
+      # Grab current schema version from the migration scripts.
+      schema_files = Dir.glob(File.join(RAILS_ROOT, 'vendor/plugins/substruct/db/migrate', '*'))
+      schema_version = File.basename(schema_files.last).to_i
+      ActiveRecord::Base.connection.execute(%Q\
+        INSERT INTO plugin_schema_info
+        VALUES('substruct', #{schema_version});
+      \)
       
       puts '=' * 80
       puts
@@ -226,8 +240,8 @@ namespace :substruct do
       puts "Removing temp dir..."
       FileUtils.rm_rf(release_name)
       
-      puts "Moving release to download directory..."
-      FileUtils.mv(rel_archive, '../public/releases/')
+      puts "Uploading to Google Code..."
+      `googlecode-upload.py -s 'Substruct #{version}' -p 'substruct' --config-dir=#{File.join(RAILS_ROOT, 'vendor')} #{rel_archive}`
       
       puts "Done."
     end
