@@ -9,12 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "content_nodes", :force => true do |t|
     t.string   "name",       :limit => 200, :default => "", :null => false
     t.string   "title",      :limit => 100, :default => "", :null => false
-    t.text     "content",                   :default => "", :null => false
+    t.text     "content"
     t.datetime "display_on",                                :null => false
     t.datetime "created_on",                                :null => false
     t.string   "type",       :limit => 50,  :default => "", :null => false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 6) do
   create_table "items", :force => true do |t|
     t.string   "code",               :limit => 20,  :default => "",    :null => false
     t.string   "name",               :limit => 100, :default => "",    :null => false
-    t.text     "description",                       :default => "",    :null => false
+    t.text     "description"
     t.float    "price",                             :default => 0.0,   :null => false
     t.datetime "date_available",                                       :null => false
     t.integer  "quantity",                          :default => 0,     :null => false
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "questions", :force => true do |t|
     t.string   "short_question"
-    t.text     "long_question",                :default => "",    :null => false
+    t.text     "long_question"
     t.text     "answer"
     t.integer  "rank"
     t.boolean  "featured",                     :default => false, :null => false
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "sessions", :force => true do |t|
     t.string   "sessid",     :default => "", :null => false
-    t.text     "data",       :default => "", :null => false
+    t.text     "data"
     t.datetime "updated_at"
     t.datetime "created_at"
   end

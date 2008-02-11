@@ -198,13 +198,9 @@ namespace :substruct do
       `rails .`
       
       
-      puts "Exporting Substruct release (#{tag})..."
-      FileUtils.rm_rf(File.join(tmp_dir, 'vendor/plugins'))
-      puts `svn export http://svn.subimage.com/source/substruct/site/tags/#{tag} vendor/plugins --username substruct --password substruct`
-      
-      puts "Exporting Rails version as defined in environment.rb (#{RAILS_GEM_VERSION})..."
-      rails_tag = "rel_#{RAILS_GEM_VERSION.gsub!('.', '-')}"
-      puts `svn export http://svn.rubyonrails.org/rails/tags/#{rails_tag} vendor/rails`
+      puts "Exporting Substruct release from svn (#{tag})...\nThis might take a minute..."
+      FileUtils.rm_rf(File.join(tmp_dir, 'vendor'))
+      puts `svn export http://substruct.googlecode.com/svn/tags/#{tag} vendor`
       
       # Crazy shit we need to do in order to make this proper.
       # Better here than having people do it via instructions on the site!
@@ -240,8 +236,9 @@ namespace :substruct do
       puts "Removing temp dir..."
       FileUtils.rm_rf(release_name)
       
-      puts "Uploading to Google Code..."
-      `googlecode-upload.py -s 'Substruct #{version}' -p 'substruct' --config-dir=#{File.join(RAILS_ROOT, 'vendor')} #{rel_archive}`
+      # Doesn't seem to work...
+      #puts "Uploading to Google Code..."
+      #`googlecode-upload.py -s 'Substruct #{version}' -p 'substruct' --config-dir=#{File.join(RAILS_ROOT, 'vendor')} #{rel_archive}`
       
       puts "Done."
     end
