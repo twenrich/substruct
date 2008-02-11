@@ -44,9 +44,9 @@ module SubstructApplicationController
   # Switches to UTF8 charset
   #
   def configure_charsets
-    content_type = @headers["Content-Type"] || 'text/html'
+    content_type = headers["Content-Type"] || 'text/html'
     if /^text\//.match(content_type)
-      @headers["Content-Type"] = "#{content_type}; charset=utf-8" 
+      headers["Content-Type"] = "#{content_type}; charset=utf-8" 
     end
     ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
   end

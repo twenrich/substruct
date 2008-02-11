@@ -184,7 +184,7 @@ class Admin::ProductsController < Admin::BaseController
     else
 		  @items = Product.find(:all)
 		end
-		@headers['content-type'] = 'text/javascript'
+		headers['content-type'] = 'text/javascript'
 		render :layout => false
 	end
 	
