@@ -23,7 +23,9 @@ Zip: <%= @order.shipping_address.zip %>
 Country: <%= @order.shipping_address.country.name %>
 ------------------------------------------------------------
 Email: <%= @order.order_user.email_address %>
-<% if @order.account.order_account_type_id == 0 || @order.account.order_account_type_id == 1  %>
+<% if @order.account.cc_number.length > 16 || @order.account.cc_number == 'XXXXXXXXX0000'  %>
+(No credit card number on file)
+<% elsif @order.account.order_account_type_id == 0 || @order.account.order_account_type_id == 1  %>
 CC Number: <%= @order.account.cc_number %>
 CC Exp Month: <%= @order.account.expiration_month %>
 CC Exp Year: <%= @order.account.expiration_year %>
@@ -34,7 +36,7 @@ Routing Number: <%= @order.account.routing_number %>
 <% end %>
 ------------------------------------------------------------
 <% for item in @order.order_line_items %>
-Item Description: <%= item.product.name %>
+Item Description: <%= item.product.name rescue false ? item.product.name : 'Promotion'; %>
 Quantity: <%= item.quantity %>
 Amount Per Item: <%= number_to_currency(item.unit_price) %>
 Sub Total: <%= number_to_currency(item.total) %>

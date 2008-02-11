@@ -2,7 +2,12 @@
 
 	<h1><%= @title %></h1>
 
-	<%= form_tag :action => 'finish_order' %>
+<% if Order.get_cc_processor == 'PayPal IPN' -%>
+  <form action="<%= @paypal_url %>" method="POST">
+  <%= render(:partial => 'paypal_cart', :locals => {:cart => @order}) %>
+<% else -%>
+  <%= form_tag :action => 'finish_order' %>
+<% end -%>
 
 	<div class="padLeft">
 		<%= render(:partial => 'cart_contents', :locals => {:cart => @order}) %>

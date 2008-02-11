@@ -2,7 +2,8 @@ class StoreController < ApplicationController
   layout 'main'
   include OrderHelper
   include Pagination
-  
+  include ActiveMerchant::Billing::Integrations
+
   before_filter :find_cart, :find_customer
   
   before_filter :find_order_and_redirect_if_nil,
@@ -10,6 +11,12 @@ class StoreController < ApplicationController
       :select_shipping_method, :view_shipping_method, :set_shipping_method,
       :confirm_order, :finish_order
     ]
+
+  if Preference.find_by_name('store_test_transactions').is_true?
+    ActiveMerchant::Billing::Base.integration_mode = :test 
+  else
+    ActiveMerchant::Billing::Base.integration_mode = :production
+  end
 
   # You can change this in an override depending on how many steps you want.
   #
@@ -120,6 +127,7 @@ class StoreController < ApplicationController
   # Shows shopping cart in pop-up window.
   #
   def show_cart
+    sanitize!
     render :layout => 'modal' and return
   end
 
@@ -130,6 +138,7 @@ class StoreController < ApplicationController
   #
   # Left in if someone would like to use it instead.
   def add_to_cart
+    sanitize!
     product = Product.find(params[:id])
     @cart.add_product(product)
 		# In substruct.rb
@@ -143,6 +152,7 @@ class StoreController < ApplicationController
 	#
 	# Returns the cart HTML as a partial to update the view in JS
 	def add_to_cart_ajax
+	  sanitize!
 	  # If variations are present we get that as the ID instead...
 	  if params[:variation]
 	    product = Variation.find(params[:variation])
@@ -204,6 +214,7 @@ class StoreController < ApplicationController
     @title = "Please enter your information to continue this purchase."
     @items = @cart.items
     @order = find_order
+    @cc_processor = Order.get_cc_processor
     if request.get?
       if @order == nil then
         # Save standard form info
@@ -275,7 +286,8 @@ class StoreController < ApplicationController
   #
   def confirm_order
     @title = "Please confirm your order. - Step 3 of 3"
-
+    @cc_login = Order.get_cc_login 
+    @paypal_url = Paypal.service_url
     # Make sure a shipping method is set
     if @order.order_shipping_type_id == nil
       redirect_to_shipping and return
@@ -287,11 +299,29 @@ class StoreController < ApplicationController
   # Submits order info to Authorize.net
   def finish_order
     @title = "Thanks for your order!"
-
+    cc_processor = Order.get_cc_processor
     order_success = @order.run_transaction
     if order_success == true
       @payment_message = "Card processed successfully"
       clear_cart_and_order(false)
+    elsif cc_processor == Preference::CC_PROCESSORS[1]
+      case order_success
+        when 4
+          @payment_message = %q\
+            Your order has been processed at PayPal but we
+	          have not heard back from them yet.  Your order
+			      will be ready to ship as soon as we receive 
+			      confirmation of your payment.
+			    \
+	        clear_cart_and_order(false)
+	      when 5
+	        @payment_message = "Transaction processed successfully"
+	        clear_cart_and_order(false)
+	      else
+	        error_message = "Something went wrong and your transaction failed.<br/>"
+	        error_message << "Please try again or contact us."
+	        redirect_to_checkout(error_message)
+        end
     else      
       # Redirect to checkout and allow them to enter info again.
       error_message = "Sorry, but your transaction didn't go through.<br/>"
@@ -436,5 +466,19 @@ class StoreController < ApplicationController
       flash.now[:notice] = 'There were some problems with the information you entered.<br/><br/>Please look at the fields below.'
       render and return
     end
+
+  # When is a cart not a cart?
+  # When it was cleared without an open browser session.
+  # That's why we sanitize dirty carts.
+  #
+  def sanitize! 
+    if session[:order_id]
+       session[:order_id].to_s
+       order = Order.find(session[:order_id])
+       if order.order_status_code_id != 1 && order.order_status_code_id != 3
+         clear_cart_and_order(false)
+       end
+    end
+  end
 
 end

@@ -1,20 +1,12 @@
+#summary How to install Substruct
+
 = Installing Substruct =
 
-== Preamble ==
-
-'''Substruct is a framework that includes'''
- * CMS / Blogging tools
- * E-Commerce engine
-   * Shopping cart
-   * Online processing via Authorize.net
-   * Inventory management
-   * Order management
- * Admin area to administer site
- * Q/A system with integrated FAQ
+== Introduction ==
 
 This software package is developed using the Engines plugin. To find out more about how to use engines in general, go to http://rails-engines.org
 
-'''These directions assume you already have a working Rails hosting environment. This means...'''
+*These directions assume you already have a working Rails hosting environment. This means...*
  * A web server such as
    * Webrick (included with Rails)
    * Apache
@@ -36,38 +28,38 @@ These directions _also_ assume you have some familiarity with developing Rails a
  * fastercsv
  * mime-types
  * mini_magick
+ * ezcrypto
 
 {{{
-#!sh
 
 gem install RedCloth
 gem install fastercsv
 gem install mime-types
 gem install mini_magick
+gem install ezcrypto
 
 }}}
 
-!! NOTE !! Be sure net/ssl is also installed. For Debian linux boxes this is _not_ included in the default Ruby installer. If you are running on debian it's as easy as typing 'apt-get install libopenssl-ruby1.8'
+!! NOTE !! Be sure openssl is also installed. For Debian linux boxes this is _not_ included in the default Ruby installer. If you are running on debian it's as easy as typing 'apt-get install libopenssl-ruby1.8'
 
 
 
 === 1. Download & extract the latest release ===
 
 All releases are stored as tar / gzipped files here:
-http://substruct.subimage.com/releases/
+http://code.google.com/p/substruct/downloads/list
 
 They are marked with version numbers. Grab the latest one and extract it.
 
 For instance, if you were working with release 0.97, you'd type the following on OS X and Linux
 
 {{{
-#!sh
 
 tar -xzvf substruct_rel_0-97.tar.gz
 
 }}}
 
-[wiki:GettingTheCode If you'd rather use SVN to download the latest code click here.]
+[GettingTheCode If you'd rather use SVN to download the latest code click here.]
 
 
 === 2. Set up your databases and edit your database.yml file ===
@@ -88,7 +80,6 @@ For more information on the database.yml file, visit this url: http://wiki.rubyo
 Run this command from inside the substruct directory you extracted previously
 
 {{{
-#!sh
 
 rake substruct:db:bootstrap
 
@@ -99,7 +90,6 @@ rake substruct:db:bootstrap
 Fire up your environment!
 
 {{{
-#!sh
 
 ruby script/server
 
@@ -111,7 +101,4 @@ Try to login to http://localhost:3000/admin as ''admin'' / ''admin''
 
 If you're going to be doing credit card transactions you need a processor account. [wiki:AuthorizeNet Check out how to get one.]
 
-Make sure you check out [wiki:MaintainingSubstruct how to maintain Substruct via cron] as well.
-
-== License ==
-See the [wiki:SubstructLicense]
+Make sure you check out [MaintainingSubstruct how to maintain Substruct via cron] as well.

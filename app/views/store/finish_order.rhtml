@@ -1,5 +1,10 @@
 <div id="fullContent">
 	<h1>Thanks For Your Order! - #<%= @order.order_number %></h1>
+	
+	<% if @payment_message %>
+	  <h3><%= @payment_message %></h3>
+	<% end %>
+	
 	<h3>You will receive an email confirmation shortly.</h3>
 
 	<div class="floatHalf">

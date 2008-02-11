@@ -76,8 +76,18 @@ module OrderHelper
       @shipping_address.valid?
     end
 
-    @order_account = OrderAccount.new(params[:order_account])
-    @order_account.valid?
+    unless Order.get_cc_processor == Preference::CC_PROCESSORS[1]
+      @order_account = OrderAccount.new(params[:order_account])
+    else
+      # PayPal is collecting the credit card info, so stuff a bogus one
+      # here so we can get on with it.
+      @order_account = OrderAccount.new({
+        :cc_number => '00000000000000000',
+        :expiration_month => '12',
+				:expiration_year => '3000'
+			})
+    end
+    @order_account.valid? 
 
     OrderUser.transaction do
       @order_user.save!
@@ -101,7 +111,6 @@ module OrderHelper
         end
       end
       OrderAccount.transaction do
-        @order_account = OrderAccount.new(params[:order_account])
         @order_account.order_user_id = @order_user.id
         @order_account.save!
         @order.update_attribute('order_account_id', @order_account.id)

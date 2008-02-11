@@ -65,6 +65,14 @@
 			<h2>Credit Card Processing</h2>
 
 			<div class="padLeft">
+			  <p>
+					<label>
+						<%= check_box_tag('prefs[store_test_transactions]', 1, (@prefs['store_test_transactions'].is_true?)) %>
+						Store is in test mode
+					</label>
+					<span class="info">When in test mode, no real orders will be processed.</span>
+					<input name="prefs[store_test_transactions]" type="hidden" value="0" />
+				</p>
 				<p>
 					<%= make_label('Processor', true) %>
 					<%= select_tag('prefs[cc_processor]', options_for_select(Preference::CC_PROCESSORS, @prefs['cc_processor'].value)) %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 5) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "content_nodes", :force => true do |t|
     t.string   "name",       :limit => 200, :default => "", :null => false
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(:version => 5) do
     t.float    "product_cost",           :default => 0.0
     t.float    "shipping_cost",          :default => 0.0
     t.float    "tax",                    :default => 0.0, :null => false
-    t.integer  "auth_transaction_id"
+    t.string   "auth_transaction_id"
     t.integer  "promotion_id",           :default => 0,   :null => false
     t.integer  "shipping_address_id",    :default => 0,   :null => false
     t.integer  "billing_address_id",     :default => 0,   :null => false

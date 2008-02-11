@@ -69,11 +69,14 @@
       <%= render(:partial => '/admin/orders/address', :locals => {:address_type => 'shipping'}) %>
     </div>
 
-		<!-- PAYMENT INFORMATION -->
-		<div class="form_block">
-    	<%= render(:partial => '/admin/orders/account') %>
-		</div>
-		
+	
+	  <!-- PAYMENT INFORMATION -->
+    <% if @cc_processor != 'PayPal IPN' -%>
+    	<div class="form_block">
+      	<%= render(:partial => '/admin/orders/account') %>
+    	</div>
+    <% end -%>
+
 		<!-- PROMO CODE -->
 		<% if Promotion.any_active? %>
 			<div class="form_block">

@@ -1,26 +1,41 @@
 Substruct Version Changelog and Update Notes
 ===============================================================================
 
+Version 1.0
+---------------------------------------
+*** Special thanks to Matthew Sewell for his contribution of the PayPal 
+    IPN code.
+
+Added:
+  1. PayPal IPN integration.
+  2. TODO: All CC#'s now stored encryped in the db with ezcrypto
+  
+Upgrade steps:
+  1. Install the ezcrypto gem. (gem install ezcrypto)
+  2. script/generate plugin_migration
+  3. rake db:migrate
+
+
 Version 0.97
 ---------------------------------------
 *** Special thanks to Luke Ludwig for his contribution of this patch!
 *** Visit his blog over @ http://lukeludwig.com/blog
 
 Upgrade steps:
-    1. Make sure you have the mini_magick and mime-types gems installed.
-        a. sudo gem install mini_magick
-        b. sudo gem install mime-types
-            * Note: mime-types gem is only needed to upgrade, but is not
-              needed after the upgrade is complete.
-    2. Back up your database just in case.
-        * mysql example:  mysqldump -u USERNAME -p DATABASE_NAME > backup.sql
-    3. script/generate plugin_migration
-    4. rake db:migrate
-        * All of your uploads and images will be copied to a new location.
-          Since it is a copy it is non-destructive, leaving the originals
-          in their place.
-    5. Check out the new environment.rb file in the 
-       vendor/plugins/substruct/config directory.
+  1. Make sure you have the mini_magick and mime-types gems installed.
+      a. sudo gem install mini_magick
+      b. sudo gem install mime-types
+          * Note: mime-types gem is only needed to upgrade, but is not
+            needed after the upgrade is complete.
+  2. Back up your database just in case.
+      * mysql example:  mysqldump -u USERNAME -p DATABASE_NAME > backup.sql
+  3. script/generate plugin_migration
+  4. rake db:migrate
+      * All of your uploads and images will be copied to a new location.
+        Since it is a copy it is non-destructive, leaving the originals
+        in their place.
+  5. Merge changes from the new environment.rb file in the 
+     vendor/plugins/substruct/config directory to the one inside config/.
 
 Added: 
   1. Added nice installer rake task
