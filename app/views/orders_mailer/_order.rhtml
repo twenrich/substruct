@@ -25,7 +25,7 @@ Country: <%= @order.shipping_address.country.name %>
 Email: <%= @order.order_user.email_address %>
 <% if @order.account.cc_number.length > 16 || @order.account.cc_number == 'XXXXXXXXX0000'  %>
 (No credit card number on file)
-<% elsif @order.account.order_account_type_id == 0 || @order.account.order_account_type_id == 1  %>
+<% elsif @order.account.order_account_type_id == OrderAccount::TYPES['Credit Card']  %>
 CC Number: <%= @order.account.cc_number %>
 CC Exp Month: <%= @order.account.expiration_month %>
 CC Exp Year: <%= @order.account.expiration_year %>

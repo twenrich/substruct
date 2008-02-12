@@ -462,7 +462,7 @@ class StoreController < ApplicationController
       logger.error "\n\nSomething went bad when trying to checkout..."
       stack_trace = $@.join("\n")
       logger.error "#{$!}\n\n#{stack_trace}\n"
-      
+      @shipping_address = OrderAddress.new unless @use_separate_shipping_address
       flash.now[:notice] = 'There were some problems with the information you entered.<br/><br/>Please look at the fields below.'
       render and return
     end

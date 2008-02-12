@@ -228,15 +228,14 @@ class Admin::OrdersController < Admin::BaseController
   #
   def update
 		@order = Order.find(params[:id])
-		update_order_from_post
-		@products = Product.find(:all)
-		if (!@use_separate_shipping_address)
-		  @shipping_address = OrderAddress.new
-	  end
-    if (@up_ordr && @up_user && @up_acct && @up_bill && @up_ship) then
+
+    begin
+  		update_order_from_post
       flash[:notice] = 'Order was successfully updated.'
       redirect_to :action => 'show', :id => @order.id
-    else
+    rescue
+      @products = Product.find(:all)
+  		@shipping_address = OrderAddress.new unless @use_separate_shipping_address
 			flash[:notice] = 'There were problems modifying the order.'
       render :action => 'edit' and return
     end

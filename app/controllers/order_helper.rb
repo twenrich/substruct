@@ -26,7 +26,7 @@ module OrderHelper
     @order = Order.new
 
     @order_account = OrderAccount.new
-    @order_account.order_account_type_id = 1
+    @order_account.order_account_type_id = OrderAccount::TYPES['Credit Card']
   end
 
   def initialize_existing_order
@@ -125,6 +125,10 @@ module OrderHelper
   # On the customer side, we use the order id in session to identify order.
   # (@order should be set before calling this method)
   def update_order_from_post
+    logger.info
+    logger.info "UPDATING ORDER FROM POST"
+    logger.info params[:order_account].inspect
+    logger.info
     # Find the objects in the db to update
 		@order_user = @order.order_user
 		@order_account = @order.account
@@ -133,22 +137,22 @@ module OrderHelper
 		@use_separate_shipping_address = (params[:use_separate_shipping_address] == 'true')
 		# Update all objects
 		# Store the results in variables that we use from our controller.
-		@up_ordr = @order.update_attributes(params[:order])
-		@up_user = @order_user.update_attributes(params[:order_user])
-		@up_acct = @order_account.update_attributes(params[:order_account])
-		@up_bill = @billing_address.update_attributes(params[:billing_address])
+		@order.update_attributes!(params[:order])
+		@order_user.update_attributes!(params[:order_user])
+		@order_account.update_attributes!(params[:order_account])
+		@billing_address.update_attributes!(params[:billing_address])
 		if (@use_separate_shipping_address)
 		  # Create a new record for shipping address if it's the same
 		  # as the billing address...or if it doesn't exist.
 			@shipping_address = @order.shipping_address
 		  if @billing_address == @shipping_address || @shipping_address.nil?
 		    @shipping_address = @order_user.order_addresses.create(params[:shipping_address])
-		    @order.update_attribute('shipping_address_id', @shipping_address.id)
+		    @order.shipping_address_id = @shipping_address.id
+		    @order.save!
 		  else
-		    @up_ship = @shipping_address.update_attributes(params[:shipping_address])
+		    @shipping_address.update_attributes!(params[:shipping_address])
       end
 		else
-			@up_ship = true
 			@shipping_address = OrderAddress.new
 		end
   end

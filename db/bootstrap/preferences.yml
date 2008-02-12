@@ -63,3 +63,7 @@ preference_00009:
   name: store_require_login
   id: 9
   value: "0"
+preference_00017: 
+  name: store_test_transactions
+  id: 17
+  value: "1"

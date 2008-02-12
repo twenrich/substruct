@@ -7,7 +7,7 @@
 	<div>
 		<div class="padLeft">
 			<%= make_label('Card Number', true) %>
-			<%= text_field 'order_account', 'cc_number', :maxlength => 17, :class => 'textInput' %>
+			<%= text_field_tag 'order_account[cc_number]', @order_account.cc_number, :maxlength => 17, :class => 'textInput' %>
 	    <%= error_message_on(:order_account, :cc_number) %>
 
 			<%= make_label('Expiration Date', true) %>

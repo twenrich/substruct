@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 0) do
 
   create_table "content_nodes", :force => true do |t|
     t.string   "name",       :limit => 200, :default => "", :null => false
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(:version => 7) do
   create_table "order_accounts", :force => true do |t|
     t.integer "order_user_id",                       :default => 0, :null => false
     t.integer "order_account_type_id",               :default => 1, :null => false
-    t.string  "cc_number",             :limit => 17
-    t.string  "account_number",        :limit => 20
+    t.string  "cc_number"
+    t.string  "account_number"
     t.integer "expiration_month",      :limit => 2
     t.integer "expiration_year",       :limit => 4
     t.integer "credit_ccv",            :limit => 5
