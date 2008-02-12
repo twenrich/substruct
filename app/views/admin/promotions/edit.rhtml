@@ -3,7 +3,7 @@
 	<ul class="navigation secondary">
     <li><a href="/admin/promotions/list/">Back to Promotion List</a></li>
   </ul>
-	<%= start_form_tag :action => 'update', :id => @promotion %>
+	<%= form_tag :action => 'update', :id => @promotion %>
 		<%= render(:partial => 'form') %>
 		<div class="line">&nbsp;</div>
 
@@ -13,6 +13,7 @@
 		<p>
 			<%= submit_tag "Save This Promotion", :class => 'button hundred' %>
 		</p>
+		<div class="clear"></div>
 	</form>
 </div>
 
