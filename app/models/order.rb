@@ -528,7 +528,11 @@ class Order < ActiveRecord::Base
       # Set completed
       self.cleanup_successful
       # Send success message
-      self.deliver_receipt
+      begin
+        self.deliver_receipt
+      rescue => e
+        logger.error("FAILED TO SEND THE CONFIRM EMAIL")
+      end
       return true
 	  else
 	    # Log errors
@@ -539,7 +543,12 @@ class Order < ActiveRecord::Base
 	    # Order failed - store transaction id
       self.cleanup_failed(response.message)
       # Send failed message
-      self.deliver_failed
+      begin
+        self.deliver_failed
+      rescue => e
+        logger.error("FAILED TO SEND THE CONFIRM EMAIL")
+      end
+
 	    return response.message
     end
     
