@@ -21,9 +21,9 @@
 		<% for order in @orders %>
 			<tr class="<%= alternate %>">
 				<td>
-					<%= link_to(h(order.name), :action => 'show', :id => order) %>
+					<%= link_to(h(order.name), :controller => 'orders', :action => 'show', :id => order) %>
 					<br/>
-					<%= link_to(order.order_number, :action => 'show', :id => order) %>
+					<%= link_to(order.order_number, :controller => 'orders', :action => 'show', :id => order) %>
 				</td>
 				<td><%= order.created_on.strftime("%m/%d/%y %I:%M %p") %></td>
 				<td><%= order.status %></td>
