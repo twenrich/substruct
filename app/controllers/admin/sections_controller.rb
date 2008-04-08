@@ -45,7 +45,7 @@ class Admin::SectionsController < Admin::BaseController
     if @section.save
       render(:partial => 'section_list_row', :locals => {:section_list_row => @section})
     else
-      render_text ""
+      render :text => ""
     end
   end
 
@@ -57,13 +57,14 @@ class Admin::SectionsController < Admin::BaseController
       render(:update) do |page| 
         page.alert "Something went wrong saving your section.\n\nRemember, section names have to be unique."
       end
-    end
-    render(:update) do |page| 
-      page.replace "section_#{@section.id}", :partial => 'section_list_row', :locals => { :section_list_row => @section }
-      page.sortable(
-  			'section_list',
-  			:url => { :action => 'update_section_rank' }
-  		)
+    else
+      render(:update) do |page| 
+        page.replace "section_#{@section.id}", :partial => 'section_list_row', :locals => { :section_list_row => @section }
+        page.sortable(
+    			'section_list',
+    			:url => { :action => 'update_section_rank' }
+    		)
+      end
     end
   end
 
