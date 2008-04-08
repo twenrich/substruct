@@ -49,12 +49,16 @@ class Admin::UsersController < Admin::BaseController
 
   def destroy
 		if (User.count == 1) then
-			flash[:notice] = "You have to have at least one user in the system. Try creating another one if you'd like to delete this one."
-			redirect_to :back
-			return
+			flash[:notice] = "You have to have at least one user in the system.\n\n"
+			flash[:notice] << "Try creating another one if you'd like to delete this one."
+			redirect_to :action => 'list' and return
+		elsif (session[:user].to_i == params[:id].to_i)
+		  flash[:notice] = "You can't delete yourself, sorry."
+		  redirect_to :action => 'list' and return
+		else
+		  User.find(params[:id]).destroy
+      redirect_to :action => 'list'
 		end
-    User.find(params[:id]).destroy
-    redirect_to :action => 'list'
   end
   
   #============================================================================

@@ -6,14 +6,14 @@
     <li><a href="/admin/users/list/">Back to User List</a></li>
   </ul>
 
-  <%= render_partial "form" %>
+  <%= render :partial => "form" %>
 
 	<!-- SAVE BUTTON -->
 	<div class="line" style="margin-top:20px;">&nbsp;</div>
   <%= submit_tag 'Save This User', :class => 'button hundred' %>
 
 	<div style="float:right;">
-  	<%= link_to 'Delete This User', {:action => 'destroy', :id => @user}, :confirm => 'Are you sure?', :class => 'action', :post => true %>
+  	<%= link_to 'Delete This User', {:action => 'destroy', :id => @user}, :confirm => 'Are you sure?', :method => 'post', :class => 'action' %>
 	</div>
 	
 
