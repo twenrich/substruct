@@ -45,7 +45,7 @@ class Admin::TagsController < Admin::BaseController
     if @tag.save
       render(:partial => 'tag_list_row', :locals => {:tag_list_row => @tag})
     else
-      render_text ""
+      render :text => ""
     end
   end
 
@@ -57,13 +57,14 @@ class Admin::TagsController < Admin::BaseController
       render(:update) do |page| 
         page.alert "Something went wrong saving your tag.\n\nRemember, tag names have to be unique."
       end
-    end
-    render(:update) do |page| 
-      page.replace "tag_#{@tag.id}", :partial => 'tag_list_row', :locals => { :tag_list_row => @tag }
-      page.sortable(
-  			'tag_list',
-  			:url => { :action => 'update_tag_rank' }
-  		)
+    else
+      render(:update) do |page| 
+        page.replace "tag_#{@tag.id}", :partial => 'tag_list_row', :locals => { :tag_list_row => @tag }
+        page.sortable(
+    			'tag_list',
+    			:url => { :action => 'update_tag_rank' }
+    		)
+      end
     end
   end
 
@@ -73,6 +74,6 @@ class Admin::TagsController < Admin::BaseController
 		tag_id = @tag.id
 		@tag.destroy
 		# Render nothing to denote success
-    render_text ""
+    render :text => ""
   end
 end

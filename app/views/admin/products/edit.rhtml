@@ -1,10 +1,9 @@
+<%= form_tag({:action => 'save', :id => @product}, :multipart => true) %>
 <div id="left">
   <h1><%= @title %></h1>
   <ul class="navigation secondary">
     <li><a href="/admin/products/list/">Back to Product List</a></li>
   </ul>
-
-<%= form_tag({:action => 'save', :id => @product}, :multipart => true) %>
 
     <%= render :partial => 'form' %>
 		<div style="float:right;">
