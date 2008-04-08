@@ -8,7 +8,7 @@ class Admin::FilesController < Admin::BaseController
     @title = "List of user uploaded files"
     
     if params[:sort] == 'name' then
-      sort = "path ASC"
+      sort = "filename ASC"
     else
       sort = "created_on DESC"
     end
