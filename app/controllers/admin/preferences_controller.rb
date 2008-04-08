@@ -72,7 +72,7 @@ class Admin::PreferencesController < Admin::BaseController
     )
     @type.destroy if @type
     # Render nothing to denote success
-    render_text ""
+    render :text => ""
   end
   # Simply renders the weight variation ajax partial.
   # Gets passed container to render into.

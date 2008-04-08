@@ -74,6 +74,6 @@ class Admin::SectionsController < Admin::BaseController
 		section_id = @section.id
 		@section.destroy
 		# Render nothing to denote success
-    render_text ""
+    render :text => ""
   end
 end

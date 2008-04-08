@@ -42,7 +42,7 @@ class Admin::FilesController < Admin::BaseController
     	@file.destroy
     end
     # Render nothing to denote success
-    render_text "" and return
+    render :text => "" and return
   end
   
   # Uploads files.
