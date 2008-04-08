@@ -1,4 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
+  include Pagination
+
   before_filter :set_tags
 
   def index
