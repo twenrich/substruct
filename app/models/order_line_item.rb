@@ -1,6 +1,7 @@
 class OrderLineItem < ActiveRecord::Base
   belongs_to :product
   belongs_to :item
+  belongs_to :order
   alias_attribute :price, :unit_price
   # Creates and returns a line item when a product is passed in
   def self.for_product(item)
