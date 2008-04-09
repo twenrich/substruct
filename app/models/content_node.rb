@@ -51,6 +51,6 @@ class ContentNode < ActiveRecord::Base
 
   # Lets us know if this is a blog post or not
   def is_blog_post?
-    self.content_node_type_id == 1
+    self.type == 'Blog'
   end
 end

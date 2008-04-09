@@ -143,7 +143,7 @@ class ProductTest < ActiveSupport::TestCase
     a_suggested_towel = a_towel.suggestion_name
     a_suggested_stuff = a_stuff.suggestion_name
     # a_coat.related_product_suggestion_names = [ a_suggested_towel, a_suggested_stuff, "", "", "" ]
-    a_coat.related_product_ids = [ a_suggested_towel, a_suggested_stuff, "", "", "" ]
+    a_coat.related_product_suggestion_names = [ a_suggested_towel, a_suggested_stuff, "", "", "" ]
     assert_equal a_coat.related_products.count, 2
     assert_equal a_towel.related_products.count, 1
     assert_equal a_stuff.related_products.count, 1

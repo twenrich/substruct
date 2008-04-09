@@ -38,16 +38,6 @@ class Product < Item
   #############################################################################
   # CALLBACKS
   #############################################################################
-  
-  # Related products (associations) freak out if this
-  # object isn't saved before adding relatives.
-  #
-  # If there's a cached @related_list we try to add em.
-  #
-  after_create :add_cached_related_products
-  def add_cached_related_products
-    self.related_product_ids=@cached_related_list if @cached_related_list
-  end
 
 
 	#############################################################################
@@ -98,14 +88,18 @@ class Product < Item
 	# INSTANCE METHODS
 	#############################################################################
 
-	# Defined to save tags from product edit view
-	def tags=(list)
-		tags.clear
-		for id in list
-			tags << Tag.find(id) if !id.empty?
-		end
-	end
-	
+  substruct_deprecate :tags= => :tag_ids=
+
+  # This method is DEPRECATED.
+  # This method has an equivalent auto-generated but must be here to not
+  # generate an infinite looping. It can be simply excluded after some time.
+  def tag_ids=(list)
+    tags.clear
+    for id in list
+      tags << Tag.find(id) if !id.empty?
+    end
+  end
+
 	# Calculated based on variations
 	#
 	def display_price
@@ -155,24 +149,18 @@ class Product < Item
       end
 	end
 	
-	# Adds related products from list.
-	# Used in UI for auto-completion
-	#
-	# See callback for why we return if this is a new record.
-	#
-	def related_product_ids=(list)	  
-	  if self.new_record?
-	    @cached_related_list = list
-	    return
-	  end
-	  
-	  # If self is a new record shit fails 
-	  self.related_products.clear
-	  for name in list do
-	    p = Product.find_by_code(name.split(':')[0])
-	    next if !p || p == self
-	    self.related_products << p
+  substruct_deprecate :related_product_ids= => :related_product_suggestion_names=
+
+  # Receive a list o related product suggestion_names (code: name), this is what
+  # the autocompletion puts in the boxes, parse and get the code to associate
+  # them with the product.
+  def related_product_suggestion_names=(list)
+    self.related_products.clear
+    for name in list do
+      p = Product.find_by_code(name.split(':')[0])
+      next if !p || p == self
+      self.related_products << p
     end
   end
-	
+
 end

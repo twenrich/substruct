@@ -11,11 +11,22 @@ class Item < ActiveRecord::Base
   # CALLBACKS
   #############################################################################
   
-  
+  # DB complains if there's not a date available set.
+  # This is a cheap fix.
+  before_save :set_date_available
+  def set_date_available
+    self.date_available = Date.today if !self.date_available
+  end
+
   #############################################################################
   # CLASS METHODS
   #############################################################################
-  
+
+
+  #############################################################################
+  # INSTANCE METHODS
+  #############################################################################
+
   # Name output for product suggestion JS
   # 
   def suggestion_name

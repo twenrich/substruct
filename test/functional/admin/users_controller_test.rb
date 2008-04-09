@@ -63,9 +63,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_template 'new'
-
-    # Here it defaults to not validate password, we need to chnage it.
-    assigns(:user).validate_password = "1"
     
     # Post to it a user.
     post :new,

@@ -89,10 +89,9 @@ class Admin::ProductsController < Admin::BaseController
 			# Save product tags
 			# Our method doesn't save tags properly if the product doesn't already exist.
 			# Make sure it gets called after the product has an ID
-			@product.tags = params[:product][:tags] if params[:product][:tags]
-			
-                       # Build product images from upload
-                       image_errors = []
+			@product.tag_ids = params[:product][:tag_ids] if params[:product][:tag_ids]
+      # Build product images from upload
+      image_errors = []
 			params[:image].each do |i|
         if i[:image_data] && !i[:image_data].blank?
           new_image = Image.new

@@ -142,8 +142,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_height => 24,
       :size_depth => 12,
       :weight => 21.52,
-      :related_product_ids => ["", "", "", "", ""],
-      :tags => [""]
+      :related_product_suggestion_names => ["", "", "", "", ""],
+      :tag_ids => [""]
     },
     :image => [ {
       :image_data_temp => "",
@@ -191,8 +191,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_height => 24,
       :size_depth => 12,
       :weight => 21.52,
-      :related_product_ids => ["", "", "", "", ""],
-      :tags => [""]
+      :related_product_suggestion_names => ["", "", "", "", ""],
+      :tag_ids => [""]
     },
     :image => [ {
       :image_data_temp => "",
@@ -242,8 +242,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_height => 24,
       :size_depth => 12,
       :weight => 21.52,
-      :related_product_ids => ["", "", "", "", ""],
-      :tags => [""]
+      :related_product_suggestion_names => ["", "", "", "", ""],
+      :tag_ids => [""]
     },
     :image => [ {
       :image_data_temp => "",
@@ -302,8 +302,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_height => 24,
       :size_depth => 12,
       :weight => 21.52,
-      :related_product_ids => [a_towel.suggestion_name, a_coat.suggestion_name, "", "", ""],
-      :tags => ["", "#{a_weird_tag.id}"]
+      :related_product_suggestion_names => [a_towel.suggestion_name, a_coat.suggestion_name, "", "", ""],
+      :tag_ids => ["", "#{a_weird_tag.id}"]
     },
     :variation => [ {
         :id => var_id_1,
@@ -377,9 +377,9 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_depth => 12,
       :weight => 21.52,
       # An invalid related product.
-      :related_product_ids => ["Bla: Bla Bla", "", "", "", ""],
+      :related_product_suggestion_names => ["Bla: Bla Bla", "", "", "", ""],
       # Invalid tags cannot be selected using the interface.
-      :tags => [""]
+      :tag_ids => [""]
 
     },
     :variation => [ {
@@ -447,8 +447,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_height => 50,
       :size_depth => 2,
       :weight => 1.45,
-      :related_product_ids => ["", "", "", "", ""],
-      :tags => []
+      :related_product_suggestion_names => ["", "", "", "", ""],
+      :tag_ids => []
     },
     # Variations should be sent again in the params hash to be possible to change
     # its attributes, but if one is missed it is NOT erased nor disassociated,
@@ -517,8 +517,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       :size_height => 50,
       :size_depth => 2,
       :weight => 1.45,
-      :related_product_ids => ["Bla: Bla Bla", "", "", "", ""],
-      :tags => [""]
+      :related_product_suggestion_names => ["Bla: Bla Bla", "", "", "", ""],
+      :tag_ids => [""]
     },
     # Variations should be sent again in the params hash to be possible to change
     # its attributes, but if one is missed it is NOT erased nor disassociated,

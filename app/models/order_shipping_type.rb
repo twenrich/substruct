@@ -5,16 +5,41 @@ class OrderShippingType < ActiveRecord::Base
     :dependent => :destroy
   
   attr_accessor :calculated_price
+  
+  #############################################################################
+  # CALLBACKS
+  #############################################################################
+  
+  before_save :check_price
+  # Handles nil and blank string prices being passed.
+  # Sets them to 0.0...
+  def check_price
+    self.price = self.price.to_f
+  end
+
+  #############################################################################
+  # CLASS METHODS
+  #############################################################################
 
   def self.get_domestic
-    find(:all, :conditions => "is_domestic = 1",
-         :order => "price ASC")
+    find(
+      :all, 
+      :conditions => "is_domestic = 1",
+      :order => "price ASC"
+    )
   end
 
   def self.get_foreign
-    find(:all, :conditions => "is_domestic = 0",
-         :order => "price ASC")
+    find(
+      :all, 
+      :conditions => "is_domestic = 0",
+      :order => "price ASC"
+    )
   end
+  
+  #############################################################################
+  # INSTANCE METHODS
+  #############################################################################
 
   # Calculates shipping price for a shipping type with weight.
   # If no weight found, use the default.

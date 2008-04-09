@@ -7,14 +7,6 @@ class Variation < Item
   # CALLBACKS
   #############################################################################
   
-  
-  # DB complains if there's not a date available set.
-  # This is a cheap fix.
-  before_save :set_date_available
-  def set_date_available
-    self.date_available = Date.today if !self.date_available
-  end
-  
   after_save :update_parent_quantity
   def update_parent_quantity
     self.product.update_attribute('variation_quantity', self.product.variations.sum('quantity'))
@@ -38,12 +30,9 @@ class Variation < Item
       return self.attributes['name']
     end
   end
+  
   def short_name
     self.attributes['name']
   end
-  # Override setter?
-  # def name=(str)
-  #   self.attributes['name'] = str
-  # end
   
 end

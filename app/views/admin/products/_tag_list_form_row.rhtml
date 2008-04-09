@@ -2,7 +2,7 @@
 <% row_class = alternate() %>
 <tr class="<%= row_class %> <%= 'selected' if product.tags.include?(tag)%>">
 	<td>
-		<%= check_box_tag("product[tags][]", tag.id, product.tags.include?(tag)) %>
+		<%= check_box_tag("product[tag_ids][]", tag.id, product.tags.include?(tag)) %>
 	</td>
 	<td colspan="3">
 		<%=h tag.name %>
@@ -12,7 +12,7 @@
 	<tr class="<%= row_class %> <%= 'selected' if product.tags.include?(child)%>">
 		<td>&nbsp;</td>
 		<td>
-			<%= check_box_tag("product[tags][]", child.id, product.tags.include?(child)) %>
+			<%= check_box_tag("product[tag_ids][]", child.id, product.tags.include?(child)) %>
 		</td>
 		<td colspan="2">
 			<%=h child.name %>

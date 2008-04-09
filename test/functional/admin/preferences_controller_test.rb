@@ -82,8 +82,10 @@ class Admin::PreferencesControllerTest < ActionController::TestCase
   end
 
 
-  # Test the create action. Here we test if a new valid shipping_type will be created.
-  def test_should_not_create_invalid_shipping_type
+  # Test the create action.
+  # Here we test if a new valid shipping_type will be created if
+  # we pass a blank price.
+  def test_should_handle_empty_price
     login_as :admin
 
     shipping_types_count = OrderShippingType.find(:all).length
@@ -109,7 +111,7 @@ class Admin::PreferencesControllerTest < ActionController::TestCase
     # The answer will be a javascript popup, we dont have a way to test that.
 
     # Test if it is NOT in the database.
-    assert_equal OrderShippingType.find(:all).length, shipping_types_count
+    assert_equal OrderShippingType.find(:all).length, shipping_types_count+1
   end
 
   
@@ -150,9 +152,10 @@ class Admin::PreferencesControllerTest < ActionController::TestCase
   end
 
 
-  # Test the update action. Here we test if a shipping type will NOT be updated with an
+  # Test the update action.
+  # Here we test if a shipping type will NOT be updated with an
   # invalid shipping type.
-  def test_should_not_update_invalid_shipping_type
+  def test_handle_update_invalid_shipping_type
     login_as :admin
 
     shipping_types_count = OrderShippingType.find(:all).length
@@ -183,7 +186,7 @@ class Admin::PreferencesControllerTest < ActionController::TestCase
 
     # Test if it is in the database.
     assert_equal OrderShippingType.find(:all).length, shipping_types_count
-    assert_equal OrderShippingType.find(a_shipping_type.id).price, a_shipping_type.price
+    assert_equal OrderShippingType.find(a_shipping_type.id).price, 0.0
   end
 
   
