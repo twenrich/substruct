@@ -110,17 +110,13 @@
 		
 		<% if flash[:notice] -%>
 			<div id="flash">
-				<h2>Your attention please...</h2>
-				<div class="content_pad" style="margin-bottom:0px;">
+				<div style="margin-bottom:0px;">
 					<%= get_markdown(flash[:notice]) %>
 				</div>
-				<p>
-					<a href="#" class="button" style="width:80px;" onmousedown="new Effect.BlindUp($('flash'))">Close</a>
+				<p style="margin:0px;">
+					<a href="#" class="button" style="width:80px;" onmousedown="new Effect.Fade($('flash'))">Close</a>
 				</p>
 			</div>
-			<script type="text/javascript">
-				new Effect.Pulsate($('flash'), {pulses: 2, duration: 1});
-			</script>
 		<% end -%>
 		
 		<%= yield %>
