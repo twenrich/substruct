@@ -5,6 +5,8 @@ Version 1.0
 ---------------------------------------
 *** Special thanks to Matthew Sewell for his contribution of the PayPal 
     IPN code.
+*** HUGE thanks to Edmundo Valle Neto for all around patches and bringing
+    tests up to spec. Too many to list!
 
 Added:
   1. PayPal IPN integration.
