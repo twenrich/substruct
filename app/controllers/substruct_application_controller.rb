@@ -1,6 +1,7 @@
 module SubstructApplicationController
   include Substruct
   include LoginSystem
+  require 'substruct_deprecated'
 
   def self.included(base)
     base.class_eval do
