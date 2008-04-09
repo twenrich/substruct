@@ -17,10 +17,6 @@ class Admin::UsersController < Admin::BaseController
     @users = User.find(:all)
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
-
   def new
 		@title = "Creating New User"
     @user = User.new(params[:user])
