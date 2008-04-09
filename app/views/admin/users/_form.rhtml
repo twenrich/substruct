@@ -5,7 +5,10 @@
 	<%= text_field 'user', 'login', :class => 'textInput'  %>
 </p>
 
-<div id="change_password" style="<%= @action_name != 'new' ? 'display:none;' : '' %>">
+<% unless @user.new_record? %>
+  <h4>Enter password and confirmation if you wish to change password</h4>
+<% end %>
+<div id="change_password">
 	<p>
 		<label for="user_password">Password:</label>
 		<%= password_field 'user', 'password', :class => 'textInput'  %>
@@ -16,9 +19,6 @@
 		<%= password_field 'user', 'password_confirmation', :class => 'textInput'  %>
 	</p>
 </div>
-<% if @action_name != 'new' then %>
-	<a href="#" onclick="$('change_password').toggle();$('change_password_link').toggle();return false;" id="change_password_link">Change this user's password</a>
-<% end %>
 
 
 <h2>User Roles</h2>

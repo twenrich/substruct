@@ -12,16 +12,19 @@ class User < ActiveRecord::Base
 	validates_presence_of :login
 	
 	def validate
-		if (5 > self.password.length && 40 < self.password.length)
-			errors.add(:password, "Password must be between 5 and 40 characters.")
-		end
-		
-		# check presence of password & matching if they both aren't blank
-		if (self.password != self.password_confirmation) then
-			errors.add(:password, "Password and Confirmation don't match.")
-		end
-	end
-
+	  if (self.new_record? || (!self.password.blank? && !self.password_confirmation.blank?))
+	    
+	    if (5 > self.password.length || 40 < self.password.length)
+        errors.add(:password, "Password must be between 5 and 40 characters.")
+      end
+	    
+    	# check presence of password & matching if they both aren't blank
+    	if (self.password != self.password_confirmation) then
+    		errors.add(:password, "Password and confirmation don't match.")
+    	end
+    end
+  end
+	
   @@salt = '20ac4d290c2293702c64b3b287ae5ea79b26a5c1'
   cattr_accessor :salt
 	attr_accessor :password_confirmation
@@ -67,7 +70,7 @@ class User < ActiveRecord::Base
     # using SHA1. 
     # We never store the actual password in the DB.
     def crypt_password
-  		write_attribute "password", self.class.sha1(password)
+  		write_attribute "password", self.class.sha1(password) unless self.password.empty?
     end
   
     # If the record is updated we will check if the password is empty.
