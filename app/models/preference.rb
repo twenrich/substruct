@@ -39,7 +39,7 @@ class Preference < ActiveRecord::Base
     logger.info "SERVER SETTINGS..."
     logger.info settings.inspect
     settings.each do |name, value|
-      update_all("value = '#{value}'", "name = '#{name}'")
+      update_all(["value = ?", value], ["name = ?", name])
     end
   end
   
