@@ -10,14 +10,14 @@
     <li><a href="/admin/roles/list/">Back to Role List</a></li>
   </ul>
 
-  <%= render_partial "form" %>
+  <%= render :partial => "form" %>
 
 	<!-- SAVE BUTTON -->
 	<div class="line" style="margin-top:20px;">&nbsp;</div>
   <%= submit_tag 'Save This Role', :class => 'button hundred' %>
 
 	<div style="float:right;">
-  	<%= link_to 'Delete This Role', {:action => 'destroy', :id => @role}, :confirm => 'Are you sure?', :class => 'action', :post => true %>
+  	<%= link_to 'Delete This Role', {:action => 'destroy', :id => @role}, :method => 'post', :confirm => 'Are you sure?', :class => 'action' %>
 	</div>
 	
 
