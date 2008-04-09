@@ -531,7 +531,7 @@ class Order < ActiveRecord::Base
       begin
         self.deliver_receipt
       rescue => e
-        logger.error("FAILED TO SEND THE CONFIRM EMAIL")
+        logger.error("FAILED TO SEND THE CONFIRM EMAIL: #{e}")
       end
       return true
 	  else
@@ -546,7 +546,7 @@ class Order < ActiveRecord::Base
       begin
         self.deliver_failed
       rescue => e
-        logger.error("FAILED TO SEND THE CONFIRM EMAIL")
+        logger.error("FAILED TO SEND THE CONFIRM EMAIL: #{e}")
       end
 
 	    return response.message
@@ -608,7 +608,12 @@ class Order < ActiveRecord::Base
   # I'm getting around this by passing the text into the mailer.
   def deliver_receipt
     @content_node = ContentNode.find(:first, :conditions => ["name = ?", 'OrderReceipt'])
-    OrdersMailer.deliver_receipt(self, @content_node.content)
+    if @content_node
+      OrdersMailer.deliver_receipt(self, @content_node.content)
+    else
+      logger.error("The system didn't found a content node record named \"OrderReceipt\", this record " +
+      "is used in the e-mail body. The e-mail deliver cannot proceed.")
+    end
   end
 
   # If we're going to define deliver_receipt here, why not wrap deliver_failed as well?
@@ -691,7 +696,7 @@ class Order < ActiveRecord::Base
     begin
       order.deliver_receipt
     rescue => e
-      logger.error("FAILED TO SEND THE CONFIRM EMAIL")
+      logger.error("FAILED TO SEND THE CONFIRM EMAIL: #{e}")
     end
     order.save
   end
@@ -706,7 +711,7 @@ class Order < ActiveRecord::Base
     begin
       order.deliver_failed 
     rescue => e
-      logger.error("FAILED TO SEND THE CONFIRM EMAIL")
+      logger.error("FAILED TO SEND THE CONFIRM EMAIL: #{e}")
     end
     order.save
   end
