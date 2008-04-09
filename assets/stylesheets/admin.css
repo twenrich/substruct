@@ -258,6 +258,7 @@ div.line {
 	width: 50px;
 	text-align: center;
 	padding-right: 10px;
+	white-space: nowrap;
 }
 #navigation ul.navigation li.active {
 	background-image: url(/plugin_assets/substruct/images/admin/active-tab-left.gif);
