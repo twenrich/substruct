@@ -2,6 +2,7 @@
 #
 class CustomersController < ApplicationController
   layout 'main'
+  before_filter :ssl_required
 
 	# Check permissions for everything on within side.
   before_filter :login_required,
@@ -37,7 +38,7 @@ class CustomersController < ApplicationController
   def logout
     session[:customer] = nil
     flash[:notice] = "You've been logged out."
-    redirect_to "/" and return
+    redirect_to '/' and return
   end
   
   # Creates a new customer

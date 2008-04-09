@@ -12,6 +12,13 @@ class StoreController < ApplicationController
       :confirm_order, :finish_order
     ]
 
+  before_filter :ssl_required,
+    :only => [
+      :checkout, :select_shipping_method, :view_shipping_method,
+      :set_shipping_method, :confirm_order, :finish_order
+    ]
+  
+
   if Preference.find_by_name('store_test_transactions').is_true?
     ActiveMerchant::Billing::Base.integration_mode = :test 
   else

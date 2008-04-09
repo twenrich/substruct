@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   layout 'accounts'
+  before_filter :ssl_required
 
   def login
     case request.method

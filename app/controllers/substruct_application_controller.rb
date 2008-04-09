@@ -51,4 +51,15 @@ module SubstructApplicationController
     ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
   end
   
+  # Requres SSL for specified actions.
+  #
+  def ssl_required
+    if ENV['RAILS_ENV'] == "production" && Substruct.override_ssl_production_mode == false
+      if !request.ssl?
+        redirect_to "https://" + request.host + request.request_uri
+        flash.keep
+        return false
+      end
+    end
+  end
 end
