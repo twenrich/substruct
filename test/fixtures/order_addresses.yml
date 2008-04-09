@@ -1,0 +1,10 @@
+santa_address:
+  order_user: santa
+  first_name: Santa
+  last_name: Claus
+  telephone: 000000000
+  address: After second ice mountain at left
+  city: North Pole
+  state: Alaska
+  zip: 00000
+  country: US

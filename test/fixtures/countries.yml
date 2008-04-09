@@ -1,0 +1,18 @@
+US: 
+  name: United States of America
+  fedex_code: US
+  ufsi_code:
+  number_of_orders: 0
+
+GB: 
+  name: United Kingdom
+  fedex_code: GB
+  ufsi_code:
+  number_of_orders: 0
+
+BR: 
+  name: Brazil
+  fedex_code: BR
+  ufsi_code:
+  number_of_orders: 0
+  

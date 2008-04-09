@@ -1,0 +1,41 @@
+santa_next_christmas_order_item_1:
+  name: Chinchilla Coat - Beige
+  item: beige_coat
+  order: santa_next_christmas_order
+  quantity: 1
+  unit_price: 700.5
+
+santa_next_christmas_order_item_2:
+  name: Lightsaber - Blue
+  item: blue_lightsaber
+  order: santa_next_christmas_order
+  quantity: 3
+  unit_price: 91.5
+
+santa_next_christmas_order_item_3:
+  name: Lightsaber - Green
+  item: green_lightsaber
+  order: santa_next_christmas_order
+  quantity: 2
+  unit_price: 93.5
+
+santa_next_christmas_order_item_4:
+  name: Lightsaber - Red
+  item: red_lightsaber
+  order: santa_next_christmas_order
+  quantity: 1
+  unit_price: 89.5
+
+santa_next_christmas_order_item_5:
+  name: The Stuff - Small
+  item: small_stuff
+  order: santa_next_christmas_order
+  quantity: 20
+  unit_price: 1.25
+
+santa_next_christmas_order_item_6:
+  name: Towel
+  item: towel
+  order: santa_next_christmas_order
+  quantity: 2
+  unit_price: 9.5

@@ -1,0 +1,17 @@
+santa_next_christmas_order: 
+  tax: 0.0
+  product_cost: 1295.5
+  created_on: 2008-04-04 17:18:20 -03:00
+  shipping_address: santa_address
+  order_user: santa
+  billing_address: santa_address
+  shipped_on: 
+  order_shipping_type: ups_xp_critical
+  promotion:
+  notes: <p>Order completed.<br/><span class="info">[04-04-08 05:18 PM]</span></p>
+  referer: 
+  shipping_cost: 30.0
+  order_number: 400390855
+  order_account: santa_account
+  auth_transaction_id: 
+  order_status_code: ordered_paid_to_ship

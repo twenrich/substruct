@@ -1,15 +1,14 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CountryTest < Test::Unit::TestCase
+class CountryTest < ActiveSupport::TestCase
   fixtures :countries
 
-  # Replace this with your real tests.
-  def test_truth
-    assert_kind_of Country, Country.find(:first)
+
+  # TODO: Should this method really be here?.
+  def test_number_of_orders
+    a_country = countries(:BR)
+    assert_equal a_country.number_of_orders, 0
   end
 
-  def test_usa_exists
-    @country = Country.find(1)
-    assert_equal 'United States of America', @country.name
-  end
+
 end

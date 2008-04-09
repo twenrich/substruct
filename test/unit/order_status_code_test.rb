@@ -1,10 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class OrderStatusCodeTest < Test::Unit::TestCase
-  fixtures :order_status_codes
+class OrderStatusCodeTest < ActiveSupport::TestCase
+
 
   # Replace this with your real tests.
   def test_truth
-    assert_kind_of OrderStatusCode, OrderStatusCode.find(1)
+    assert true
   end
+
+
 end

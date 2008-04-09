@@ -1,10 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class OrderAccountTypeTest < Test::Unit::TestCase
-  fixtures :order_account_types
+class OrderAccountTypeTest < ActiveSupport::TestCase
+
 
   # Replace this with your real tests.
   def test_truth
-    assert_kind_of OrderAccountType, order_account_types(:first)
+    assert true
   end
+
+
 end

@@ -1,0 +1,39 @@
+fluffy_rebate:
+  code: "FLUFFY_REBATE"
+  description: "Buying a chinchilla coat, get a U$ 5.00 discount, just today."
+  discount_type: 0
+  discount_amount: 5
+  item: chinchilla_coat
+  start: <%= 1.minute.ago.to_s(:db) %>
+  end: <%= 1.day.from_now.to_s(:db) %>
+  minimum_cart_value:
+
+jedi_rebate:
+  code: "JEDI_REBATE"
+  description: "Buying a lightsaber, get a 5% discount, just today."
+  discount_type: 1
+  discount_amount: 5
+  item: lightsaber
+  start: <%= 1.minute.ago.to_s(:db) %>
+  end: <%= 1.day.from_now.to_s(:db) %>
+  minimum_cart_value:
+
+free_stuff:
+  code: "EAT_MORE_STUFF"
+  description: "Buying a cup of The Stuff, get 1 more for free. This promo will last forever."
+  discount_type: 2
+  discount_amount: 1
+  item: the_stuff
+  start: <%= 1.minute.ago.to_s(:db) %>
+  end: <%= 1.day.from_now.to_s(:db) %>
+  minimum_cart_value:
+
+old_stuff_rebate:
+  code: "OLD_STUFF_REBATE"
+  description: "Buying a cup of The Stuff, get a U$ 5.00 discount."
+  discount_type: 0
+  discount_amount: 5
+  item: the_stuff
+  start: <%= 10.days.ago.to_s(:db) %>
+  end: <%= 9.days.ago.to_s(:db) %>
+  minimum_cart_value:

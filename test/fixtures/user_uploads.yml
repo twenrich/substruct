@@ -1,0 +1,98 @@
+lightsaber_blue_upload: 
+  created_on: 2008-02-18 22:16:38 -03:00
+  content_type: image/jpeg
+  thumbnail: 
+  size: 5374
+  type: Image
+  height: 400
+  filename: lightsaber_blue.jpg
+  parent_id: 
+  width: 400
+
+lightsaber_blue_small_upload: 
+  created_on: 2008-02-18 22:16:39 -03:00
+  content_type: image/jpeg
+  thumbnail: small
+  size: 5374
+  type: Image
+  height: 200
+  filename: lightsaber_blue_small.jpg
+  parent: lightsaber_blue_upload
+  width: 200
+
+lightsaber_blue_thumb_upload: 
+  created_on: 2008-02-18 22:16:39 -03:00
+  content_type: image/jpeg
+  thumbnail: thumb
+  size: 5374
+  type: Image
+  height: 50
+  filename: lightsaber_blue_thumb.jpg
+  parent: lightsaber_blue_upload
+  width: 50
+
+lightsaber_green_upload:
+  created_on: 2008-02-18 22:16:39 -03:00
+  content_type: image/jpeg
+  thumbnail: 
+  size: 6926
+  type: Image
+  height: 400
+  filename: lightsaber_green.jpg
+  parent_id: 
+  width: 400
+
+lightsaber_green_small_upload:
+  created_on: 2008-02-18 22:16:39 -03:00
+  content_type: image/jpeg
+  thumbnail: small
+  size: 6926
+  type: Image
+  height: 200
+  filename: lightsaber_green_small.jpg
+  parent: lightsaber_green_upload
+  width: 200
+  
+lightsaber_green_thumb_upload:
+  created_on: 2008-02-18 22:16:39 -03:00
+  content_type: image/jpeg
+  thumbnail: thumb
+  size: 6926
+  type: Image
+  height: 50
+  filename: lightsaber_green_thumb.jpg
+  parent: lightsaber_green_upload
+  width: 50
+
+lightsaber_red_upload:
+  created_on: 2008-02-18 22:16:39 -03:00
+  content_type: image/jpeg
+  thumbnail: 
+  size: 7111
+  type: Image
+  height: 400
+  filename: lightsaber_red.jpg
+  parent_id: 
+  width: 400
+
+lightsaber_red_small_upload:
+  created_on: 2008-02-18 22:16:40 -03:00
+  content_type: image/jpeg
+  thumbnail: small
+  size: 7111
+  type: Image
+  height: 200
+  filename: lightsaber_red_small.jpg
+  parent: lightsaber_red_upload
+  width: 200
+
+lightsaber_red_thumb_upload:
+  created_on: 2008-02-18 22:16:40 -03:00
+  content_type: image/jpeg
+  thumbnail: thumb
+  size: 7111
+  type: Image
+  height: 50
+  filename: lightsaber_red_thumb.jpg
+  parent: lightsaber_red_upload
+  width: 50

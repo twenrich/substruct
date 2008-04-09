@@ -1,0 +1,26 @@
+cart:
+  name: CART
+
+to_charge:
+  name: TO CHARGE
+
+on_hold_payment_failed:
+  name: ON HOLD - PAYMENT FAILED
+
+on_hold_awaiting_payment:
+  name: ON HOLD - AWAITING PAYMENT
+
+ordered_paid_to_ship:
+  name: ORDERED - PAID - TO SHIP
+
+ordered_paid_shipped:
+  name: ORDERED - PAID - SHIPPED
+
+sent_to_fulfillment:
+  name: SENT TO FULFILLMENT
+
+cancelled:
+  name: CANCELLED
+
+returned:
+  name: RETURNED
