@@ -54,15 +54,12 @@
 		style="float:left; height: 50px; width: 50px; overflow: hidden; margin: 5px;"
 	>
 		<div class="image">
-			<% 
-				if @file.type == Image
-                                       image_thumb_path = @file.public_filename(:thumb)
-			%>
+			<% if @file.read_attribute(:type) == "Image" %>
 				<!-- this is an image -->
-                               <a href="<%= @file.public_filename %>" class="submodal-400-400"><%= image_tag image_thumb_path %></a>
+        <a href="<%= @file.public_filename %>" class="submodal-400-400"><%= image_tag @file.public_filename(:thumb) %></a>
 			<% else %>
 				<div style="background-color:#eee; padding:5px; width:40px; height:40px; font-size: 1.2em; text-align: center;">
-                                       <a href="<%= @file.public_filename %>"><%= @file.extension.upcase %></a>
+          <a href="<%= @file.public_filename %>"><%= @file.extension.upcase %></a>
 				</div>
 			<% end %>
 		</div>

@@ -146,6 +146,7 @@ class Admin::ContentNodesController < Admin::BaseController
     def set_recent_uploads
       @recent_uploads = UserUpload.find(
         :all,
+        :conditions => "thumbnail IS NULL",
         :order => 'created_on DESC',
         :limit => 9
       )
