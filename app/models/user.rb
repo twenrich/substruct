@@ -12,17 +12,16 @@ class User < ActiveRecord::Base
 	validates_presence_of :login
 	
 	def validate
-	  if (self.new_record? || (!self.password.blank? && !self.password_confirmation.blank?))
-	    
+	  if (self.new_record? || (!self.password.blank? && !self.password_confirmation.blank?))  
 	    if (5 > self.password.length || 40 < self.password.length)
-        errors.add(:password, "Password must be between 5 and 40 characters.")
+        errors.add(:password, " must be between 5 and 40 characters.")
       end
-	    
-    	# check presence of password & matching if they both aren't blank
-    	if (self.password != self.password_confirmation) then
-    		errors.add(:password, "Password and confirmation don't match.")
-    	end
     end
+    
+    # check presence of password & matching if they both aren't blank
+  	if (self.password != self.password_confirmation) then
+  		errors.add(:password, " and confirmation don't match.")
+  	end
   end
 	
   @@salt = '20ac4d290c2293702c64b3b287ae5ea79b26a5c1'
