@@ -8,7 +8,7 @@ class AddEncryptionSupport < ActiveRecord::Migration
     OrderAccount.reset_column_information
     puts "Encrypting all stored CC numbers..."
     OrderAccount.find(:all).each do |oa|
-      oa.set_unencrypted_number(oa.cc_number, 'cc_number')
+      oa.set_unencrypted_number(oa.attributes['cc_number'], 'cc_number')
       oa.set_unencrypted_number(oa.account_number, 'account_number')
       oa.save
     end
