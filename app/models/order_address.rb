@@ -10,6 +10,9 @@ class OrderAddress < ActiveRecord::Base
 	validates_presence_of :first_name, :message => ERROR_EMPTY
 	validates_presence_of :last_name, :message => ERROR_EMPTY
 	validates_presence_of :address, :message => ERROR_EMPTY
+	# Require city / state if USA
+	validates_presence_of :city, :state, 
+	  :if => Proc.new { |oa| oa.country_id == 1 }
 	
 	validates_length_of :first_name, :maximum => 50
 	validates_length_of :last_name, :maximum => 50
