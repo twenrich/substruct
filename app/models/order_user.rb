@@ -70,8 +70,8 @@ class OrderUser < ActiveRecord::Base
   end
 
   def self.authenticate?(email, password)
-    user = self.authenticate(login, password)
-    if !user.nil? && user.login == login
+    user = self.authenticate(email, password)
+    if !user.nil? && user.email_address == email
       return true
     else
       false
