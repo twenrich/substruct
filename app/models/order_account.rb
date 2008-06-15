@@ -96,13 +96,15 @@ class OrderAccount < ActiveRecord::Base
   end
   
   def cc_number_last_four
-    number = String.new(self.cc_number)
-    # How many spaces to replace with X's
-    spaces_to_pad = number.length-4
-    # Cut string
-    new_number = number[spaces_to_pad,number.length]
-    # Pad with X's
-    new_number.rjust(spaces_to_pad, 'X')
+    if !self.cc_number.blank? && self.cc_number.size > 4
+      number = String.new(self.cc_number)
+      # How many spaces to replace with X's
+      spaces_to_pad = number.length-4
+      # Cut string
+      new_number = number[spaces_to_pad,number.length]
+      # Pad with X's
+      return new_number.rjust(number.length, 'X')
+    end
   end
   
   # Setter for account number.
