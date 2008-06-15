@@ -82,7 +82,7 @@ class StoreController < ApplicationController
 				tag_ids_array << temp_tag.id
 			end
 		end
-		@viewing_tags = Tag.find(tag_ids_array)
+    @viewing_tags = Tag.find(tag_ids_array, :order => "parent_id ASC")
 		viewing_tag_names = @viewing_tags.collect { |t| " > #{t.name}"}
 		@title = "Store #{viewing_tag_names}"
 		@tags = Tag.find_related_tags(tag_ids_array)
