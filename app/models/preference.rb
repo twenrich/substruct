@@ -6,6 +6,7 @@
 # Prefs are used all over to handle decisions that we'd rather
 # not use config files for.
 #
+require "smtp_tls"
 class Preference < ActiveRecord::Base
   # Types can hold strings, booleans, or pointers to
   # other records (like country)
@@ -25,7 +26,7 @@ class Preference < ActiveRecord::Base
       :port => find_by_name('mail_port').value,
     }
     mail_auth_type = find_by_name('mail_auth_type').value
-    if !mail_auth_type != 'none'
+    if mail_auth_type != 'none'
       mail_server_settings[:authentication] = mail_auth_type.to_sym
       mail_server_settings[:user_name] = find_by_name('mail_username').value
       mail_server_settings[:password] = find_by_name('mail_password').value

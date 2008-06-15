@@ -78,13 +78,7 @@ class OrderAccount < ActiveRecord::Base
   # Obfuscates personal information about this account
   # - CC number
   def clear_personal_information
-    number = String.new(self.cc_number)
-    # How many spaces to replace with X's
-    spaces_to_pad = number.length-4
-    # Cut string
-    new_number = number[spaces_to_pad,number.length]
-    # Pad with X's
-    new_number = new_number.rjust(spaces_to_pad, 'X')
+    new_number = self.cc_number_last_four
     self.cc_number = new_number
     self.save
     # Return number in case we need it
@@ -99,6 +93,16 @@ class OrderAccount < ActiveRecord::Base
   end
   def cc_number
     self.get_unencrypted_number('cc_number')
+  end
+  
+  def cc_number_last_four
+    number = String.new(self.cc_number)
+    # How many spaces to replace with X's
+    spaces_to_pad = number.length-4
+    # Cut string
+    new_number = number[spaces_to_pad,number.length]
+    # Pad with X's
+    new_number.rjust(spaces_to_pad, 'X')
   end
   
   # Setter for account number.
