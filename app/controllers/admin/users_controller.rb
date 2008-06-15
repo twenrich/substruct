@@ -103,7 +103,7 @@ class Admin::UsersController < Admin::BaseController
     # write the file
     File.open(save_to, "w") { |f| f.write(csv_string)  }
 
-    send_file(save_to, :type => "text/css")
+    send_file(save_to, :type => "text/csv")
   end
   
 end
