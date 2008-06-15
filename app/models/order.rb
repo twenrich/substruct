@@ -50,7 +50,7 @@ class Order < ActiveRecord::Base
     
     # Make sure it's valid to add
     if promo.minimum_cart_value
-      return if promo.minimum_cart_value > self.total
+      return if promo.minimum_cart_value > self.line_items_total
     end
     logger.info "PROMO MIN CART VALUE PASSED"
     
@@ -78,7 +78,7 @@ class Order < ActiveRecord::Base
       # Percent
       when 1 then
         oli.quantity = 1
-        oli.unit_price = -(self.total * (promo.discount_amount/100))
+        oli.unit_price = -(self.line_items_total * (promo.discount_amount/100))
       #
       # Buy N get 1 free
       when 2 then
