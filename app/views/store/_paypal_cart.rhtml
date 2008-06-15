@@ -1,6 +1,6 @@
 <input type="hidden" name="business" value="<%= @cc_login %>"/>
 <input type="hidden" name="upload" value="1"/>
-<input type="hidden" name="return" value="http://<%= request.env["HTTP_HOST"] %>/store/finish_order"/>
+<input type="hidden" name="return" value="http://<%= request.env["HTTP_X_FORWARDED_HOST"] || request.env["HTTP_HOST"] %>/store/finish_order"/>
 <input type="hidden" name="invoice" value="<%= cart.order_number %>"/>
 
 <% if cart.is_discounted? %>
