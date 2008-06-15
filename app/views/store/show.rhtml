@@ -10,12 +10,14 @@
 	<% if @default_image %>
 		<div style="float:left; margin:20px; width: 200px;">
       <% if @default_image.public_filename(:small) then %>
-        <%= image_tag(@default_image.public_filename(:small)) %>
+        <a href="<%= @default_image.public_filename %>" class="submodal-800-400">
+          <%= image_tag @default_image.public_filename(:small) %>
+        </a>
       <% end %>
+			<p class="info">Click to see full view</p>
 			<!-- thumbnails! -->
 			<% if @images.size > 1 %>
 				<h4>Other product images</h4>
-				<p class="info">Click to see full view</p>
 				<% for @p_image in @images do %>
 					<!-- product image for reordering -->
 					<div class="float" style="margin:5px;">
