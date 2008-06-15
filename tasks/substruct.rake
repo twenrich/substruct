@@ -310,6 +310,33 @@ namespace :substruct do
 
   end # test namespace
 
+  
+  # Annotations =======================================================
+
+  require "#{RAILS_ROOT}/vendor/plugins/substruct/lib/substruct_annotation_extractor.rb"
+  
+  desc "Enumerate all annotations"
+  task :notes do
+    SubstructAnnotationExtractor.enumerate "OPTIMIZE|FIXME|TODO", :tag => true
+  end
+  
+  namespace :notes do
+    desc "Enumerate all OPTIMIZE annotations"
+    task :optimize do
+      SubstructAnnotationExtractor.enumerate "OPTIMIZE"
+    end
+  
+    desc "Enumerate all FIXME annotations"
+    task :fixme do
+      SubstructAnnotationExtractor.enumerate "FIXME"
+    end
+  
+    desc "Enumerate all TODO annotations"
+    task :todo do
+      SubstructAnnotationExtractor.enumerate "TODO"
+    end
+  end # notes namespace
+
 end # substruct namespace
 
 def check_installed_gem(gem_name)
