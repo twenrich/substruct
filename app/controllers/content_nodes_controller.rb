@@ -21,7 +21,7 @@ class ContentNodesController < ApplicationController
       @title = @content_node.title
     end
     # Render special template for blog posts
-    if @content_node.type == Blog then
+    if @content_node.type == 'Blog' then
       render(:template => 'content_nodes/blog_post')
     else # Render basic template for regular pages
       render(:layout => 'main')
