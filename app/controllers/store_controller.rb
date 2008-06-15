@@ -74,14 +74,22 @@ class StoreController < ApplicationController
 		# Passed into this controller like this:
 		# /store/show_by_tags/tag_one/tag_two/tag_three/...
 		@tag_names = params[:tags]
+		unless @tag_names
+		  render(:file => 'public/404.html', :status => 404) and return
+		end
 		# Generate tag ID list from names
 		tag_ids_array = Array.new
 		for name in @tag_names
-			temp_tag = Tag.find_by_name(name)
+		  temp_tag = Tag.find_by_name(name)
 			if temp_tag then
 				tag_ids_array << temp_tag.id
-			end
+      end
 		end
+		
+		if tag_ids_array.size == 0
+		  render(:file => 'public/404.html', :status => 404) and return
+		end
+		
     @viewing_tags = Tag.find(tag_ids_array, :order => "parent_id ASC")
 		viewing_tag_names = @viewing_tags.collect { |t| " > #{t.name}"}
 		@title = "Store #{viewing_tag_names}"
