@@ -102,17 +102,17 @@ class Order < ActiveRecord::Base
     if (count == true) then
       sql = "SELECT COUNT(*) "
     else
-      sql = "SELECT DISTINCT orders.* "
+      sql = "SELECT orders.* "
 		end
 		sql << "FROM orders "
-		sql << "JOIN order_addresses ON orders.order_user_id = order_addresses.order_user_id "
-		sql << "WHERE orders.order_number = ? "
-		sql << "OR order_addresses.first_name LIKE ? "
-		sql << "OR order_addresses.last_name LIKE ? "
-		sql << "OR CONCAT(order_addresses.first_name, ' ', order_addresses.last_name) LIKE ? "
-		sql << "ORDER BY orders.created_on DESC "
+    sql << "INNER JOIN order_addresses AS billing_address ON (orders.billing_address_id = billing_address.id)"
+    sql << "INNER JOIN order_addresses AS shipping_address ON (orders.shipping_address_id = shipping_address.id)"
+    sql << "WHERE orders.order_number = ? "
+    sql << "OR CONCAT(billing_address.first_name, ' ', billing_address.last_name) LIKE ? "
+    sql << "OR CONCAT(shipping_address.first_name, ' ', shipping_address.last_name) LIKE ? "
+    sql << "ORDER BY orders.created_on DESC "
 		sql << "LIMIT #{limit_sql}" if limit_sql
-		arg_arr = [sql, search_term, "%#{search_term}%", "%#{search_term}%", "%#{search_term}%"]
+		arg_arr = [sql, search_term, "%#{search_term}%", "%#{search_term}%"]
 		if (count == true) then
 		  count_by_sql(arg_arr)
 	  else
