@@ -438,12 +438,11 @@ class Order < ActiveRecord::Base
   # Returns an array of OrderShippingTypes
   def get_shipping_prices
     prices = []
-    # If they're in the USA
+    # Pick the shipping address.
     address = self.shipping_address
     
-    # TODO - set this country_id as a preference in the admin UI
-    #
-    if address.country_id == 1 then
+    # Compare the country with the store home country.
+    if address.country_id == Preference.find_by_name('store_home_country').value.to_i then
       shipping_types = OrderShippingType.get_domestic
     else 
       shipping_types = OrderShippingType.get_foreign
