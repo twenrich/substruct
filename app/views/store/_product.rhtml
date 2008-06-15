@@ -11,5 +11,8 @@
 		image_url, 
 		url_for(:controller => 'store', :action => 'show', :id => product.code), 
 		product.name, 
-		product.display_price) 
+		product.display_price,
+		product.is_on_sale?,
+		product.is_new?
+	)
 -%>

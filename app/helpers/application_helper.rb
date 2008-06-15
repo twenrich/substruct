@@ -38,10 +38,10 @@ module ApplicationHelper
     product = '<div class="product">'
     # Add 'on sale' image if applicable
     if on_sale
-      product << '<img src="/images/ui/icons/on-sale.gif" alt="On Sale" border="0" class="icon" />'
+       product << image_tag('public-ui/icons/on-sale.gif', :alt => 'On Sale', :class => 'icon', :plugin => 'substruct')
     end
     if is_new && !on_sale
-      product << '<img src="/images/ui/icons/new.gif" alt="New" border="0" class="icon" />'
+      product << image_tag('public-ui/icons/new.gif', :alt => 'New', :class => 'icon', :plugin => 'substruct')
     end
     product << %Q/
     		<div class="product_top"><\/div>
