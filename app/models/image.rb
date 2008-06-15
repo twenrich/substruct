@@ -2,7 +2,7 @@
 #
 class Image < UserUpload
 
-  has_many :product_images
+  has_many :product_images, :dependent => :destroy
   has_many :products, :through => :product_images
   
   MAX_SIZE = 10.megabyte

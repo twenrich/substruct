@@ -8,7 +8,7 @@ class Product < Item
   /
 
   
-  has_many :product_images
+  has_many :product_images, :dependent => :destroy
   has_many :variations, 
     :dependent => :destroy, :order => 'name ASC'
   has_many :images, 
