@@ -99,7 +99,7 @@ namespace :substruct do
       #
       # Grab current schema version from the migration scripts.
       schema_files = Dir.glob(File.join(RAILS_ROOT, 'vendor/plugins/substruct/db/migrate', '*'))
-      schema_version = File.basename(schema_files.last).to_i
+      schema_version = File.basename(schema_files.sort.last).to_i
       ActiveRecord::Base.connection.execute(%Q\
         INSERT INTO plugin_schema_info
         VALUES('substruct', #{schema_version});
