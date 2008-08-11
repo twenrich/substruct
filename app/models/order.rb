@@ -59,7 +59,7 @@ class Order < ActiveRecord::Base
     self.order_line_items.delete(self.promotion_line_item) if self.promotion_line_item
     
     # Assign proper promotion ID
-    self.promotion_id = promo.id
+    self.promotion = promo
     
     # Add any line items necessary from promotion.
     oli = OrderLineItem.new
