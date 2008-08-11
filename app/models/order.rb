@@ -56,7 +56,7 @@ class Order < ActiveRecord::Base
     
     # Don't allow more than one promotion?
     # This destroys any line items created previously.
-    self.promotion_line_item.destroy if self.promotion_line_item
+    self.order_line_items.delete(self.promotion_line_item) if self.promotion_line_item
     
     # Assign proper promotion ID
     self.promotion_id = promo.id
