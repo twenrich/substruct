@@ -16,7 +16,7 @@
 					<%= make_label('Handling Fee', true) %>
 					<%= text_field_tag('prefs[store_handling_fee]', @prefs['store_handling_fee'].value, :class => 'textInput')%>
 					<br/>
-					<span class="info">This charge will be added to all orders.</span>
+					<span class="info">This charge will be added to all orders, and will be combined together with shipping on checkouts.</span>
 				</p>
 				<p>
 					<%= make_label('Your Country', true) %>
@@ -55,7 +55,7 @@
 					<span class="info">
 						If set, customers who have ordered previously will be prompted for their e-mail and password or previous order number upon checkout.
 						<br/>
-						After login, their adress information will be auto-filled in the checkout form.
+						After login, their address information will be auto-filled in the checkout form.
 					</span>
 				</p>
 			</div>
@@ -70,7 +70,7 @@
 						<%= check_box_tag('prefs[store_test_transactions]', 1, (@prefs['store_test_transactions'].is_true?)) %>
 						Store is in test mode
 					</label>
-					<span class="info">When in test mode, no real orders will be processed.</span>
+					<span class="info">When in test mode, no real orders will be processed.  They will be processed in 'test mode' by the selected CC Processor.</span>
 					<input name="prefs[store_test_transactions]" type="hidden" value="0" />
 				</p>
 				<p>
@@ -81,18 +81,20 @@
 					<%= make_label('Login', true) %>
 					<%= text_field_tag('prefs[cc_login]', @prefs['cc_login'].value, :class => 'textInput')%>
 					<br>
-					<span class="info">When using PayPal, this is your PayPal email address</span>
+					<span class="info">When using PayPal, this is your PayPal email address.  With authorize.net, your API Login ID.</span>
 				</p>
 				<p>
 					<%= make_label('Password') %>
 					<%= password_field_tag('prefs[cc_pass]', @prefs['cc_pass'].value, :class => 'textInput')%>
+					<br/>
+					<span class="info">With paypal your password, with authorize.net, your transaction key.</span>
 				</p>
 				<p>
 					<label>
 						<%= check_box_tag('prefs[cc_clear_after_order]', 1, (@prefs['cc_clear_after_order'].is_true?)) %>
 						Clear all but last 4 digits of CC# after processing order?
 						<br/>
-						<span class="info">If set, after a successful order all but the last 4 digits of CC# will be cleared.</span>
+						<span class="info">If set, after a successful order all but the last 4 digits of CC# will be cleared.  Doesn't make a difference if you use paypal IPN, as no credit card numbers are entered on site.</span>
 					</label>
 					<input name="prefs[cc_clear_after_order]" type="hidden" value="0" />
 				</p>

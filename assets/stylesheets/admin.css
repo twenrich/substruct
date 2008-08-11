@@ -721,6 +721,13 @@ body {
 	height: 150px;
 	width: 380px;
 }
+#version_number {
+ position: relative;
+ color: #ccc;
+ left: 280px;
+ top: 5px;
+ font-size: 11px;
+}
 #contentBody {
 	background-image: none;
 	padding: 0px;

@@ -18,7 +18,6 @@
 
 <% if flash[:notice] -%>
 	<div class="" id="flash" style="display:none;">
-		<h2>Wanted to let you know...</h2>
 		<p>
 			<%= flash[:notice] %>
 		</p>
@@ -35,6 +34,7 @@
 
 	<div id="logo">
 		&nbsp;
+		<div id="version_number">v<%= Substruct::Version::STRING %></div>
 	</div>
 
 	<div id="navigation">
