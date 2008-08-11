@@ -18,9 +18,6 @@ class OrderAddress < ActiveRecord::Base
 	validates_length_of :last_name, :maximum => 50
 	validates_length_of :address, :maximum => 255
 	
-	#validates_exclusion_of :address, :in => ['PO BOX', 'P.O. BOX', 'AFO', 'A.F.O.', 'APO', 'A.P.O.'],
-	#                       :message => 'Sorry, we don\'nt ship to P.O. boxes'
-
 	# Makes sure validation address doesn't allow PO Box or variants
 	def validate
 		invalid_strings = ['PO BOX', 'P.O. BOX', 'P.O BOX', 'PO. BOX',

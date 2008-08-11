@@ -147,26 +147,3 @@
 	<%= render(:partial => 'order_operations', :locals => {:order => @order})%>
 </div>
 <div class="clear">&nbsp;</div>
-
-<script language="javascript" type="text/javascript">
-	// Disable all elements passed in
-	// Useful for form fields
-	function disableElements(elements) {
-		for (var i=0, len=elements.length; i<len; i++) {
-			elements[i].disabled = true;
-		}
-	}
-	disableElements(document.getElementsByTagName("input"));
-	disableElements(document.getElementsByTagName("textarea"));
-	disableElements(document.getElementsByTagName("select"));
-	// Enable note fields & note submit button
-	$('order[new_notes]').disabled = false;
-	$('add_note_button').disabled = false;
-	// Enable search fields & buttons
-  $('searchTerm').disabled = false;
-  $('searchButton').disabled = false;
-	$('searchTerm2').disabled = false;
-  $('searchButton2').disabled = false;
-  $('searchTerm3').disabled = false;
-  $('searchButton3').disabled = false;
-</script>
