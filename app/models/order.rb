@@ -558,19 +558,20 @@ class Order < ActiveRecord::Base
   #
   def run_transaction_paypal_ipn
 
-    status_code = self.order_status_code_id
+    status_code = self.order_status_code.id
 
     # Under normal conditions, the paypal ipn should be confirmed already
     # but we can't count on that.  Assign a status of 4 (awaiting payment)
     # if the status is still 1 (cart)
     if status_code == 1
-      self.order_status_code_id = 4 
+      new_order_code = OrderStatusCode.find_by_name("ON HOLD - AWAITING PAYMENT")
+      self.order_status_code = new_order_code if new_order_code
       self.new_notes = "The order was processed at PayPal but not yet confirmed."
     end
 
     self.save
 
-    self.order_status_code_id
+    self.order_status_code.id
  
   end
 
@@ -585,7 +586,8 @@ class Order < ActiveRecord::Base
       end
     end
 	  
-		self.order_status_code_id = 5
+    new_order_code = OrderStatusCode.find_by_name("ORDERED - PAID - TO SHIP")
+    self.order_status_code = new_order_code if new_order_code
     self.new_notes="Order completed."
     if Preference.find_by_name('cc_clear_after_order').is_true?
       self.account.clear_personal_information
@@ -595,7 +597,8 @@ class Order < ActiveRecord::Base
 
 	# Cleans up a failed order
 	def cleanup_failed(msg)
-		self.order_status_code_id = 3
+    new_order_code = OrderStatusCode.find_by_name("ON HOLD - PAYMENT FAILED")
+    self.order_status_code = new_order_code if new_order_code
     self.new_notes="Order failed!<br/>#{msg}"
     self.save
 	end
