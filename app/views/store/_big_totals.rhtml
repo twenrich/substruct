@@ -15,14 +15,14 @@
   </tr>
   <tr>
     <th>Shipping Cost</th>
-    <td><%= number_to_currency(@order.shipping_cost) %></td>
+    <td><%= sub_number_to_currency(@order.shipping_cost) %></td>
   </tr>
 	<tr>
 		<th>Items</th>
-		<td><%= number_to_currency(@order.line_items_total) %></td>
+		<td><%= sub_number_to_currency(@order.line_items_total) %></td>
 	</tr>
   <tr>
     <th>Final Order Total</th>
-    <td class="money"><%= number_to_currency(@order.total) %></td>
+    <td class="money"><%= sub_number_to_currency(@order.total) %></td>
   </tr>
 </table>

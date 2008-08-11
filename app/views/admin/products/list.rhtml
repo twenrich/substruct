@@ -31,7 +31,7 @@
     <tr class="<%= alternate %>">
       <td><%= link_to(h(product.name), :action => 'edit', :id => product) %></td>
       <td><%= product.code %></td>
-      <td class="numeric"><%= number_to_currency(product.price) %></td>
+      <td class="numeric"><%= sub_number_to_currency(product.price) %></td>
       <td class="numeric"><%= product.quantity %></td>
 			<td style="text-align:center">
 				<%=

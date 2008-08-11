@@ -38,13 +38,13 @@ Routing Number: <%= @order.account.routing_number %>
 <% for item in @order.order_line_items %>
 Item Description: <%= item.product.name rescue false ? item.product.name : 'Promotion'; %>
 Quantity: <%= item.quantity %>
-Amount Per Item: <%= number_to_currency(item.unit_price) %>
-Sub Total: <%= number_to_currency(item.total) %>
+Amount Per Item: <%= sub_number_to_currency(item.unit_price) %>
+Sub Total: <%= sub_number_to_currency(item.total) %>
 <% end %>
 ------------------------------------------------------------
 <% if !@order.order_shipping_type.nil? then %>
 Shipping Via: <%= @order.order_shipping_type.name %>
 <% end %>
-Ship/Handling: <%= number_to_currency(@order.shipping_cost) %>
+Ship/Handling: <%= sub_number_to_currency(@order.shipping_cost) %>
 ============================================================
-TOTAL: <%= number_to_currency(@order.total) %>
+TOTAL: <%= sub_number_to_currency(@order.total) %>

@@ -45,13 +45,13 @@
 						<br/>
 						<% if promo.item %>
 							<span class="info">
-							Add item: <%= promo.item.name %> - <%= number_to_currency(promo.item.price) %>
+							Add item: <%= promo.item.name %> - <%= sub_number_to_currency(promo.item.price) %>
 							</span>
 						<% end %>
 					</td>
 					<td class="numeric">
 						<% if promo.discount_type == 0 %>
-							<%= number_to_currency(promo.discount_amount) %>
+							<%= sub_number_to_currency(promo.discount_amount) %>
 						<% elsif promo.discount_type == 1 %>
 							<%= promo.discount_amount %>%
 						<% elsif promo.discount_type == 2 %>

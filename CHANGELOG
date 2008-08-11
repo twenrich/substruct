@@ -1,7 +1,16 @@
 Substruct Version Changelog and Update Notes
 ===============================================================================
 
-Version 1.0
+Version 1.0 FINAL - 09/01/2008
+---------------------------------------
+Added:
+  1. Easy way to change currency from USD
+     http://code.google.com/p/substruct/issues/detail?id=81
+
+Updated:
+  1. Better unit tests
+
+Version 1.0a
 ---------------------------------------
 *** Special thanks to Matthew Sewell for his contribution of the PayPal 
     IPN code.

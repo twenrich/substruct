@@ -10,9 +10,9 @@
     <% for type in session[:order_shipping_types] %>
       <label>
         <%= radio_button_tag('ship_type_id', type.id, (type.id == @default_price)) %>
-        <span class="money"><%= number_to_currency(type.calculated_price) %></span> - <b><%= type.name %></b>
+        <span class="money"><%= sub_number_to_currency(type.calculated_price) %></span> - <b><%= type.name %></b>
         <p style="padding-left:15px;font-style:italic;">
-           Total including shipping: <%= number_to_currency(type.calculated_price+@order.total) %>
+           Total including shipping: <%= sub_number_to_currency(type.calculated_price+@order.total) %>
         </p>
       </label>
     <% end %>

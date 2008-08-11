@@ -21,7 +21,7 @@
 							<%= order.created_on.strftime("%m/%d/%Y") %>
 						</td>
 						<td class="numeric">
-							<%= number_to_currency(order.total) %>
+							<%= sub_number_to_currency(order.total) %>
 						</td>
 						<td>
 							<%= order.order_status_code.name %>

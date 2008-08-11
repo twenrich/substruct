@@ -8,10 +8,10 @@
     <td>
       <%= item.name %> <span class="info">(x<%= item.quantity %>)
       <br/>
-      <%= number_to_currency(item.unit_price) %> each
+      <%= sub_number_to_currency(item.unit_price) %> each
       </span>
     </td>
-    <td class="numeric"><%= number_to_currency(item.total) %></td>
+    <td class="numeric"><%= sub_number_to_currency(item.total) %></td>
   </tr>
 <% end %>
 <% if cart.items.length == 0 then %>
@@ -22,17 +22,17 @@
 	<% if cart.tax_cost > 0 %>
 		<tr class="<%= alternate %>">
 			<td>Tax (<%= cart.tax %>%)</td>
-			<td class="numeric"><%= number_to_currency(cart.tax_cost) %></td>
+			<td class="numeric"><%= sub_number_to_currency(cart.tax_cost) %></td>
 		</tr>
 	<% end %>
 	<% if cart.shipping_cost > 0 %>
 		<tr class="<%= alternate %>">
 			<td>Shipping - <%= cart.order_shipping_type.name %></td>
-			<td class="numeric"><%= number_to_currency(cart.shipping_cost) %></td>
+			<td class="numeric"><%= sub_number_to_currency(cart.shipping_cost) %></td>
 		</tr>
 	<% end %>
   <tr class="footer">
     <td class="numeric">Total</td>
-    <td class="numeric"><%= number_to_currency(cart.total) %></td>
+    <td class="numeric"><%= sub_number_to_currency(cart.total) %></td>
   </tr>
 </table>

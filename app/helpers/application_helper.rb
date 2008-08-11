@@ -24,9 +24,11 @@ module ApplicationHelper
   #
   # We only pass 2 items in, but could display more...
   #
-  def sub_number_to_currency(number, options = {})
+  def sub_number_to_currency(number, options = {:unit => "$ ", :separator => ".", :delimiter => ","})
     if number.class == Array
       str = number_to_currency(number[0], options) + "+"
+    elsif number.is_nil?
+      str = options[:unit]
     else
       str = number_to_currency(number, options)
     end
@@ -54,7 +56,7 @@ module ApplicationHelper
     			<\/div>
     /
     if cost
-      product << %Q/ <span class="money">US #{sub_number_to_currency(cost)}<\/span> /
+      product << %Q/ <span class="money">#{sub_number_to_currency(cost)}<\/span> /
     end
     product << %Q/
     		<\/div>

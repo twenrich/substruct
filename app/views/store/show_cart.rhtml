@@ -1,5 +1,5 @@
 <div class="price" style="float:right;">
-	Total - <%= number_to_currency(@cart.total) %>
+	Total - <%= sub_number_to_currency(@cart.total) %>
 </div>
 <h1>Your Cart</h1>
 
@@ -61,9 +61,9 @@
 					<% end %>
 					<%= item.name %>
 				</td>
-				<td class="money numeric"><%= number_to_currency(item.unit_price) %></td>
+				<td class="money numeric"><%= sub_number_to_currency(item.unit_price) %></td>
 				<td class="numeric"><%= item.quantity %></td>
-				<td class="money numeric"><%= number_to_currency(item.quantity*item.unit_price) %></td>
+				<td class="money numeric"><%= sub_number_to_currency(item.quantity*item.unit_price) %></td>
 			</tr>
 		<% end %>
 		<tr class="footer">
@@ -86,7 +86,7 @@
 			</td>
 			<td colspan="3" class="numeric">Cart Total</td>
 			<td class="money numeric">
-				<%= number_to_currency(@cart.total) %>
+				<%= sub_number_to_currency(@cart.total) %>
 			</td>
 		</tr>
 	</table>

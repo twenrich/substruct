@@ -76,10 +76,10 @@
 					<td><%= item.name %></td>
 					<td class="numeric"><%= item.quantity %>	</td>
 					<td class="numeric">
-						<%= number_to_currency(item.unit_price) %>
+						<%= sub_number_to_currency(item.unit_price) %>
 					</td>
 					<td class="numeric">
-						<%= number_to_currency(item.total) %>
+						<%= sub_number_to_currency(item.total) %>
 					</td>
 				</tr>
 				<% end %>
@@ -92,11 +92,11 @@
 			<% end %>
 			<tr>
 				<td class="borderTop" colspan="3">Shipping &amp; Handling - <%= @order.order_shipping_type.name if @order.order_shipping_type %></td>
-				<td class="borderTop numeric"><%= number_to_currency(@order.shipping_cost) %></td>
+				<td class="borderTop numeric"><%= sub_number_to_currency(@order.shipping_cost) %></td>
 			</tr>
 			<tr class="footer">
 				<td colspan="3" class="numeric">Order Total:</td>
-				<td class="numeric"><%= number_to_currency(@order.total) %></td>
+				<td class="numeric"><%= sub_number_to_currency(@order.total) %></td>
 			</tr>
 		</table>
 

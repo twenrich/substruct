@@ -85,7 +85,7 @@
 
 	<!-- ORDER ITEMS -->
 	<div id="order_items" style="display:none;">
-		<div class="price" style="margin-top:5px;">Total: <%=h number_to_currency(@order.total) %></div>
+		<div class="price" style="margin-top:5px;">Total: <%=h sub_number_to_currency(@order.total) %></div>
 		
 		<% if @order.referer %>
 			<h2>Referer</h2>
@@ -132,9 +132,9 @@
 																	@order.get_line_item_quantity(item.id),
 																	{:size => 5, :maxlength => 5, :class => 'numeric'}) %>
 						</td>
-						<td class="numeric"><%= number_to_currency(item.unit_price) %></td>
+						<td class="numeric"><%= sub_number_to_currency(item.unit_price) %></td>
 						<td class="numeric">
-							<%= number_to_currency(@order.get_line_item_total(item.id)) %>
+							<%= sub_number_to_currency(@order.get_line_item_total(item.id)) %>
 						</td>
 					</tr>
 				<% end %>
@@ -143,7 +143,7 @@
 						Shipping Cost
 					</td>
 					<td class="numeric">
-						$<%= text_field 'order', 'shipping_cost', :size => '5', :class => 'numeric' %>
+						<%= text_field 'order', 'shipping_cost', :size => '5', :class => 'numeric' %>
 					</td>
 				</tr>
 			</table>

@@ -83,7 +83,7 @@
 							<label class="inline" for="variation_<%= @variations[i].id %>">
 								<%=h @variations[i].short_name %>
 								<br/>
-								<span class="money"><%= number_to_currency(@variations[i].price) %></span>
+								<span class="money"><%= sub_number_to_currency(@variations[i].price) %></span>
 							</label>
 						</td>
 					</tr>
