@@ -1,4 +1,5 @@
 class OrdersMailer < ActionMailer::Base
+  helper :application
 
   def receipt(order, email_text)
     @subject = "Thank you for your order! (\##{order.order_number})"

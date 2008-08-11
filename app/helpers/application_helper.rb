@@ -24,10 +24,10 @@ module ApplicationHelper
   #
   # We only pass 2 items in, but could display more...
   #
-  def sub_number_to_currency(number, options = {:unit => "$ ", :separator => ".", :delimiter => ","})
+  def sub_number_to_currency(number, options = {:unit => "$", :separator => ".", :delimiter => ","})
     if number.class == Array
       str = number_to_currency(number[0], options) + "+"
-    elsif number.is_nil?
+    elsif number.nil?
       str = options[:unit]
     else
       str = number_to_currency(number, options)
