@@ -33,7 +33,7 @@ class Admin::TagsControllerTest < ActionController::TestCase
     login_as :admin
     
     # Valid name with children.
-    # TODO: Yes, very weird, pass a name in a parameter called id.
+    # TODO: Very weird, pass a name in a parameter called id.
     get :list, :id => tags(:weapons).name 
     assert_response :success
     assert_template 'list'

@@ -178,12 +178,30 @@ class Admin::UsersControllerTest < ActionController::TestCase
     ref_url = url_for :controller => 'admin/users', :action => 'index'
     @request.env["HTTP_REFERER"] = ref_url
 
+    ### Try to delete yourself.
+
     # Post to it a user.
     post :destroy, :id => an_user.id
 
     # If not removed we should be redirected back. 
     assert_response :redirect
-    assert_redirected_to :action => :index
+    assert_redirected_to :action => :list
+
+    # See if the user is there.
+    assert_nothing_raised {
+      User.find(an_user.id)
+    }
+
+    ### Try to delete yourself when you are the only user.
+    
+    post :destroy, :id => users(:c_norris).id
+
+    # Post to it a user.
+    post :destroy, :id => an_user.id
+
+    # If not removed we should be redirected back. 
+    assert_response :redirect
+    assert_redirected_to :action => :list
 
     # See if the user is there.
     assert_nothing_raised {
@@ -213,7 +231,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_response :success
 
     # Why not Content-Type?
-    assert_equal @response.headers['type'], "text/css"
+    assert_equal @response.headers['type'], "text/csv"
     
     # Create a regular expression.
     re = %r{Customer_list-\d{2}_\d{2}_\d{4}_\d{2}-\d{2}[.]csv}

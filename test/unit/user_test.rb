@@ -25,16 +25,38 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
-  # Test if a user can be updated with success.
+  # Test if an user can be updated with success.
   def test_should_update_user
     an_user = users(:admin)
+    
     # Here we are renaming an user.
-    assert an_user.update_attributes(
-      :login => 'administrator'
-    )
+#    an_user.update_attributes(
+#      :login => 'administrator',
+#      :password => "",
+#      :password_confirmation => ""
+#    )
+    an_user.login = 'administrator'
+    an_user.password = ""
+    an_user.password_confirmation = ""
+    
+    assert an_user.save
+    
+    # Obs. When renaming an user don't use update_attributes and set both password
+    # and password_confirmtion to an empty string.
   end
 
 
+  # Test if an user password can be updated with success.
+  def test_should_update_user
+    an_user = users(:admin)
+    
+    an_user.password = "another_password"
+    an_user.password_confirmation = "another_password"
+    
+    assert an_user.save
+  end
+  
+  
   # Test if a user can be destroyed with success.
   def test_should_destroy_user
     an_user = users(:admin)
@@ -78,7 +100,7 @@ class UserTest < ActiveSupport::TestCase
     an_user.password_confirmation = ""
     assert !an_user.valid?
     assert an_user.errors.invalid?(:password)
-    assert_same_elements ["is too short (minimum is 5 characters)", "can't be blank"], an_user.errors.on(:password)
+    assert_equal " must be between 5 and 40 characters.", an_user.errors.on(:password)
 
     # A user must have a password, and it must be shorter than 40 characters.
     an_user.login = "login_ok"
@@ -86,7 +108,7 @@ class UserTest < ActiveSupport::TestCase
     an_user.password_confirmation = "my_very_very_very_very_very_long_password"
     assert !an_user.valid?
     assert an_user.errors.invalid?(:password)
-    assert_equal "is too long (maximum is 40 characters)", an_user.errors.on(:password)
+    assert_equal " must be between 5 and 40 characters.", an_user.errors.on(:password)
 
     # A user must have a password confirmation that matches the password.
     an_user.login = "login_ok"
@@ -94,11 +116,11 @@ class UserTest < ActiveSupport::TestCase
     an_user.password_confirmation = ""
     assert !an_user.valid?
     assert an_user.errors.invalid?(:password)
-    assert_equal "doesn't match confirmation", an_user.errors.on(:password)
+    assert_equal " and confirmation don't match.", an_user.errors.on(:password)
     an_user.password_confirmation = "another_password"
     assert !an_user.valid?
     assert an_user.errors.invalid?(:password)
-    assert_equal "doesn't match confirmation", an_user.errors.on(:password)
+    assert_equal " and confirmation don't match.", an_user.errors.on(:password)
 
     assert !an_user.save
   end

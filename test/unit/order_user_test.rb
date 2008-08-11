@@ -120,20 +120,14 @@ class OrderUserTest < ActiveSupport::TestCase
     
     assert_equal an_order_user, OrderUser.authenticate("santa.claus@whoknowswhere.com", "santa")
     assert_equal an_order_user, OrderUser.authenticate("santa.claus@whoknowswhere.com", an_order_user.last_order.order_number)
-    # TODO: Here it gives an error as an order user never have a login field filled.
-    assert_raise(NameError) {
-      assert OrderUser.authenticate?("santa.claus@whoknowswhere.com", "santa")
-    }
+    assert OrderUser.authenticate?("santa.claus@whoknowswhere.com", "santa")
   end
   
   
   # Test if an order user with a wrong password will NOT be authenticated.
   def test_should_not_authenticate_order_user
     assert_equal nil, OrderUser.authenticate("santa.claus@whoknowswhere.com", "wrongpassword")
-    # TODO: Here it gives an error as an order user never have a login field filled.
-    assert_raise(NameError) {
-      assert !OrderUser.authenticate?("santa.claus@whoknowswhere.com", "wrongpassword")
-    }
+    assert !OrderUser.authenticate?("santa.claus@whoknowswhere.com", "wrongpassword")
   end
   
   
@@ -175,6 +169,12 @@ class OrderUserTest < ActiveSupport::TestCase
 
   # Test if the password can be reseted.
   def test_should_reset_password
+    # Setup the mailer.
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+    initial_mbox_length = ActionMailer::Base.deliveries.length
+
     an_order_user = order_users(:santa)
     old_password = an_order_user.password
     
@@ -184,11 +184,12 @@ class OrderUserTest < ActiveSupport::TestCase
     assert_equal new_password.length, 8
     assert_not_equal old_password, new_password
     
-    # TODO: Here we must test the mail delivery code.
+    # We should have received a mail about that.
+    assert_equal ActionMailer::Base.deliveries.length, initial_mbox_length + 1
   end
   
   
-  # TODO: Should this be here?
+  # TODO: Theres no need to have these methods.
   # Test if we can add and remove items from wishlist.
   def test_should_add_and_remove_items_from_wishlist
     # Load an user and some products.

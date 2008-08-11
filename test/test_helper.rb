@@ -28,11 +28,17 @@ Test::Unit::TestCase.use_instantiated_fixtures  = false
 Image.attachment_options[:path_prefix] = "public/test/"
 
 
+# Require mocha.
+require 'mocha'
 
 ### Helper methods for test cases ###
 
 def login_as(user)
   @request.session[:user] = users(user).id
+end
+
+def login_as_customer(customer)
+  @request.session[:customer] = order_users(customer).id
 end
 
 # Unfortunately url_for doesn't work as is inside tests, so, a fix.

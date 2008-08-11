@@ -14,7 +14,7 @@ class OrderAccountTest < ActiveSupport::TestCase
 "
     an_account.routing_number = ""
     an_account.bank_name = ""
-    an_account.expiration_year = 2012
+    an_account.expiration_year = 4.years.from_now.year
     an_account.expiration_month = 1
     an_account.credit_ccv = ""
     an_account.account_number = ""
@@ -53,13 +53,21 @@ class OrderAccountTest < ActiveSupport::TestCase
   def test_should_not_create_invalid_account
     an_account = OrderAccount.new
     
+    # An order account must have valid expiration month and year.
     assert !an_account.valid?
     assert an_account.errors.invalid?(:expiration_month), "Should have an error in expiration_month"
     assert an_account.errors.invalid?(:expiration_year), "Should have an error in expiration_year"
     
-    # An address must have the fields filled.
     assert_same_elements ["is not a number", "Please enter a valid expiration date."], an_account.errors.on(:expiration_month)
     assert_equal "is not a number", an_account.errors.on(:expiration_year)
+
+    an_account.expiration_month = 1.month.ago.month
+    an_account.expiration_year = 1.year.ago.year
+
+    assert !an_account.valid?
+    assert an_account.errors.invalid?(:expiration_month), "Should have an error in expiration_month"
+    
+    assert_equal "Please enter a valid expiration date.", an_account.errors.on(:expiration_month)
 
     an_account.order_account_type_id = OrderAccount::TYPES['Credit Card']
     assert !an_account.valid?
@@ -81,22 +89,54 @@ class OrderAccountTest < ActiveSupport::TestCase
   end
 
 
-  # TODO: Verify if this method is used.
+  # TODO: Should this really be here? It seems like a helper method and very easy to generate.
   # Test if a shipping address can be found for an user.
-  def dont_test_should_find_shipping_address
-    # find_shipping_address_for_user appears to be a deprecated method, as when
-    # executed it gives an error, and I couldn't find an ocasion where it will be executed.
-    assert_raise(ActiveRecord::StatementInvalid) {
-      OrderAccount.find_shipping_address_for_user(users(:c_norris))
-    }
+  def test_should_return_months_and_years
+    assert_equal OrderAccount.months, (1..12).to_a
+    assert_equal OrderAccount.years, (Date.today.year..9.years.from_now.year).to_a
   end
 
 
-  # Test if the user's first and last name will be concatenated.
-  def dont_test_should_concatenate_user_first_and_last_name
-    an_address = order_accountes(:santa_address)
-    assert_equal an_address.name, "#{an_address.first_name} #{an_address.last_name}" 
+  # Test if the credit card number will be croped.
+  def test_should_clear_personal_information
+    an_account = OrderAccount.new
+    
+    an_account.order_user = order_users(:mustard)
+    an_account.cc_number = "4007000000027"
+    an_account.routing_number = ""
+    an_account.bank_name = ""
+    an_account.expiration_year = 4.years.from_now.year
+    an_account.expiration_month = 1
+    an_account.credit_ccv = ""
+    an_account.account_number = ""
+
+    assert an_account.save
+    
+    an_account.clear_personal_information
+    assert_equal an_account.cc_number, "XXXXXXXXX0027"
   end
 
+
+  # Test if the credit card number will be crypted/decrypted.
+  def test_should_crypt_decrypt_information
+    an_account = OrderAccount.new
+    
+    an_account.order_user = order_users(:mustard)
+    an_account.routing_number = ""
+    an_account.bank_name = ""
+    an_account.expiration_year = 4.years.from_now.year
+    an_account.expiration_month = 1
+    an_account.credit_ccv = ""
+    
+    # These attributes are encrypted. 
+    an_account.cc_number = "4007000000027"
+    an_account.account_number = "123456789"
+
+    assert an_account.save
+    
+    an_account.reload
+    assert_equal an_account.cc_number, "4007000000027"
+    assert_equal an_account.account_number, "123456789"
+  end
 
 end

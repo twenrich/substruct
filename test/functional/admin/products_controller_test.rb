@@ -109,9 +109,7 @@ class Admin::ProductsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:items)
 
-    # TODO: In the controller it says that a parameter called show_all_items
-    # can be passed and it is used in promotions, but then why it is in the
-    # products controller. It should be a helper.
+    # TODO: Verify if this shouldn't be a helper.
 
     # Here an insertion rjs statement is not generated, a javascript defined
     # array is just spited out.
@@ -337,9 +335,9 @@ class Admin::ProductsControllerTest < ActionController::TestCase
     a_product = Product.find_by_code('SHRUBBERY')
     assert_not_nil a_product 
     assert_equal a_product.related_products, [a_coat, a_towel]
-    assert_equal a_product.tags.count, 1
-    assert_equal a_product.variations.count, 2
-    assert_equal a_product.images.count, 2
+    assert_equal a_product.tags.count, 1, "Wrong tag count."
+    assert_equal a_product.variations.count, 2, "Wrong variation count."
+    assert_equal a_product.images.count, 2, "Wrong image count."
     
     # Clean up system dir.
     a_product.images[0].destroy
@@ -728,7 +726,7 @@ class Admin::ProductsControllerTest < ActionController::TestCase
   end
 
 
-  # TODO: Get rid of it if it will not be used.
+  # TODO: Get rid of this method if it will not be used.
   # I have no idea where this is/was used.
   # Test if we can get rendered a partial passing a product and a list of tags.
   def test_should_get_tags
@@ -748,8 +746,81 @@ class Admin::ProductsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template '_tag_list_form_row'
     assert assigns(:product)
-
   end
 
+
+  # Test if a new valid product will be saved, but create everything that can be
+  # created together, images, related products, tags, variations, etc.
+  def test_should_save_new_product_with_a_lot_of_images
+    login_as :admin
+
+    # Call the new form.
+    get :new
+    assert_response :success
+    assert_template 'new'
+    
+    shrub1 = fixture_file_upload("/files/shrub1.jpg", 'image/jpeg')
+    shrub2 = fixture_file_upload("/files/shrub2.jpg", 'image/jpeg')
+    lightsabers_upload = fixture_file_upload("/files/lightsabers.jpg", 'image/jpeg')
+    lightsaber_blue_upload = fixture_file_upload("/files/lightsaber_blue.jpg", 'image/jpeg')
+    lightsaber_green_upload = fixture_file_upload("/files/lightsaber_green.jpg", 'image/jpeg')
+    lightsaber_red_upload = fixture_file_upload("/files/lightsaber_red.jpg", 'image/jpeg')
+
+    post :save,
+    :product => {
+      :code => "SHRUBBERY",
+      :name => "Shrubbery",
+      :description => "A shrubbery. One that looks nice, and is not too expensive. Perfect for a knight who say Ni.",
+      :price => 90.50,
+      :date_available => "2007-12-01 00:00",
+      :quantity => 38,
+      :size_width => 24,
+      :size_height => 24,
+      :size_depth => 12,
+      :weight => 21.52,
+      :related_product_suggestion_names => ["", "", "", "", ""],
+      :tag_ids => ["", ""]
+    },
+    :image => [ {
+        :image_data_temp => "",
+        :image_data => shrub1
+      }, {
+        :image_data_temp => "",
+        :image_data => shrub2
+      }, {
+        :image_data_temp => "",
+        :image_data => lightsabers_upload
+      }, {
+        :image_data_temp => "",
+        :image_data => lightsaber_blue_upload
+      }, {
+        :image_data_temp => "",
+        :image_data => lightsaber_green_upload
+      }, {
+        :image_data_temp => "",
+        :image_data => lightsaber_red_upload
+      }, {
+        :image_data_temp => "",
+        :image_data => ""
+    } ]
+    
+    # If saved we should be redirected to edit form. 
+    assert_response :redirect
+    assert_redirected_to :action => :edit
+    
+    # Verify that the product and everything else are there.
+    a_product = Product.find_by_code('SHRUBBERY')
+    assert_not_nil a_product 
+    assert_equal a_product.images.count, 6
+    assert_equal a_product.product_images.count, 6
+
+    # Clean up system dir.
+    a_product.images.destroy_all
+
+    # Verify that the product and everything else are there.
+    assert_equal a_product.images.count, 0
+    assert_equal a_product.product_images.count, 0
+
+  end
 
 end

@@ -4,15 +4,16 @@ class PreferenceTest < ActiveSupport::TestCase
   fixtures :preferences
 
 
-  # TODO: Should this method be here? The responsability of initialize preferences
-  # shouldn't be of any other module?
+  # TODO: Should this method be here?
+  # The responsability of initialize preferences shouldn't be of other module?
   def test_should_init_mail_settings
     assert Preference.init_mail_settings
   end
   
   
-  # TODO: Should this method be here? The responsability of saving preferences isn't
-  # of the controller?
+  # TODO: Should this method be here?
+  # The responsability of saving preferences isn't of the controller?
+  # A preference should just represent one instance of preferences?
   def test_should_save_settings
     prefs = {
       "store_name" => "Substruct",

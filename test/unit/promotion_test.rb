@@ -9,7 +9,7 @@ class PromotionTest < ActiveSupport::TestCase
     a_promotion = Promotion.new
     
     a_promotion.code = "NUCLEAR_REBATE"
-    a_promotion.description = "U$ 50.00 discount on your uranium portion, just today."
+    a_promotion.description = "U$ 50.00 discount, just today."
     a_promotion.discount_type = 1
     a_promotion.discount_amount = 50
     a_promotion.item = items(:uranium_portion)
@@ -25,7 +25,7 @@ class PromotionTest < ActiveSupport::TestCase
     a_promotion = Promotion.new
     
     a_promotion.code = "NUCLEAR REBATE"
-    a_promotion.description = "U$ 50.00 discount on your uranium portion, just today."
+    a_promotion.description = "U$ 50.00 discount, just today."
     a_promotion.discount_type = 1
     a_promotion.discount_amount = 50
     a_promotion.item = items(:uranium_portion)
@@ -40,7 +40,7 @@ class PromotionTest < ActiveSupport::TestCase
 
   # Test if a promotion can be found with success.
   def test_should_find_promotion
-    a_promotion_id = promotions(:fluffy_rebate).id
+    a_promotion_id = promotions(:fixed_rebate).id
     assert_nothing_raised {
       Promotion.find(a_promotion_id)
     }
@@ -49,14 +49,14 @@ class PromotionTest < ActiveSupport::TestCase
 
   # Test if a promotion can be updated with success.
   def test_should_update_promotion
-    a_promotion = promotions(:fluffy_rebate)
-    assert a_promotion.update_attributes(:description => 'Buying a chinchilla coat, get a U$ 5.00 discount, extended for one more day.')
+    a_promotion = promotions(:fixed_rebate)
+    assert a_promotion.update_attributes(:description => 'Buying anything, get a U$ 5.00 discount, extended for one more day.')
   end
 
 
   # Test if a promotion can be destroyed with success.
   def test_should_destroy_promotion
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:fixed_rebate)
     a_promotion.destroy
     assert_raise(ActiveRecord::RecordNotFound) {
       Promotion.find(a_promotion.id)
@@ -84,7 +84,7 @@ class PromotionTest < ActiveSupport::TestCase
     assert a_promotion.errors.invalid?(:item_id)
     assert_equal "Please add an item for the 'Buy [n] get 1 free' promotion", a_promotion.errors.on(:item_id)
     
-    a_promotion.code = "JEDI_REBATE"
+    a_promotion.code = "PERCENT_REBATE"
     assert !a_promotion.valid?
     assert a_promotion.errors.invalid?(:code)
     # A promotion must have an unique code.
@@ -104,28 +104,29 @@ class PromotionTest < ActiveSupport::TestCase
   # Test if active promotions can be found.
   def test_should_find_any_active_promotion
     assert Promotion.any_active?
-    promotions(:fluffy_rebate).destroy
-    promotions(:jedi_rebate).destroy
+    promotions(:fixed_rebate).destroy
+    promotions(:percent_rebate).destroy
     assert Promotion.any_active?
-    promotions(:free_stuff).destroy
+    promotions(:eat_more_stuff).destroy
+    promotions(:minimum_rebate).destroy
     assert !Promotion.any_active?
   end
 
 
   # Test if a promotion is active.
   def test_should_discover_if_promotion_is_active
-    assert promotions(:fluffy_rebate).is_active?
-    assert promotions(:jedi_rebate).is_active?
-    assert promotions(:free_stuff).is_active?
-    assert !promotions(:old_stuff_rebate).is_active?
+    assert promotions(:fixed_rebate).is_active?
+    assert promotions(:percent_rebate).is_active?
+    assert promotions(:eat_more_stuff).is_active?
+    assert !promotions(:old_rebate).is_active?
   end
 
 
   # Test if we can associate a product using a suggestion name.
   def test_should_associate_product_using_suggestion_name
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:eat_more_stuff)
     
-    assert_equal a_promotion.item, items(:chinchilla_coat)
+    assert_equal a_promotion.item, items(:small_stuff)
     
     a_promotion.product_name = items(:holy_grenade).suggestion_name
     a_promotion.save
@@ -136,9 +137,9 @@ class PromotionTest < ActiveSupport::TestCase
 
   # Test if will not be associated a product using an invalid suggestion name.
   def test_should_not_associate_product_using_invalid_suggestion_name
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:eat_more_stuff)
     
-    assert_equal a_promotion.item, items(:chinchilla_coat)
+    assert_equal a_promotion.item, items(:small_stuff)
     
     a_promotion.product_name = "ABC: BLA BLA BLA"
     assert_equal a_promotion.item_id, nil

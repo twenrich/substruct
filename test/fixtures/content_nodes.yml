@@ -3,7 +3,7 @@ silent_birth:
   created_on: 2008-02-29 18:15:28 -03:00
   title: Silent birth
   type: Blog
-  display_on: <%= 1.minute.ago.to_s(:db) %>
+  display_on: <%= Date.today.to_s(:db) %>
   content: "According to the creator of scientology: Stemming from his belief that birth is a trauma that may induce engrams, he stated that the delivery room should be as silent as possible and that words should be avoided because any words used during birth might be reassociated by adults with their earlier traumatic birth experience. And bla bla bla bla bla ..."
   sections: junk_food_news, pseudoscientific_claims
 
@@ -25,7 +25,7 @@ tinkerbel_pregnant:
   content: We was informed that Tinkerbel, a very known celebrity (a Chihuahua owned by another not so known person), is pregnant. Yesterday she made an ultrasonography to know if is she or he. Ohh, Tinkerbel, congratulations.
 
 order_receipt:
-  name: order_receipt
+  name: OrderReceipt
   created_on: 2001-01-01 06:00:00 -02:00
   title: Thank you for your order!
   type: Snippet
@@ -66,5 +66,8 @@ home:
     <b>some content added here</b>
     let's plug tiny mice into this
     
-    <a href="http://dev.subimage.com/projects/substruct/wiki/Customizing">Click here to learn more about customizing Substruct</a>.</div>
+    <a href="http://dev.subimage.com/projects/substruct/wiki/Customizing">Click here to learn more about customizing Substruct</a>.
+    
+    </div>
 
+    </div>

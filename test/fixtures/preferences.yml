@@ -1,4 +1,4 @@
-handling_fee: 
+handling_fee:
   name: store_handling_fee
   value: "0.00"
 
@@ -32,7 +32,7 @@ store_name:
 
 store_home_country:
   name: store_home_country
-  value: "1"
+  value: <%= Fixtures.identify(:US) %>
 
 store_show_confirmation:
   name: store_show_confirmation
@@ -52,7 +52,7 @@ store_test_transactions:
 
 cc_processor:
   name: cc_processor
-  value: Authorize.net
+  value: "Authorize.net"
 
 cc_login:
   name: cc_login

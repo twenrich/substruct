@@ -81,14 +81,10 @@ class ContentNodeTest < ActiveSupport::TestCase
     assert !a_content_node.save
   end
 
-  # TODO: Verify if this method is used.
+  # TODO: Get rid of this method if it will not be used.
   # Test if a content node is a blog post.
   def test_should_discover_if_content_node_is_a_blog_post
-    # is_blog_post? appears to be a deprecated method, as when executed it gives
-    # an error, but I couldn't find an ocasion where it will be executed.
-    assert_raise(NoMethodError) {
-      assert content_nodes(:silent_birth).is_blog_post?
-    }
+    assert content_nodes(:silent_birth).is_blog_post?
   end
 
 
@@ -105,7 +101,7 @@ class ContentNodeTest < ActiveSupport::TestCase
     assert_equal a_content_node.sections.count, 2
   end
 
-  # TODO: Verify if this method is being used.
+  # TODO: Get rid of this method if it will not be used.
   # Test if the name will be returned when we ask for its url.
   def test_should_return_name_on_url
     a_content_node = content_nodes(:tinkerbel_pregnant)

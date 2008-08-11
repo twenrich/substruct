@@ -80,13 +80,13 @@ class OrderAddressTest < ActiveSupport::TestCase
 #    an_address.address = "After Boddy Mansion at right"
 #    an_address.zip = "00000"
 
-#    TODO: Why try to validate P. O. Boxes.
+#    TODO: Why try to validate P. O. Boxes?
 
     assert !an_address.save
   end
 
 
-  # TODO: Verify if this method is used.
+  # TODO: Get rid of this method if it will not be used.
   # Test if a shipping address can be found for an user.
   def test_should_find_shipping_address
     # find_shipping_address_for_user appears to be a deprecated method, as when

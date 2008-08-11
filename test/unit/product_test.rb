@@ -138,8 +138,8 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal a_stuff.related_products.count, 0
 
     # Associate one with the others and all must know about that.
-    # TODO: We could create something like #related_product_suggestion_names to
-    # receive suggestion names but #related_product_ids is receiving them.
+    # TODO: We could create something like #related_product_suggestion_names to receive suggestion names
+    # but #related_product_ids is receiving them.
     a_suggested_towel = a_towel.suggestion_name
     a_suggested_stuff = a_stuff.suggestion_name
     # a_coat.related_product_suggestion_names = [ a_suggested_towel, a_suggested_stuff, "", "", "" ]

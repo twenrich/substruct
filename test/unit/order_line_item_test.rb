@@ -42,9 +42,9 @@ class OrderLineItemTest < ActiveSupport::TestCase
   end
 
 
-  # TODO: I don't have sure if theres other things to test here. I think
-  # that all these methods should be read only, theres no much things to
-  # play with, as an order line item should only reflect an item.
+  # TODO: I think that all these methods should be protected.
+  # Theres no much things to play with, as an order line item should only reflect an item,
+  # and be manipulated through orders. 
 
 
 end

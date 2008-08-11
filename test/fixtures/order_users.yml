@@ -12,3 +12,9 @@ mustard:
   first_name: ""
   last_name: ""
   
+uncle_scrooge:
+  username: ""
+  email_address: uncle.scrooge@whoknowswhere.com
+  password: scrooge
+  first_name: ""
+  last_name: ""

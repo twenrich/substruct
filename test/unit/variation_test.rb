@@ -100,8 +100,7 @@ class VariationTest < ActiveSupport::TestCase
     assert !a_variation.valid?
     assert a_variation.errors.invalid?(:code)
 
-#    # TODO: A variation cannot be considered to having a valid name just because it
-#    # was associated with a product.
+#    # TODO: A variation cannot be considered to having a valid name just because it is associated with a product.
 #    assert a_variation.errors.invalid?(:name)
 
     # A variation must have a code and a name.

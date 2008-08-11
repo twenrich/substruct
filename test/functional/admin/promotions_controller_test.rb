@@ -40,13 +40,12 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
     post :create,
     :promotion => {
       :code => "NUCLEAR_REBATE",
-      :description => "U$ 50.00 discount on your uranium portion, just today.",
+      :description => "U$ 50.00 discount, just today.",
       :discount_type => 0,
       :discount_amount => 50,
       :minimum_cart_value => "",
       :start => 1.day.ago.to_s(:db),
-      :end => 1.day.from_now.to_s(:db),
-      :product_name => items(:uranium_portion).suggestion_name
+      :end => 1.day.from_now.to_s(:db)
     }
     
     # If saved we should be redirected to list. 
@@ -78,8 +77,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
       :discount_amount => 50,
       :minimum_cart_value => "",
       :start => 1.day.ago.to_s(:db),
-      :end => 1.day.from_now.to_s(:db),
-      :product_name => items(:uranium_portion).suggestion_name
+      :end => 1.day.from_now.to_s(:db)
     }
     
     # If not saved we will NOT receive a HTTP error status. As we will not be
@@ -98,7 +96,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
   def test_should_save_existing_promotion
     login_as :admin
     
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:fixed_rebate)
 
     # Call the edit form.
     get :edit, :id => a_promotion.id
@@ -109,14 +107,13 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
     post :update,
     :id => a_promotion.id,
     :promotion => {
-      :code => "FLUFFY_REBATE",
-      :description => "Buying a chinchilla coat, get a U$ 5.00 discount, extended period.",
+      :code => "FIXED_REBATE",
+      :description => "Buying anything, get a U$ 5.00 discount, extended period.",
       :discount_type => 0,
       :discount_amount => 5,
       :minimum_cart_value => "",
       :start => 1.minute.ago.to_s(:db),
-      :end => 1.day.from_now.to_s(:db),
-      :product_name => items(:chinchilla_coat).suggestion_name
+      :end => 1.day.from_now.to_s(:db)
     }
     
     # If saved we should be redirected to list. 
@@ -125,7 +122,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
     
     # Verify that the change was made.
     a_promotion.reload
-    assert_equal a_promotion.description, "Buying a chinchilla coat, get a U$ 5.00 discount, extended period."
+    assert_equal a_promotion.description, "Buying anything, get a U$ 5.00 discount, extended period."
   end
 
 
@@ -133,7 +130,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
   def test_should_not_save_existing_promotion
     login_as :admin
     
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:fixed_rebate)
 
     # Call the edit form.
     get :edit, :id => a_promotion.id
@@ -150,8 +147,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
       :discount_amount => 5,
       :minimum_cart_value => "",
       :start => 1.minute.ago.to_s(:db),
-      :end => 1.day.from_now.to_s(:db),
-      :product_name => items(:chinchilla_coat).suggestion_name
+      :end => 1.day.from_now.to_s(:db)
     }
     
     # If not saved we will NOT receive a HTTP error status. As we will not be
@@ -170,7 +166,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
   def test_should_remove_promotion
     login_as :admin
 
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:fixed_rebate)
 
     # Post to it a promotion.
     post :destroy, :id => a_promotion.id
@@ -185,7 +181,7 @@ class Admin::PromotionsControllerTest < ActionController::TestCase
   def test_should_show_orders_for_promotion
     login_as :admin
 
-    a_promotion = promotions(:fluffy_rebate)
+    a_promotion = promotions(:fixed_rebate)
 
     # Call the show_orders action.
     get :show_orders, :id => a_promotion.id

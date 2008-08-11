@@ -123,7 +123,7 @@ class Admin::ContentNodesControllerTest < ActionController::TestCase
   end
   
   
-  # TODO: Get rid of it if it will not be used.
+  # TODO: Get rid of this method if it will not be used.
   # Test the preview action.
   def test_should_show_preview
     login_as :admin

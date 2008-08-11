@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class UserUploadTest < ActiveSupport::TestCase
   fixtures :user_uploads
 
-  # TODO: Verify if these methods are being used.
+  # TODO: Get rid of this method if it will not be used.
   # Test if some variations of names are being returned.
   def test_should_return_names
     an_user_upload = user_uploads(:lightsaber_blue_upload)
