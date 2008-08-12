@@ -15,7 +15,7 @@
 				<% for order in @orders %>
 					<tr class="<%= alternate() %>">
 						<td class="numeric">
-							<%= order.order_number %>
+							<%= link_to order.order_number, :action => 'order_details', :id => order.order_number %>
 						</td>
 						<td class="numeric">
 							<%= order.created_on.strftime("%m/%d/%Y") %>

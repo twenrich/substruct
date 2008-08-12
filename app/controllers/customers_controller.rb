@@ -118,6 +118,41 @@ class CustomersController < ApplicationController
     )
   end
 
+  # Displays details of a single order
+  # Restricts query to currently logged in user to prevent users from seeing others orders.
+  def order_details
+    @order = Order.find(
+      :first,
+      :conditions => ["order_number = ? AND order_user_id = ?", params[:id], @customer.id]
+    )
+    # 404 for non found...
+    render(:file => 'public/404.html', :status => 404) and return unless @order
+    
+    @order_time = @order.created_on.strftime("%m/%d/%y %I:%M %p")
+    @title = "Order #{@order.order_number}"
+    @order_user = @order.order_user
+    @order_account = @order_user.order_account
+    @billing_address = @order.billing_address
+    @shipping_address = @order.shipping_address
+    if @shipping_address == @billing_address then
+      @use_separate_shipping_address = false
+    else
+      @use_separate_shipping_address = true
+    end
+    @shipping_address = OrderAddress.new if !@shipping_address
+    logger.info "\n\n SHIPPING ADDRESS:\n #{@shipping_address.inspect}\n"
+    logger.info @use_separate_shipping_address
+
+    # Find all products not included as a order line item already.
+    @products = Item.find(
+      :all,
+      :conditions => [ 
+        "id NOT IN(?)", 
+        @order.order_line_items.collect {|i| i.item_id}.join(',') 
+      ]
+    )
+  end
+
   # Wishlist items
   def wishlist
     @title = "Your Wishlist"
