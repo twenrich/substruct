@@ -658,11 +658,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order = orders(:santa_next_christmas_order)
     calculated_weight = 0
     an_order.order_line_items.each do |item|
-      if item.product.instance_of?(Variation)
-        calculated_weight += item.quantity * item.product.product.weight
-      else
-        calculated_weight += item.quantity * item.product.weight
-      end  
+      calculated_weight += item.quantity * item.product.weight
     end
     assert_equal an_order.weight, calculated_weight
   end
