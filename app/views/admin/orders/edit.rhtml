@@ -40,7 +40,7 @@
 		<div class="clear">&nbsp;</div>
 
 		<h2>Billing Address</h2>
-		<%= render(:partial => 'address', :locals => {:address_type => 'billing'}) %>
+		<%= render(:partial => 'address', :locals => {:address_type => 'billing', :show_obsolete => true}) %>
 
 		<br/>
 		<div class="padLeft">
@@ -51,7 +51,7 @@
 		<div id="shipping_address"
 			style="<%= 'display:none;' if !@use_separate_shipping_address %>">
 			<h2>Shipping Address</h2>
-			<%= render(:partial => 'address', :locals => {:address_type => 'shipping'}) %>
+			<%= render(:partial => 'address', :locals => {:address_type => 'shipping', :show_obsolete => true}) %>
 		</div>
 	<!-- / ORDER FIELDS -->
 	</div>

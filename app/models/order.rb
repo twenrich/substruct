@@ -260,7 +260,7 @@ class Order < ActiveRecord::Base
   		xml << "			<city>#{address.city}</city>\n"
   		xml << "			<state>#{address.state}</state>\n"
   		xml << "			<zip>#{address.zip}</zip>\n"
-  		xml << "			<countryCode>#{address.country.fedex_code}</countryCode>\n"
+  		xml << "			<countryCode>#{address.country.code}</countryCode>\n"
   		xml << "			<telephone>#{address.telephone}</telephone>\n"
   		xml << "		</shippingAddress>\n"
   		# Items

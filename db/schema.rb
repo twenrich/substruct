@@ -31,13 +31,11 @@ ActiveRecord::Schema.define(:version => 0) do
   add_index "content_nodes_sections", ["content_node_id", "section_id"], :name => "default"
 
   create_table "countries", :force => true do |t|
-    t.string  "name",             :limit => 100, :default => "", :null => false
-    t.string  "fedex_code",       :limit => 50
-    t.string  "ufsi_code",        :limit => 3
-    t.integer "number_of_orders",                :default => 0,  :null => false
+    t.string  "name",        :limit => 100, :default => "",    :null => false
+    t.string  "code",        :limit => 50
+    t.integer "rank"
+    t.boolean "is_obsolete",                :default => false, :null => false
   end
-
-  add_index "countries", ["number_of_orders"], :name => "number_of_orders"
 
   create_table "items", :force => true do |t|
     t.string   "code",               :limit => 20,  :default => "",    :null => false

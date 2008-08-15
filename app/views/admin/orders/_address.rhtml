@@ -49,7 +49,7 @@
 		%>
 		<%= make_label('Country') %>
 		<%= render_component(:controller => "countries",
-		                      :action => "select_list",
+		                      :action => show_obsolete ? "complete_select_list" : "select_list",
 		                      :params => {:select_name => "#{address_type}_address", :selected => selected_country}) %>
 	</div>
 	<div class="clear">&nbsp;</div>
