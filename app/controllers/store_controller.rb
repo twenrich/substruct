@@ -463,7 +463,10 @@ class StoreController < ApplicationController
         end
       end
 
-      @order.order_line_items = @items
+      @order.order_line_items.clear
+      @items.each do |line_item|
+        @order.order_line_items << OrderLineItem.new(line_item.attributes)
+      end
       @order.save
       add_tax()
       # Save the order id to the session so we can find it later
