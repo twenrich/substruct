@@ -46,6 +46,8 @@
 			else
 				selected_country = nil
 			end
+			# If not passed, so not defined, defaults to false.
+      show_obsolete ||= false
 		%>
 		<%= make_label('Country') %>
 		<%= render_component(:controller => "countries",
