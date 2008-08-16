@@ -35,35 +35,6 @@ module ApplicationHelper
     
     return str
   end
-
-  def make_product(image_path, link, title, cost=nil, on_sale=false, is_new=false)
-    product = '<div class="product">'
-    # Add 'on sale' image if applicable
-    if on_sale
-       product << image_tag('public-ui/icons/on-sale.gif', :alt => 'On Sale', :class => 'icon', :plugin => 'substruct')
-    end
-    if is_new && !on_sale
-      product << image_tag('public-ui/icons/new.gif', :alt => 'New', :class => 'icon', :plugin => 'substruct')
-    end
-    product << %Q/
-    		<div class="product_top"><\/div>
-    		<div class="product_main">
-    			<div class="product_image"> 
-    			  <a href="#{link}">#{image_tag(image_path, :alt => title)}<\/a><br\/>
-    			<\/div>
-    			<div class="product_title">
-    			  <a href="#{link}\">#{title}<\/a><br\/>
-    			<\/div>
-    /
-    if cost
-      product << %Q/ <span class="money">#{sub_number_to_currency(cost)}<\/span> /
-    end
-    product << %Q/
-    		<\/div>
-    		<div class="product_bottom"><\/div>
-    /
-    return product << '</div>'
-  end
   
   # When browsing the store by tags we need to know what
   # is the main "parent" tag or tag group.

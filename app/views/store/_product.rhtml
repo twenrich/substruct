@@ -1,18 +1,31 @@
-<%
-	@image = product.images[0]
-	if @image then
-    image_url = @image.public_filename(:small)
-	else
-		image_url = '/plugin_assets/substruct/images/public-ui/no-product-image.gif'
-	end
--%>
-<%= 
-	make_product(
-		image_url, 
-		url_for(:controller => 'store', :action => 'show', :id => product.code), 
-		product.name, 
-		product.display_price,
-		product.is_on_sale?,
-		product.is_new?
-	)
--%>
+<div class="product">
+  <%= 
+    if product.is_on_sale?
+      image_tag('public-ui/icons/on-sale.gif', :alt => 'On Sale', :class => 'icon', :plugin => 'substruct')
+    elsif product.is_new?
+      image_tag('public-ui/icons/new.gif', :alt => 'New', :class => 'icon', :plugin => 'substruct')
+    end 
+  %>
+
+  <div class="product_top"></div>
+  <div class="product_main">
+    <div class="product_image"> 
+      <%
+        if product.images.empty? 
+          image = image_tag('public-ui/no-product-image.gif',:plugin=>'substruct', :alt=>product.name )
+        else
+          image = image_tag(product.images[0].public_filename(:small), :alt=>product.name) 
+        end
+      %>
+      <%= link_to image, :controller=>'store', :action=>'show', :id=> product.code %>
+    </div>
+    <div class="product_title">
+      <%= link_to product.name, :controller=>'store', :action=>'show', :id=>product.code %>
+    </div>
+    <% if product.display_price? %>
+      <span class="money"><%= sub_number_to_currency(product.display_price) %></span>
+    <% end %>
+  </div>
+  <div class="product_bottom"></div>
+</div>
+

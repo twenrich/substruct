@@ -116,6 +116,10 @@ class Product < Item
       end
     end
   end
+
+  def display_price?
+    display_price > 0
+  end
   
   def quantity
     if self.variations.count == 0
