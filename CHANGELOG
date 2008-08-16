@@ -8,7 +8,23 @@ Added:
      http://code.google.com/p/substruct/issues/detail?id=81
 
 Updated:
-  1. Better unit tests
+  1. Full coverage of tests
+
+Upgrade steps:
+  0. Back up your database just in case.
+    * mysql example:  mysqldump -u USERNAME -p DATABASE_NAME > backup.sql
+  1. Install the ezcrypto gem. (gem install ezcrypto)
+  2. script/generate plugin_migration
+  3. rake db:migrate
+     ...THIS MIGHT TAKE A LITTLE TIME FOR UPGRADES...
+     Let it do it's thing, it has to encrypt all stored CC #'s
+     
+  !! UPGRADE NOTES
+  The helper function "make_product" has gone away, so if you've
+  customized the _product.rhtml partial you'll need to take a look
+  at the one now included with the base distro. See issue here:
+  http://code.google.com/p/substruct/issues/detail?id=117  
+
 
 Version 1.0a
 ---------------------------------------
