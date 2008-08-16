@@ -256,10 +256,9 @@ class StoreController < ApplicationController
     if @order == nil then
       redirect_to_checkout("Have you entered all of this information yet?") and return
     end
-    
-    if (Substruct.use_live_rate_calculation == true) then
-    end
-    
+    # Ensure order shipping cost is always set to zero when hitting this page.
+    # For display purposes only.
+    @order.shipping_cost = 0
     @items = @order.order_line_items
     session[:order_shipping_types] = @order.get_shipping_prices
     # Set default price to pick what radio button should be entered
