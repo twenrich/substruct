@@ -118,7 +118,7 @@ class Product < Item
   end
 
   def display_price?
-    display_price > 0
+    display_price.nil?
   end
   
   def quantity
