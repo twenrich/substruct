@@ -47,16 +47,16 @@ class Order < ActiveRecord::Base
     )
     # No promo code? Not active? No deal...
     return if !promo || !promo.is_active?
+
+    # Don't allow more than one promotion?
+    # This destroys any line items created previously.
+    self.order_line_items.delete(self.promotion_line_item) if self.promotion_line_item
     
     # Make sure it's valid to add
     if promo.minimum_cart_value
       return if promo.minimum_cart_value > self.line_items_total
     end
     logger.info "PROMO MIN CART VALUE PASSED"
-    
-    # Don't allow more than one promotion?
-    # This destroys any line items created previously.
-    self.order_line_items.delete(self.promotion_line_item) if self.promotion_line_item
     
     # Assign proper promotion ID
     self.promotion = promo
