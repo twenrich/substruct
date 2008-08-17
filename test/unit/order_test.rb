@@ -891,7 +891,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_xp_critical)
     an_order.promotion_id = 0
-    an_order.notes = '<p>Order completed.<br/><span class="info">[04-04-08 05:18 PM]</span></p>'
+    an_order.notes = ''
     an_order.referer = "" 
     an_order.shipping_cost = 30.0
     an_order.order_number = Order.generate_order_number
@@ -908,7 +908,7 @@ class OrderTest < ActiveSupport::TestCase
     assert Preference.find_by_name('cc_clear_after_order').is_true?
     
     initial_quantity = an_order_line_item.item.quantity
-    notes_before = an_order.notes.dup
+    notes_before = an_order.notes.clone
     
     an_order.cleanup_successful
     
@@ -917,10 +917,12 @@ class OrderTest < ActiveSupport::TestCase
     # Status code should be updated.
     an_order.reload
     assert_equal an_order.order_status_code, order_status_codes(:ordered_paid_to_ship)
+    
     # CC number should be obfuscated.
     number_lenght = an_order.account.cc_number.length
     new_cc_number = an_order.account.cc_number[number_lenght - 4, number_lenght].rjust(number_lenght, 'X')
     assert_equal an_order.account.cc_number, new_cc_number
+    
     # A new note should be added.
     notes_after = an_order.notes
     assert_not_equal notes_before, notes_after
