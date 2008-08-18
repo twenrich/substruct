@@ -263,7 +263,7 @@ module Pagination
       @page_count ||= @item_count.zero? ? 1 :
                         (q,r=@item_count.divmod(@items_per_page); r==0? q : q+1)
     end
-
+    def total_pages; page_count; end
     alias length :page_count
 
     # Returns true if this paginator contains the page of index +number+.

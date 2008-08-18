@@ -68,12 +68,14 @@ class Admin::OrdersController < Admin::BaseController
   def search
     setup_search(params)
 
-    @search_count = Order.search(@search_term, true, nil)
-    @order_pages = Paginator.new(self, @search_count, 30, params[:page])
-    # to_sql is an array
-    # it seems to return the limits in reverse order for mysql's liking
-    the_sql = @order_pages.current.to_sql.reverse.join(',')
-    @orders = Order.search(@search_term, false, the_sql)
+    # Paginate that will work with will_paginate...yee!
+    per_page = 30
+    list = Order.search(@search_term)
+    @search_count = list.size
+    pager = Paginator.new(list, list.size, per_page, params[:page])
+    @orders = returning WillPaginate::Collection.new(params[:page] || 1, per_page, list.size) do |p|
+      p.replace list[pager.current.offset, pager.items_per_page]
+    end
 
     render :action => 'list' and return
   end
@@ -153,13 +155,15 @@ class Admin::OrdersController < Admin::BaseController
     # Need this so that links show up
     @list_options = @@list_options
     @title = "Orders for #{@country.name}"
-
-    @order_count = Order.find_by_country(@country.id, true, nil)
-    @order_pages = Paginator.new(self, @order_count, 30, params[:page])
-    # to_sql is an array
-    # it seems to return the limits in reverse order for mysql's liking
-    the_sql = @order_pages.current.to_sql.reverse.join(',')
-    @orders = Order.find_by_country(@country.id, false, the_sql)
+    
+    # Paginate that will work with will_paginate...yee!
+    per_page = 30
+    list = Order.find_by_country(@country.id)
+    @order_count = list.size
+    pager = Paginator.new(list, list.size, per_page, params[:page])
+    @orders = returning WillPaginate::Collection.new(params[:page] || 1, per_page, list.size) do |p|
+      p.replace list[pager.current.offset, pager.items_per_page]
+    end
     
     render :action => 'list' and return
   end

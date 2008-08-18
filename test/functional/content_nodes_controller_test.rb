@@ -9,9 +9,9 @@ class ContentNodesControllerTest < ActionController::TestCase
     # TODO: Template is missing for this action.
     a_content_node = content_nodes(:home)
     
-    assert_raise(ActionController::MissingTemplate) {
+    assert_raise(ActionView::MissingTemplate) do
       get :show, :id => a_content_node.id
-    }
+    end
   end
 
 

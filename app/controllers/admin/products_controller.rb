@@ -149,12 +149,14 @@ class Admin::ProductsController < Admin::BaseController
 	  # Need this so that links show up
 	  @title = "Search Results For '#{@search_term}'"
 
-	  @search_count = Product.search(@search_term, true, nil)
-	  @product_pages = Paginator.new(self, @search_count, 30, params[:page])
-	  # to_sql is an array
-	  # it seems to return the limits in reverse order for mysql's liking
-	  the_sql = @product_pages.current.to_sql.reverse.join(',')
-	  @products = Product.search(@search_term, false, the_sql)
+    # Paginate that will work with will_paginate...yee!
+    per_page = 30
+    list = Product.search(@search_term)
+    @search_count = list.size
+    pager = Paginator.new(list, list.size, per_page, params[:page])
+    @products = returning WillPaginate::Collection.new(params[:page] || 1, per_page, list.size) do |p|
+      p.replace list[pager.current.offset, pager.items_per_page]
+    end
 
 	  render :action => 'list' and return
 	end

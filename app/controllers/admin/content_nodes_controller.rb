@@ -1,4 +1,5 @@
 class Admin::ContentNodesController < Admin::BaseController
+  include Pagination
   before_filter :set_sections
   
   def index
@@ -72,7 +73,14 @@ class Admin::ContentNodesController < Admin::BaseController
 
     session[:last_content_list_view] = @viewing_by
 
-    @content_nodes = @section.content_nodes
+    # Paginate that will work with will_paginate...yee!
+    per_page = 30
+    list = @section.content_nodes
+    pager = Paginator.new(list, list.size, per_page, params[:page])
+    @content_nodes = returning WillPaginate::Collection.new(params[:page] || 1, per_page, list.size) do |p|
+      p.replace list[pager.current.offset, pager.items_per_page]
+    end
+    
     render :action => 'list'
   end
 

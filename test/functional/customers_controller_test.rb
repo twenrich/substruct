@@ -42,7 +42,7 @@ class CustomersControllerTest < ActionController::TestCase
     
     post :login, :modal => "true", :login => "santa.claus@whoknowswhere.com", :password => "santa"
     assert_response :success
-    assert_template '/shared/modal_refresh'
+    assert_template 'shared/modal_refresh'
   end
 
 
