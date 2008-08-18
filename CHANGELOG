@@ -8,9 +8,16 @@ Added:
      http://code.google.com/p/substruct/issues/detail?id=81
 
 Updated:
-  1. Full coverage of tests
+  1. Upgrade to Rails 2.1.0
+  2. Full coverage of tests, unit and functional
 
 Upgrade steps:
+  !!! NOTE
+  The application_helper function "make_product" has gone away, so if you've
+  customized the _product.rhtml partial you'll need to take a look
+  at the one now included with the base distro. See issue here:
+  http://code.google.com/p/substruct/issues/detail?id=117
+
   0. Back up your database just in case.
     * mysql example:  mysqldump -u USERNAME -p DATABASE_NAME > backup.sql
   1. Install the ezcrypto gem. (gem install ezcrypto)
@@ -18,12 +25,9 @@ Upgrade steps:
   3. rake db:migrate
      ...THIS MIGHT TAKE A LITTLE TIME FOR UPGRADES...
      Let it do it's thing, it has to encrypt all stored CC #'s
-     
-  !! UPGRADE NOTES
-  The helper function "make_product" has gone away, so if you've
-  customized the _product.rhtml partial you'll need to take a look
-  at the one now included with the base distro. See issue here:
-  http://code.google.com/p/substruct/issues/detail?id=117  
+  4. rake rails:update
+     ...This will update your JS, boot, and environment files to Rails 2.1.0
+  5. Manually update you environment.rb file to use RAILS_GEM_VERSIOn 2.1.0
 
 
 Version 1.0a
