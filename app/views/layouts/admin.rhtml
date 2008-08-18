@@ -9,9 +9,9 @@
 			h controller.controller_name
 		end
 		-%> : Substruct ADMIN</title>
-	<%= javascript_include_tag :defaults %>
-  <%= javascript_include_tag 'substruct', 'subModal', :plugin => 'substruct' %>
-	<%= stylesheet_link_tag 'admin', 'subModal', :plugin => 'substruct' %>
+	<%= javascript_include_tag :defaults, :cache => 'default' %>
+  <%= javascript_include_tag 'substruct', 'subModal', :plugin => 'substruct', :cache => 'substruct' %>
+	<%= stylesheet_link_tag 'admin', 'subModal', :plugin => 'substruct', :cache => 'substruct_admin' %>
 	<%= yield :header %>
 </head>
 <body>
