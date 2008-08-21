@@ -4,11 +4,11 @@ class StoreController < ApplicationController
   include Pagination
   include ActiveMerchant::Billing::Integrations
 
-  before_filter :find_cart, :find_customer
+  before_filter :prep_store_vars
   
-  before_filter :find_order_and_redirect_if_nil,
+  before_filter :redirect_if_order_empty,
     :only => [
-      :select_shipping_method, :view_shipping_method, :set_shipping_method,
+      :checkout, :select_shipping_method, :view_shipping_method, :set_shipping_method,
       :confirm_order, :finish_order
     ]
 
@@ -154,7 +154,7 @@ class StoreController < ApplicationController
   def add_to_cart
     sanitize!
     product = Product.find(params[:id])
-    @cart.add_product(product)
+    @order.add_product(product)
 		# In substruct.rb
 		redirect_to get_link_to_checkout
   rescue
@@ -185,7 +185,7 @@ class StoreController < ApplicationController
 		  logger.info "There's an error adding to the cart..."
 		  render :nothing => true, :status => 400 and return
 		else
-  		@cart.add_product(product, quantity.to_i)
+  		@order.add_product(product, quantity.to_i)
   		logger.info "Product added...success"
   		render :partial => 'cart' and return
   	end
@@ -197,14 +197,13 @@ class StoreController < ApplicationController
 	# Returns the cart HTML as a partial to update the view in JS
 	def remove_from_cart_ajax
 		product = Item.find(params[:id])
-		@cart.remove_product(product)
+		@order.remove_product(product)
 		render :partial => 'cart'
 	rescue
 		render :text => "There was a problem removing that item. Please refresh this page."
 	end
 
 	# Empties the entire cart via ajax...
-	#
 	# Again, returns cart HTML via partial
 	def empty_cart_ajax
 		clear_cart_and_order
@@ -226,11 +225,9 @@ class StoreController < ApplicationController
   # Also displays items in the current order
   def checkout
     @title = "Please enter your information to continue this purchase."
-    @items = @cart.items
-    @order = find_order
     @cc_processor = Order.get_cc_processor
     if request.get?
-      if @order == nil then
+      unless @order.has_been_placed? then
         # Save standard form info
         logger.info("\n\nNEW ORDER INIT\n\n")
         initialize_new_order
@@ -238,9 +235,7 @@ class StoreController < ApplicationController
         logger.info("\n\nEXISTING ORDER INIT\n\n")
         initialize_existing_order
       end
-      if @items.empty?
-        redirect_to_index("You've not chosen to buy any items yet. Please select an item from this page.")
-      end
+      render :layout => 'checkout' and return
     elsif request.post?
       # Turned into a private method now so we don't have checkout/do_checkout...
       do_checkout()
@@ -253,16 +248,15 @@ class StoreController < ApplicationController
   def select_shipping_method
     @title = "Select Your Shipping Method - Step 2 of 3"
 
-    if @order == nil then
-      redirect_to_checkout("Have you entered all of this information yet?") and return
-    end
     # Ensure order shipping cost is always set to zero when hitting this page.
     # For display purposes only.
     @order.shipping_cost = 0
-    @items = @order.order_line_items
+
     session[:order_shipping_types] = @order.get_shipping_prices
     # Set default price to pick what radio button should be entered
     @default_price = session[:order_shipping_types][0].id if session[:order_shipping_types][0]
+    
+    render :layout => 'checkout' and return
   end
 
   # THIS IS DEPRECATED
@@ -305,6 +299,7 @@ class StoreController < ApplicationController
     if @order.order_shipping_type_id == nil
       redirect_to_shipping and return
     end
+    render :layout => 'checkout' and return
   end
 
   # Finishes the order
@@ -333,15 +328,16 @@ class StoreController < ApplicationController
 	      else
 	        error_message = "Something went wrong and your transaction failed.<br/>"
 	        error_message << "Please try again or contact us."
-	        redirect_to_checkout(error_message)
+	        redirect_to_checkout(error_message) and return
         end
     else      
       # Redirect to checkout and allow them to enter info again.
       error_message = "Sorry, but your transaction didn't go through.<br/>"
       error_message << "#{order_success}<br/>"
       error_message << "Please try again or contact us."
-      redirect_to_checkout(error_message)
+      redirect_to_checkout(error_message) and return
     end
+    render :layout => 'checkout' and return
   end
 
   #############################################################################
@@ -349,38 +345,32 @@ class StoreController < ApplicationController
   #############################################################################
   private
   
-    # Finds cart
-    def find_cart
-      if !session[:cart]
-        session[:cart] = Cart.new
-      end
-      @cart = session[:cart]
-    end
-    
-    # Finds customer if they're logged in or not.
-    def find_customer
+    # Prepares store variables necessary for ordering, etc.
+    def prep_store_vars
       @customer = OrderUser.find_by_id(session[:customer])
+      # Find or initialize order.
+      @order ||= Order.find(
+        :first,
+        :conditions => ["id = ?", session[:order_id]]
+      )
+      unless @order
+        @order = Order.create!
+        session[:order_id] = @order.id
+      end
+
     end
-    
-    # Finds an order
-    def find_order
-      Order.find(session[:order_id])
-    rescue
-      return nil
-    end
-    
-    # Sets order, but sends the cusotmer back to the
+
+    # Sets order, but sends the customer back to the
     # start if there's not one found.
     #
     # Used on all methods in the checkout process
     # except the first one.
     #
-    def find_order_and_redirect_if_nil
-      @order = find_order
+    def redirect_if_order_empty
       # If there's no order redirect to index
-      if @order == nil
-        redir_string = "Looks like you haven't placed an order yet.\n\n"
-        redir_string << "Please do so before trying to access that page."
+      if @order == nil || @order.empty?
+        redir_string = "There are no items in your order.\n\n"
+        redir_string << "Please add some items to your order before trying to access this page."
         redirect_to_index(redir_string) and return false
       end
     end
@@ -398,12 +388,9 @@ class StoreController < ApplicationController
     # Clears the cart and possibly destroys the order
     # Called when the user wants to start over, or when the order is completed.
     def clear_cart_and_order(destroy_order = true)
-      @cart.empty!
-      if session[:order_id] then
-        @order = Order.find(session[:order_id])
-        if destroy_order then
-          @order.destroy
-        end
+      @order.empty!
+      if destroy_order then
+        @order.destroy
         session[:order_id] = nil
       end
     end
@@ -430,7 +417,7 @@ class StoreController < ApplicationController
     def do_checkout
       # We might be re-doing an existing order.
       # Don't want to create a new order for failed transactions, sooo
-      if @order == nil then
+      unless @order.has_been_placed? then
         logger.info("\n\n\nCREATING NEW ORDER FROM POST\n\n\n")
         logger.info(params[:use_separate_shipping_address])
         logger.info("\n\n\n")
@@ -443,7 +430,7 @@ class StoreController < ApplicationController
       # Add cart items to order. Check inventory level first...
       # Now controlled by a preference in the Admin UI
       if Preference.find_by_name('store_use_inventory_control').is_true?
-        removed_items = @cart.check_inventory()
+        removed_items = @order.check_inventory()
         logger.info "REMOVED ITEMS: #{removed_items.inspect}"
         # If any items were removed, flash and alert.
         if removed_items.size > 0
@@ -453,19 +440,19 @@ class StoreController < ApplicationController
           end
           flash_msg << "\n\n...The item(s) have been removed from your cart."
 
-          if @cart.empty?
+          if @order.empty?
             redirect_to_index(flash_msg) and return
           else
             flash.now[:notice] = flash_msg
-            render and return
+            render :layout => 'checkout' and return
           end
         end
       end
 
-      @order.order_line_items.clear
-      @items.each do |line_item|
-        @order.order_line_items << OrderLineItem.new(line_item.attributes)
-      end
+      # @order.order_line_items.clear
+      # @items.each do |line_item|
+      #   @order.order_line_items << OrderLineItem.new(line_item.attributes)
+      # end
       @order.save
       add_tax()
       # Save the order id to the session so we can find it later
@@ -484,12 +471,11 @@ class StoreController < ApplicationController
     end
 
   # When is a cart not a cart?
+  #
   # When it was cleared without an open browser session.
   # That's why we sanitize dirty carts.
-  #
   def sanitize! 
     if session[:order_id]
-       session[:order_id].to_s
        order = Order.find(session[:order_id])
        if order.order_status_code_id != 1 && order.order_status_code_id != 3
          clear_cart_and_order(false)

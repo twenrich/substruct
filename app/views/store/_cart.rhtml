@@ -1,4 +1,4 @@
-<% if @cart.empty? then %>
+<% if @order.empty? then %>
 	<div style="margin-top:25px;">
 		Add items to your cart using the <i>Add To Cart</i> links above.
 		<br/>
@@ -10,7 +10,7 @@
 			<b>Total</b>
 			<br/>
 			<span class="money">
-				<%= sub_number_to_currency(@cart.total) %>
+				<%= sub_number_to_currency(@order.total) %>
 			</span>
 		</div>
 		<div style="margin-top:4px;">
@@ -27,7 +27,7 @@
 	</div>
 
 	<div id="itemsContainer">
-		<% @cart.items.each do |item| %>
+		<% @order.items.each do |item| %>
 			<% item.quantity.times do |i| %>
 				<div class="cartItem" id="cart_item_<%= item.product_id %>_<%= i %>">
 					<span class="title" title="<%=h item.name %>">

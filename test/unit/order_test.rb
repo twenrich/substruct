@@ -4,6 +4,12 @@ class OrderTest < ActiveSupport::TestCase
   fixtures :orders, :order_line_items, :order_addresses, :order_users, :order_shipping_types, :items
   fixtures :order_accounts, :order_status_codes, :countries, :promotions, :preferences
 
+  def test_can_save_cart_order
+    order = Order.create
+    assert !order.new_record?
+    cart_status_code = OrderStatusCode.find_by_name('CART')
+    assert_equal order.order_status_code, cart_status_code, "Order wasn't initialized to CART status code."
+  end
 
   # Test if a valid order can be created with success.
   def test_should_create_order
@@ -509,11 +515,13 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test if we can refer to the billing address name.
-  def test_should_get_name_concatenated
-    an_order = orders(:santa_next_christmas_order)
-    assert_equal an_order.name, "#{an_order.billing_address.first_name} #{an_order.billing_address.last_name}"
+  def test_name
+    order = orders(:santa_next_christmas_order)
+    assert_equal order.name, "#{order.billing_address.first_name} #{order.billing_address.last_name}"
+    order.billing_address.destroy
+    order.reload
+    assert_equal '', order.name
   end
-    
   
   # Test if we can refer to order_account simply using account.
   def test_should_return_account
@@ -912,15 +920,17 @@ class OrderTest < ActiveSupport::TestCase
     
     an_order.cleanup_successful
     
+    an_order_line_item.item.reload
+    
     # Quantity should be updated.
-    assert_equal an_order_line_item.item.quantity, initial_quantity - an_order_line_item.quantity
+    assert_equal an_order_line_item.item.quantity, (initial_quantity - an_order_line_item.quantity)
     # Status code should be updated.
     an_order.reload
     assert_equal an_order.order_status_code, order_status_codes(:ordered_paid_to_ship)
     
     # CC number should be obfuscated.
-    number_lenght = an_order.account.cc_number.length
-    new_cc_number = an_order.account.cc_number[number_lenght - 4, number_lenght].rjust(number_lenght, 'X')
+    number_len = an_order.account.cc_number.length
+    new_cc_number = an_order.account.cc_number[number_len - 4, number_len].rjust(number_len, 'X')
     assert_equal an_order.account.cc_number, new_cc_number
     
     # A new note should be added.
@@ -1242,6 +1252,125 @@ class OrderTest < ActiveSupport::TestCase
 
     # We should NOT have received a mail about that.
     assert_equal ActionMailer::Base.deliveries.length, initial_mbox_length + 1
+  end
+
+
+  #############################################################################
+  # CART COMPATIBILITY METHODS
+  #
+  # These tests are to ensure compatibility of Order with the Cart object
+  # which has been removed.
+  #############################################################################
+  
+  
+  def test_empty
+    order = orders(:santa_next_christmas_order)
+    assert !order.empty?
+    assert order.order_line_items.size > 0
+    order.empty!
+    assert order.empty?
+    assert_equal order.order_line_items.size, 0
+  end
+  
+  # When created the cart should be empty.
+  def test_when_created_should_be_empty
+    a_cart = Order.new
+    
+    assert_equal a_cart.items.size, 0
+    assert_equal a_cart.tax, 0.0
+    assert_equal a_cart.total, 0.0
+    assert_equal a_cart.shipping_cost, 0.0
+  end
+
+
+  # Test if a product can be added to the cart.
+  def test_should_add_product
+    a_cart = Order.new
+    a_cart.add_product(items(:red_lightsaber), 1)
+    # Test adding the same item again...quantity should only change.
+    a_cart.add_product(items(:red_lightsaber), 1)
+    assert_equal a_cart.items.length, 1, "Cart added multiple order line items for the same product. #{a_cart.items.inspect}"
+    
+    assert a_cart.save
+    assert_equal a_cart.items.length, 1
+  end
+
+  # Test if a product can be removed from the cart.
+  def test_should_remove_product
+    a_cart = Order.new
+    a_cart.add_product(items(:red_lightsaber), 2)
+    a_cart.add_product(items(:blue_lightsaber), 2)
+    assert_equal a_cart.items.length, 2
+    # When not specified a quantity all units from the product will be removed.
+    a_cart.remove_product(items(:blue_lightsaber))
+    assert_equal a_cart.items.length, 1
+    # When specified a quantity, just these units from the product will be removed.
+    a_cart.remove_product(items(:red_lightsaber), 1)
+    assert_equal a_cart.items.length, 1
+    # It should not be empty.
+    assert !a_cart.empty?
+    # Now it should be empty.
+    a_cart.remove_product(items(:red_lightsaber), 1)
+    assert a_cart.empty?
+  end
+
+
+  # Test if what is in the cart is really available in the inventory.
+  def test_should_check_inventory
+    # Create a cart and add some products.
+    a_cart = Order.new
+    a_cart.add_product(items(:red_lightsaber), 2)
+    a_cart.add_product(items(:blue_lightsaber), 4)
+    assert_equal a_cart.items.length, 2
+    
+    an_out_of_stock_product = items(:red_lightsaber)
+    assert an_out_of_stock_product.update_attributes(:quantity => 1)
+    
+    # Assert that the product that was out of stock was removed.
+    removed_products = a_cart.check_inventory
+    assert_equal removed_products, [an_out_of_stock_product.name]
+
+    # Should last the right quantity of the rest.
+    assert_equal a_cart.items.length, 1
+  end
+  
+  
+  # Test if will return the total price of products in the cart.
+  def test_should_return_total_price
+    # Create a cart and add some products.
+    a_cart = Order.new
+    a_cart.add_product(items(:red_lightsaber), 2)
+    a_cart.add_product(items(:blue_lightsaber), 4)
+    assert_equal a_cart.items.length, 2
+
+    total = 0.0
+    for item in a_cart.items
+      total += (item.quantity * item.unit_price)
+    end
+
+    assert_equal total, a_cart.total
+  end
+
+
+  # Test if will return the tax cost for the total in the cart.
+  def test_should_return_tax_cost
+    # Create a cart and add some products.
+    a_cart = Order.new
+    a_cart.add_product(items(:red_lightsaber), 2)
+    a_cart.add_product(items(:blue_lightsaber), 4)
+    
+    # By default tax is zero.
+    assert_equal a_cart.tax_cost, a_cart.total * a_cart.tax
+  end
+
+  # Test if will return the line items total.
+  def test_should_return_line_items_total
+    # Create a cart and add some products.
+    a_cart = Order.new
+    a_cart.add_product(items(:red_lightsaber), 2)
+    a_cart.add_product(items(:blue_lightsaber), 4)
+    
+    assert_equal a_cart.line_items_total, a_cart.total
   end
   
 

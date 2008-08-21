@@ -197,125 +197,13 @@ class Admin::OrdersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :by_country
   end
 
-
-  # Test if a new valid order will be saved.
-  def test_should_create_new_order
+  # Mocks viewing an order that hasn't gone past the checkout stage.
+  def test_show_cart_order
     login_as :admin
-
-    # Call the new form.
-    get :new
+    order = Order.create
+    get :show, :id => order.id
     assert_response :success
-    assert_equal assigns(:title), "Creating a new order"
-    assert_template 'new'
-    # Here some objects are created and initialized.
-    assert assigns(:order_user)
-    assert assigns(:billing_address)
-    assert assigns(:shipping_address)
-    assert_not_nil assigns(:use_separate_shipping_address)
-    assert assigns(:order)
-    assert assigns(:order_account)
-    
-    # Post to it an order.
-    post :create,
-    :order_account => {
-      :cc_number => "4007000000027",
-      :expiration_year => 4.years.from_now.year,
-      :expiration_month => "1"
-    },
-    :shipping_address => {
-      :city => "",
-      :zip => "",
-      :country_id => countries(:US).id,
-      :first_name => "",
-      :telephone => "",
-      :last_name => "",
-      :address => "",
-      :state => ""
-    },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
-    :order_user => {
-      :email_address => "uncle.scrooge@whoknowswhere.com"
-    }
-    
-    # If saved we should be redirected to the show action. 
-    assert_response :redirect
-    assert_redirected_to :action => :show
-    
-    # Verify that the order really is there.
-    assert_equal Order.search("scrooge", true), 1
   end
-
-
-  # Test if a new valid order will be saved.
-  def test_should_not_create_new_order
-    login_as :admin
-
-    # Call the new form.
-    get :new
-    assert_response :success
-    assert_equal assigns(:title), "Creating a new order"
-    assert_template 'new'
-    # Here some objects are created and initialized.
-    assert assigns(:order_user)
-    assert assigns(:billing_address)
-    assert assigns(:shipping_address)
-    assert_not_nil assigns(:use_separate_shipping_address)
-    assert assigns(:order)
-    assert assigns(:order_account)
-    
-    # Post to it an order.
-    post :create,
-    :order_account => {
-      :cc_number => "4007000000027",
-      :expiration_year => 4.years.from_now.year,
-      :expiration_month => "1"
-    },
-    :shipping_address => {
-      :city => "",
-      :zip => "",
-      :country_id => countries(:US).id,
-      :first_name => "",
-      :telephone => "",
-      :last_name => "",
-      :address => "",
-      :state => ""
-    },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "",
-      :telephone => "000000000",
-      :last_name => "",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
-    :order_user => {
-      :email_address => ""
-    }
-    
-    # If not saved we will NOT receive a HTTP error status. As we will not be
-    # redirected to edit action too. The same page will be rendered again with
-    # error explanations.
-    assert_response :success
-    assert_template 'new'
-    
-    # Here we assert that an error explanation was given and that the proper
-    # fields was marked.
-    assert_select "div.fieldWithErrors input#order_user_email_address"
-    assert_select "div.fieldWithErrors input#billing_address_first_name"
-    assert_select "div.fieldWithErrors input#billing_address_last_name"
-  end
-
 
   # Change attributes from order, order_user, order_address, etc.
   # TODO: Maybe is not good idea to change the order_user's e-mail address from here.

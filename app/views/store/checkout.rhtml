@@ -111,22 +111,14 @@
 <div id="right">
 
   <h1>You Are Buying</h1>
-  <%= render(:partial => 'cart_contents', :locals => {:cart => @cart}) %>
+  <%= render(:partial => 'cart_contents', :locals => {:cart => @order}) %>
 
   <%= render(:partial => 'clear_cart') %>
 
-  <!-- ADD MORE ITEMS -->
-
-  <h2>Want To Buy More Items?</h2>
-  <p>
-    <a href="/store">Go back to this page</a>.
-  </p>
-
-
   <h2>Need help?</h2>
-  <p>
-    <a href="/contact">Contact us</a>
-  </p>
+  <ul>
+    <li><a href="/contact">Contact us</a></li>
+  </ul>
 </div>
 
 <div class="clear">&nbsp;</div>

@@ -3,10 +3,12 @@ class Admin::OrdersController < Admin::BaseController
   include OrderHelper
   include Pagination
   
-  @@list_options = [ "Ready To Ship",
-                    "On Hold",
-                    "Completed",
-                    "All" ]
+  @@list_options = [
+    "Ready To Ship",
+    "On Hold",
+    "Completed",
+    "All"
+  ]
 
   # Index page when you hit /admin
   #
@@ -168,28 +170,6 @@ class Admin::OrdersController < Admin::BaseController
     render :action => 'list' and return
   end
 
-  # Shows the new order screen
-  #
-  # Used when creating a new order
-  #
-  def new
-    @title = 'Creating a new order'
-    initialize_new_order
-  end
-
-  # Creates an order from new using a transaction.
-  #
-  # Redisplays new page if any errors happen.
-  def create
-    @title = 'Creating a new order'
-    create_order_from_post
-    # All went well?
-    flash[:notice] = 'Order was successfully created.'
-    redirect_to :action => 'show', :id => @order.id
-  rescue
-    render :action => 'new'
-  end
-
   # Edits or shows an existing order
   #
   #
@@ -197,10 +177,10 @@ class Admin::OrdersController < Admin::BaseController
     @order = Order.find(params[:id])
     order_time = @order.created_on.strftime("%m/%d/%y %I:%M %p")
     @title = "Order #{@order.order_number} - #{order_time}"
-    @order_user = @order.order_user
-    @order_account = @order_user.order_account
-    @billing_address = @order.billing_address
-    @shipping_address = @order.shipping_address
+    @order_user = @order.order_user || OrderUser.new
+    @order_account = @order_user.order_account || OrderAccount.new
+    @billing_address = @order.billing_address || OrderAddress.new
+    @shipping_address = @order.shipping_address || OrderAddress.new
     if @shipping_address == @billing_address then
       @use_separate_shipping_address = false
     else

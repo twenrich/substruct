@@ -1,10 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class StoreControllerTest < ActionController::TestCase
-  fixtures :orders, :order_line_items, :order_addresses, :order_users, :order_shipping_types, :items
-  fixtures :order_accounts, :order_status_codes, :countries, :promotions, :preferences, :wishlist_items
-  fixtures :tags
-
+  fixtures :all
 
   # TODO: Appears that the cart and cart_container partials arent used, the cart partial is referenced
   # in some places of store controller, but the actions can simply render nothing returning an state of success.
@@ -12,6 +9,12 @@ class StoreControllerTest < ActionController::TestCase
   # then an Ajax.Request object will be created instead of an Ajax.Updater. Anyway a DOM node pointed by it
   # is never manipulated, always an entire show_cart view inside the modal window is shown or reloaded,
   # using showPopWin() or window.location.reload() on complete. 
+  
+  def setup
+    @santa_address = OrderAddress.find(order_addresses(:santa_address).id)
+    @scrooge_address = OrderAddress.find(order_addresses(:uncle_scrooge_address).id)
+  end
+
 
   # Test the index action.
   def test_should_show_index
@@ -136,7 +139,7 @@ class StoreControllerTest < ActionController::TestCase
     post :add_to_cart, :id => a_product.id
     assert_response :redirect
     assert_redirected_to :action => :checkout
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     # Try adding an invalid product.
@@ -158,14 +161,14 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     # Try adding a variation.
     a_variation = items(:red_lightsaber)
     xhr(:post, :add_to_cart_ajax, :variation => a_variation.id, :quantity => "2")
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 2
 
     # Try adding another product (that should not be available).
@@ -173,7 +176,7 @@ class StoreControllerTest < ActionController::TestCase
     xhr(:post, :add_to_cart_ajax, :id => a_product.id, :quantity => "2")
     assert_response 400
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     # It should not have added anything.
     assert_equal a_cart.items.length, 2
   end
@@ -185,13 +188,13 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     # Try removing a product.
     xhr(:post, :remove_from_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a window.location.reload() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 0
     
     # Try removing an invalid product.
@@ -208,13 +211,13 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     xhr(:post, :empty_cart_ajax)
     # Here nothing is rendered directly, but a window.location.reload() javascript function is executed.
 
-    assert_equal assigns(:cart).items.length, 0
+    assert_equal assigns(:order).items.length, 0
     assert_equal session[:order_id], nil
   end
 
@@ -225,14 +228,14 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     post :empty_cart
     assert_response :redirect
     assert_redirected_to :action => :index
 
-    assert_equal assigns(:cart).items.length, 0
+    assert_equal assigns(:order).items.length, 0
     assert_equal session[:order_id], nil
   end
 
@@ -247,7 +250,7 @@ class StoreControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to :action => :index
 
-    assert_equal assigns(:cart).items.length, 0
+    assert_equal assigns(:order).items.length, 0
     assert_equal session[:order_id], nil
     
     # Assert the order was destroyed.
@@ -263,14 +266,13 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     get :checkout
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post to it an order.
@@ -290,16 +292,7 @@ class StoreControllerTest < ActionController::TestCase
       :address => "",
       :state => ""
     },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
+    :billing_address => @scrooge_address.attributes,
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
     }
@@ -307,12 +300,11 @@ class StoreControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to :action => :select_shipping_method
 
-
     get :checkout
     assert_response :success
+
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post it again with the order already saved.
@@ -332,16 +324,7 @@ class StoreControllerTest < ActionController::TestCase
       :address => "",
       :state => ""
     },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
+    :billing_address => @scrooge_address.attributes,
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
     }
@@ -357,14 +340,13 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     get :checkout
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post to it an order.
@@ -379,16 +361,7 @@ class StoreControllerTest < ActionController::TestCase
       :address => "",
       :state => ""
     },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
+    :billing_address => @scrooge_address.attributes,
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
     }
@@ -406,14 +379,13 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
 
     get :checkout
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post to it an order.
@@ -423,26 +395,8 @@ class StoreControllerTest < ActionController::TestCase
       :expiration_year => 4.years.from_now.year,
       :expiration_month => "1"
     },
-    :shipping_address => {
-      :city => "North Pole",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Santa",
-      :telephone => "000000000",
-      :last_name => "Claus",
-      :address => "After second ice mountain at left",
-      :state => "Alaska"
-    },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
+    :shipping_address => @santa_address.attributes,
+    :billing_address => @scrooge_address.attributes,
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
     },
@@ -456,7 +410,6 @@ class StoreControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post it again with the order already saved.
@@ -466,26 +419,8 @@ class StoreControllerTest < ActionController::TestCase
       :expiration_year => 4.years.from_now.year,
       :expiration_month => "1"
     },
-    :shipping_address => {
-      :city => "North Pole",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Santa",
-      :telephone => "000000000",
-      :last_name => "Claus",
-      :address => "After second ice mountain at left",
-      :state => "Alaska"
-    },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
+    :shipping_address => @santa_address.attributes,
+    :billing_address => @scrooge_address.attributes,
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
     },
@@ -499,24 +434,21 @@ class StoreControllerTest < ActionController::TestCase
     a_product = items(:towel)
     xhr(:post, :add_to_cart_ajax, :id => a_product.id)
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
-
-    # Stub the order_line_items method to raise an exception.
-    Order.any_instance.stubs(:order_line_items).raises('An error!')
 
     get :checkout
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post to it an order.
+    # Not filling out info should cause an error to be raised.
     post :checkout,
     :order_account => {
-      :cc_number => "4007000000027",
-      :expiration_year => 4.years.from_now.year,
+      :cc_number => "",
+      :expiration_year => Time.now.year-1,
       :expiration_month => "1"
     },
     :shipping_address => {
@@ -530,14 +462,14 @@ class StoreControllerTest < ActionController::TestCase
       :state => ""
     },
     :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
+      :city => "",
+      :zip => "",
       :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
+      :first_name => "",
+      :telephone => "",
+      :last_name => "",
+      :address => "",
+      :state => ""
     },
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
@@ -549,42 +481,39 @@ class StoreControllerTest < ActionController::TestCase
     end
   end
   
-  
-  # Test the checkout action.
-  def test_should_checkout_with_empty_cart
-    # Add a product to the cart.
-    a_product = items(:towel)
-    xhr(:post, :add_to_cart_ajax, :id => a_product.id)
-    # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
-    # Empty it.
-    a_cart.empty!
-    assert_equal a_cart.items.length, 0
-
+  def test_cant_checkout_with_empty_cart
+    # Go to the store, no items in cart
+    get :index
+    order = assigns(:order)
+    assert order.empty?
+    
+    # Try to checkout
     get :checkout
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
-    assert_not_nil assigns(:cc_processor)
+    follow_redirect
+    assert_select "div#flash" do
+      assert_select "div", :text => /There are no items in your order./
+    end
+    assert_equal assigns(:title), "Store"
   end
   
   
   # Test the checkout action.
   def test_should_checkout_with_unavailable_products
-    # Add a product to the cart.
+    # Add full quantity of an item to the cart.
     a_product = items(:towel)
-    xhr(:post, :add_to_cart_ajax, :id => a_product.id, :quantity => 32)
-    xhr(:post, :add_to_cart_ajax, :id => a_product.id, :quantity => 10)
-    # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
-    assert_equal a_cart.items.length, 1
+    xhr(:post, :add_to_cart_ajax, :id => a_product.id, :quantity => a_product.quantity)
+    assert_response :success
+    assert_equal 1, assigns(:order).items.length
+
+    # Emulate another customer purchasing items before we checkout
+    a_product.update_attribute(:quantity, 1)
 
     get :checkout
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post to it an order.
@@ -604,16 +533,7 @@ class StoreControllerTest < ActionController::TestCase
       :address => "",
       :state => ""
     },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
+    :billing_address => @scrooge_address.attributes,
     :order_user => {
       :email_address => "uncle.scrooge@whoknowswhere.com"
     }
@@ -626,76 +546,15 @@ class StoreControllerTest < ActionController::TestCase
     end
   end
   
-  
-  # Test the checkout action.
-  def test_should_checkout_with_unavailable_products_and_some_more
-    # Add a product to the cart.
-    a_product = items(:towel)
-    xhr(:post, :add_to_cart_ajax, :id => a_product.id, :quantity => 32)
-    xhr(:post, :add_to_cart_ajax, :id => a_product.id, :quantity => 10)
-    another_product = items(:holy_grenade)
-    xhr(:post, :add_to_cart_ajax, :id => another_product.id)
-    # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
-    assert_equal a_cart.items.length, 2
-
-    get :checkout
-    assert_response :success
-    assert_template 'checkout'
-    assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
-    assert_not_nil assigns(:cc_processor)
-    
-    # Post to it an order.
-    post :checkout,
-    :order_account => {
-      :cc_number => "4007000000027",
-      :expiration_year => 4.years.from_now.year,
-      :expiration_month => "1"
-    },
-    :shipping_address => {
-      :city => "",
-      :zip => "",
-      :country_id => countries(:US).id,
-      :first_name => "",
-      :telephone => "",
-      :last_name => "",
-      :address => "",
-      :state => ""
-    },
-    :billing_address => {
-      :city => "Duckburg",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Uncle",
-      :telephone => "000000000",
-      :last_name => "Scrooge",
-      :address => "Money Bin at the top of Killmotor Hill",
-      :state => "Calisota"
-    },
-    :order_user => {
-      :email_address => "uncle.scrooge@whoknowswhere.com"
-    }
-    
-    assert_response :success
-    assert_template 'checkout'
-    assert_select "div#flash" do
-      assert_select "div", :text => /have gone out of stock before you could purchase them/
-    end
-  end
-  
-  
   # Test the select shipping method action.
   def test_should_select_shipping_method
     # Execute an earlier test as this one deppends on it to have an order in the session.
     test_should_checkout
 
-
     get :select_shipping_method
     assert_response :success
     assert_template 'select_shipping_method'
     assert_equal assigns(:title), "Select Your Shipping Method - Step 2 of 3"
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:default_price)
   end
   
@@ -703,7 +562,6 @@ class StoreControllerTest < ActionController::TestCase
   # Test the select shipping method action.
   def test_should_select_shipping_method_without_an_order
     # TODO: The @order == nil will never be true because of the before_filter find_order_and_redirect_if_nil.
-
     get :select_shipping_method
     assert_response :redirect
     assert_redirected_to :action => :index
@@ -774,19 +632,13 @@ class StoreControllerTest < ActionController::TestCase
     Order.any_instance.expects(:run_transaction_authorize).once.returns(true)
     
     # Save initial quantity
-    an_order_line_item = assigns(:order).order_line_items.first
-    initial_quantity = an_order_line_item.item.quantity
+    oli = assigns(:order).order_line_items.first
+    initial_quantity = oli.item.quantity
 
     # Post to the finish order action.
     post :finish_order
     assert_response :success
     assert_select "h3", :text => /Card processed successfully/
-
-    # Clean it up as we are mocking the method and it will not execute by itself.
-    an_order.cleanup_successful
-    # Quantity should be updated.
-    an_order_line_item.item.reload
-    assert_equal an_order_line_item.item.quantity, initial_quantity - an_order_line_item.quantity
   end
 
 
@@ -828,19 +680,13 @@ class StoreControllerTest < ActionController::TestCase
     Order.any_instance.expects(:run_transaction_paypal_ipn).once.returns(5)
 
     # Save initial quantity
-    an_order_line_item = assigns(:order).order_line_items.first
-    initial_quantity = an_order_line_item.item.quantity
+    oli = assigns(:order).order_line_items.first
+    initial_quantity = oli.item.quantity
 
     # Post to the finish order action.
     post :finish_order
     assert_response :success
     assert_select "h3", :text => /Transaction processed successfully/
-
-    # Clean it up as we are mocking the method and it will not execute by itself.
-    an_order.cleanup_successful
-    # Quantity should be updated.
-    an_order_line_item.item.reload
-    assert_equal an_order_line_item.item.quantity, initial_quantity - an_order_line_item.quantity
   end
 
 

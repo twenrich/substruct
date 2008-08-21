@@ -1,5 +1,5 @@
 <div class="price" style="float:right;">
-	Total - <%= sub_number_to_currency(@cart.total) %>
+	Total - <%= sub_number_to_currency(@order.total) %>
 </div>
 <h1>Your Cart</h1>
 
@@ -7,7 +7,7 @@
 <a href="#" onclick="window.top.hidePopWin();return false;" class="action">Continue Shopping</a>
 </p>
 
-<% if @cart.empty? then %>
+<% if @order.empty? then %>
 	<div>
 		There's nothing in your cart at this time.
 	</div>
@@ -28,7 +28,7 @@
 			<th class="numeric">Total Price</th>
 
 		</tr>
-		<% @cart.items.each do |item| %>
+		<% @order.items.each do |item| %>
 			<tr id="cart_item_<%= item.product_id %>" class="<%= alternate() %>">
 				<td>
 					<%= 
@@ -86,7 +86,7 @@
 			</td>
 			<td colspan="3" class="numeric">Cart Total</td>
 			<td class="money numeric">
-				<%= sub_number_to_currency(@cart.total) %>
+				<%= sub_number_to_currency(@order.total) %>
 			</td>
 		</tr>
 	</table>

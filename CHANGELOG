@@ -12,11 +12,22 @@ Updated:
   2. Full coverage of tests, unit and functional
 
 Upgrade steps:
-  !!! NOTE
+  !!! NOTES - IMPORTANT TO READ
   The application_helper function "make_product" has gone away, so if you've
   customized the _product.rhtml partial you'll need to take a look
   at the one now included with the base distro. See issue here:
   http://code.google.com/p/substruct/issues/detail?id=117
+  
+  ***
+  The 'Cart' model has completely gone away. This could affect you
+  if you've extended it in any way. Please see the following for details:
+  http://code.google.com/p/substruct/issues/detail?id=114
+  
+  ***
+  A new layout called 'checkout' has been added and now is the default
+  renderer for all checkout actions in the store. This ensures that
+  a customer can't modify their cart while ordering, thus potentially throwing
+  off their order total they see on screen.
 
   0. Back up your database just in case.
     * mysql example:  mysqldump -u USERNAME -p DATABASE_NAME > backup.sql

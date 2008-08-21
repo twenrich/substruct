@@ -59,7 +59,11 @@
 			<% for order in @orders %>
 				<tr class="<%= alternate %>">
 					<td>
-						<%= link_to(h(order.name), :action => 'show', :id => order) if order.order_account %>
+					  <% unless order.name.empty? %>
+						  <%= link_to(h(order.name), :action => 'show', :id => order) %>
+						<% else %>
+						  [Checkout incomplete]
+						<% end %>
 						<br/>
 						<%= link_to(order.order_number, :action => 'show', :id => order) %>
 					</td>

@@ -17,13 +17,23 @@ class Order < ActiveRecord::Base
 	attr_accessor :promotion_code
 
   # VALIDATION ================================================================
-
-	# Validation
 	validates_presence_of :order_number
 	validates_uniqueness_of :order_number
 
+  # INITIALIZE ================================================================
+  
+  # Sets all new Order objects to have status of CART.
+  def initialize(*args)
+    super(*args)
+    self.order_status_code = OrderStatusCode.find_by_name('CART')
+  end
 
   # CALLBACKS =================================================================
+  
+  before_create :set_order_number
+  def set_order_number
+    self.order_number = Order.generate_order_number
+  end
   
   # Sets product cost based on line items total before a save.
   before_save :set_product_cost
@@ -283,6 +293,84 @@ class Order < ActiveRecord::Base
 
   # INSTANCE METHODS ==========================================================
 
+  def items; self.order_line_items; end
+
+  # Adds a product to our shopping cart
+  def add_product(product, quantity=1)
+    item = self.order_line_items.find(
+      :first,
+      :conditions => ["item_id = ?", product.id]
+    )
+    if item
+      # Always set price, as it might have changed...
+      item.update_attributes(
+        :quantity => item.quantity += 1,
+        :price => product.price
+      )
+    else
+			item = OrderLineItem.for_product(product)
+			item.quantity = quantity
+			item.order = self
+			item.save
+      self.order_line_items << item
+    end
+  end
+  
+  # Removes all quantities of product from our cart
+	def remove_product(product, quantity=nil)
+    item = self.order_line_items.find(
+      :first,
+      :conditions => ["item_id = ?", product.id]
+    )
+		if item
+		  if quantity.nil?
+  	    quantity = item.quantity
+  	  end
+      if item.quantity > quantity then
+        item.update_attribute(:quantity, item.quantity -= quantity)
+      else
+        self.order_line_items.delete(item)
+			end
+		end
+	end
+  
+  # Compatibility for CART.
+  # Determines if order has any items inside.
+  def empty?
+		self.order_line_items.size == 0
+	end
+
+  # Removes all items from order
+	def empty!
+	  self.order_line_items.destroy_all
+  end
+  
+  # Used to determine if a customer has passed the checkout stage
+  # in the order process.
+  def has_been_placed?
+    return !(self.order_user.nil? || self.billing_address.nil? || self.account.nil?)
+  end
+  
+  # Checks inventory of products, and removes them if
+	# they're out of stock.
+	#
+	# Returns an array of items that have been removed.
+	#
+	def check_inventory
+	  removed_items = []
+	  self.order_line_items.each do |oli|
+	    # Find the item in the db, because oli.item is cached.
+	    db_item = Item.find(oli.item_id)
+	    if oli.quantity > db_item.quantity
+	      removed_items << oli.name.clone
+	      self.order_line_items.delete(oli)
+      end
+    end
+    return removed_items
+  end
+	
+
+
   # Shortcut to find order_line_item for a promotion that has been applied.
   def promotion_line_item
     if self.promotion
@@ -320,7 +408,7 @@ class Order < ActiveRecord::Base
   end
 
   def name
-    return "#{billing_address.first_name} #{billing_address.last_name}"
+    "#{billing_address.first_name} #{billing_address.last_name}" rescue ''
   end
 
   def account
@@ -578,11 +666,16 @@ class Order < ActiveRecord::Base
 	# Cleans up a successful order
 	def cleanup_successful
 	  # Decrement inventory for items...
-	  # Also driven by the inventory control preference from the
-	  # admin UI
+	  # Also driven by the inventory control preference from the admin  UI
 	  if Preference.find_by_name('store_use_inventory_control').is_true?
-  	  for oli in self.order_line_items do
-  	    oli.item.update_attribute('quantity', oli.item.quantity-oli.quantity)if oli.quantity rescue false && oli.item.quantity rescue false
+  	  self.order_line_items.each do |oli|
+  	    begin
+    	    oli.item.update_attribute('quantity', oli.item.quantity-oli.quantity)
+  	    rescue
+  	      # Do nothing...
+  	      # Item might not exist because it's been deleted.
+  	      # Smart in this case to do nothing.
+	      end
       end
     end
 	  

@@ -1,16 +1,30 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class BuyerTest < ActionController::IntegrationTest
-  fixtures :orders, :order_line_items, :order_addresses, :order_users, :order_shipping_types, :items
-  fixtures :order_accounts, :order_status_codes, :countries, :promotions, :preferences, :wishlist_items
-  fixtures :tags
-
+  fixtures :all
+  
+  def setup
+    @santa_address = OrderAddress.find(order_addresses(:santa_address).id)
+  end
+  
+  def post_valid_order
+    post(
+      'store/checkout',
+      :order_account => {
+        :cc_number => "4007000000027",
+        :expiration_year => 4.years.from_now.year,
+        :expiration_month => "1"
+      },
+      :shipping_address => @santa_address.attributes,
+      :billing_address => @santa_address.attributes,
+      :order_user => {
+        :email_address => "uncle.scrooge@whoknowswhere.com"
+      },
+      :use_separate_shipping_address => "false"
+    )
+  end
 
   def test_should_buy_something
-
-
-
-
     # LOGIN TO THE SYSTEM
     a_customer = order_users(:santa)
 
@@ -31,20 +45,14 @@ class BuyerTest < ActionController::IntegrationTest
     # Assert the customer id is in the session.
     assert_equal session[:customer], a_customer.id
 
-  
-  
-  
     # ADD 1 PRODUCT TO THE CART
 
     # Try adding a product.
     a_product = items(:towel)
     post 'store/add_to_cart_ajax', :id => a_product.id
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
-
-
-
     
     # CHECKOUT AND FOLLOW
     
@@ -52,45 +60,15 @@ class BuyerTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     ###################
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.first.quantity, 1, "UNEXPECTED FIRST CART ITEM QUANTITY"
     ###################
 
     # Post to it an order.
-    post 'store/checkout',
-    :order_account => {
-      :cc_number => "4007000000027",
-      :expiration_year => 4.years.from_now.year,
-      :expiration_month => "1"
-    },
-    :shipping_address => {
-      :city => "North Pole",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Santa",
-      :telephone => "000000000",
-      :last_name => "Claus",
-      :address => "After second ice mountain at left",
-      :state => "Alaska"
-    },
-    :billing_address => {
-      :city => "North Pole",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Santa",
-      :telephone => "000000000",
-      :last_name => "Claus",
-      :address => "After second ice mountain at left",
-      :state => "Alaska"
-    },
-    :order_user => {
-      :email_address => "uncle.scrooge@whoknowswhere.com"
-    },
-    :use_separate_shipping_address => "false"
+    post_valid_order()
     
     assert_response :redirect
     assert_redirected_to :action => :select_shipping_method
@@ -106,11 +84,7 @@ class BuyerTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'select_shipping_method'
     assert_equal assigns(:title), "Select Your Shipping Method - Step 2 of 3"
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:default_price)
-    
-    
-    
     
     # SET THE SHIPPING METHOD AND FOLLOW
     
@@ -131,30 +105,21 @@ class BuyerTest < ActionController::IntegrationTest
     assert_template 'confirm_order'
     assert_equal assigns(:title), "Please confirm your order. - Step 3 of 3"
     
-    
-    
-    
-    # SECOND ITERACTION
-    
+    # SECOND INTERACTION
 
-
-    
     # ADD 1 MORE PRODUCT TO THE CART
 
     # Try adding a product.
     a_product = items(:towel)
     post 'store/add_to_cart_ajax', :id => a_product.id
     # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.length, 1
     
     ###################
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.first.quantity, 2, "UNEXPECTED SECOND CART ITEM QUANTITY"
     ###################
-
-
-
 
     # CHECKOUT THE SECOND TIME AND FOLLOW
     
@@ -162,43 +127,13 @@ class BuyerTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'checkout'
     assert_equal assigns(:title), "Please enter your information to continue this purchase."
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:cc_processor)
     
     # Post to it an order.
-    post 'store/checkout',
-    :order_account => {
-      :cc_number => "4007000000027",
-      :expiration_year => 4.years.from_now.year,
-      :expiration_month => "1"
-    },
-    :shipping_address => {
-      :city => "North Pole",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Santa",
-      :telephone => "000000000",
-      :last_name => "Claus",
-      :address => "After second ice mountain at left",
-      :state => "Alaska"
-    },
-    :billing_address => {
-      :city => "North Pole",
-      :zip => "00000",
-      :country_id => countries(:US).id,
-      :first_name => "Santa",
-      :telephone => "000000000",
-      :last_name => "Claus",
-      :address => "After second ice mountain at left",
-      :state => "Alaska"
-    },
-    :order_user => {
-      :email_address => "uncle.scrooge@whoknowswhere.com"
-    },
-    :use_separate_shipping_address => "false"
+    post_valid_order()
     
     ###################
-    a_cart = assigns(:cart)
+    a_cart = assigns(:order)
     assert_equal a_cart.items.first.quantity, 2, "UNEXPECTED SECOND CART ITEM QUANTITY AFTER CHECKOUT"
     ###################
     an_order = assigns(:order)
@@ -214,12 +149,8 @@ class BuyerTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'select_shipping_method'
     assert_equal assigns(:title), "Select Your Shipping Method - Step 2 of 3"
-    assert_not_nil assigns(:items)
     assert_not_nil assigns(:default_price)
-    
-    
-    
-    
+        
     # SET THE SHIPPING METHOD THE SECOND TIME AND FOLLOW
     
     # Post to it when the show confirmation preference is true.
@@ -233,9 +164,35 @@ class BuyerTest < ActionController::IntegrationTest
     # Verify is was followed.
     assert_template 'confirm_order'
     assert_equal assigns(:title), "Please confirm your order. - Step 3 of 3"
+  end
+  
+  
+  def test_cart_and_order_in_sync
+    Order.delete_all
     
+    # Add two different products to the cart.
+    a_cart = nil
+    [:holy_grenade, :uranium_portion].each do |sym|
+      post '/store/add_to_cart_ajax', :id => items(sym).id
+      # Here nothing is rendered directly, but a showPopWin() javascript function is executed.
+      a_cart = assigns(:order)
+    end
+    assert_equal a_cart.items.length, 2
     
+    # Checkout & go to shipping page
+    post_valid_order()
+    assert_response :redirect
+    assert_redirected_to :action => :select_shipping_method
 
+    order = assigns(:order)    
+
+    # Delete one item from the cart
+    xml_http_request(:post, '/store/remove_from_cart_ajax', :id => items(:holy_grenade).id)
+    assert_response :success
+    
+    # ...It should update the order object.
+    order = Order.find(:first)
+    assert_equal order.order_line_items.count, 1, "Order items not updated after one was deleted from the cart."    
   end
 
 

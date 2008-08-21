@@ -23,7 +23,6 @@ module OrderHelper
       @shipping_address = OrderAddress.new      
       @use_separate_shipping_address = false
     end
-    @order = Order.new
 
     @order_account = OrderAccount.new
     @order_account.order_account_type_id = OrderAccount::TYPES['Credit Card']
@@ -63,7 +62,7 @@ module OrderHelper
     )
     @order_user.valid?
 
-    @order = Order.new(params[:order])
+    @order.attributes = params[:order]
     @order.valid?
 
     # Look up billing address and update if customer is logged in.
@@ -92,8 +91,8 @@ module OrderHelper
     OrderUser.transaction do
       @order_user.save!
       Order.transaction do
-        @order = @order_user.orders.build(params[:order])
-        @order.order_number = Order.generate_order_number
+        @order.attributes = params[:order]
+        @order.order_user = @order_user
         @order.save!
       end
       OrderAddress.transaction do

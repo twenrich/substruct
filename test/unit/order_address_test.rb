@@ -31,6 +31,10 @@ class OrderAddressTest < ActiveSupport::TestCase
     }
   end
 
+  def test_country_not_nil
+    an_address = OrderAddress.find(order_addresses(:santa_address).id)
+    assert_not_nil an_address.country    
+  end
 
   # Test if a address can be updated with success.
   def test_should_update_address
