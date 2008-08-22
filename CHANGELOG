@@ -32,13 +32,14 @@ Upgrade steps:
   0. Back up your database just in case.
     * mysql example:  mysqldump -u USERNAME -p DATABASE_NAME > backup.sql
   1. Install the ezcrypto gem. (gem install ezcrypto)
-  2. script/generate plugin_migration
-  3. rake db:migrate
+  2. rake db:migrate:fix_engines_migrations 
+  3. script/generate plugin_migration
+  4. rake db:migrate
      ...THIS MIGHT TAKE A LITTLE TIME FOR UPGRADES...
      Let it do it's thing, it has to encrypt all stored CC #'s
-  4. rake rails:update
+  5. rake rails:update
      ...This will update your JS, boot, and environment files to Rails 2.1.0
-  5. Manually update you environment.rb file to use RAILS_GEM_VERSIOn 2.1.0
+  6. Manually update you environment.rb file to use RAILS_GEM_VERSIOn 2.1.0
 
 
 Version 1.0a
