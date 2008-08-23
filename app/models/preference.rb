@@ -6,7 +6,7 @@
 # Prefs are used all over to handle decisions that we'd rather
 # not use config files for.
 #
-require "smtp_tls"
+
 class Preference < ActiveRecord::Base
   # Types can hold strings, booleans, or pointers to
   # other records (like country)
@@ -18,6 +18,25 @@ class Preference < ActiveRecord::Base
   # Can throw an error if these items aren't set.
   # Make sure to wrap any block that calls this
   def self.init_mail_settings
+    if Preference.find_by_name('use_smtp_tls_patch').is_true?
+      require "smtp_tls"
+    else
+      # Remove the Net::SMTP::Revision constant.
+      Net::SMTP.class_eval do
+        remove_const :Revision.to_s if const_defined? :Revision.to_s
+      end
+      # Remove the Net::SMTPSession constant.
+      Net.class_eval do
+        remove_const :SMTPSession.to_s if const_defined? :SMTPSession.to_s
+      end
+      # Remove the SMTP constant.
+      Object.class_eval do
+        remove_const :SMTP.to_s if const_defined? :SMTP.to_s
+      end
+      # Reload the net/smtp.rb class.
+      require "net/smtp"
+    end
+    
     # SET MAIL SERVER SETTINGS FROM PREFERENCES
     mail_host = find_by_name('mail_host').value
     mail_server_settings = {

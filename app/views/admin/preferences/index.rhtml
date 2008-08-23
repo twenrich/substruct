@@ -107,6 +107,14 @@
 		<div class="padLeft">
 			<div class="floatHalf">
 				<p>
+					<label>
+						<%= check_box_tag('prefs[use_smtp_tls_patch]', 1, (@prefs['use_smtp_tls_patch'].is_true?)) %>
+						Use SMTP TLS monkey patch?
+					</label>
+					<input name="prefs[use_smtp_tls_patch]" type="hidden" value="0" />
+					<span class="info">If set, a patch will be applied to Ruby's Net::SMTP class adding TLS support. <b>Necessary for Gmail servers!</b></span>
+				</p>
+				<p>
 					<%= make_label('SMTP Authentication Type', true) %>
 					<%= select_tag('prefs[mail_auth_type]', options_for_select(Preference::MAIL_AUTH, @prefs['mail_auth_type'].value)) %>
 				</p>

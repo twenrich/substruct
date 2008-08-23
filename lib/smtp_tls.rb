@@ -11,10 +11,13 @@ Net::SMTP.class_eval do
     @socket = Net::InternetMessageIO.new(sock)
     @socket.read_timeout = 60 #@read_timeout
     
+    # Uncomment that for debug purposes only.
+    # @socket.debug_output = STDERR #@debug_output
+    
     check_response(critical { recv_response() })
     do_helo(helodomain)
     
-    if starttls
+    if @starttls_offered and starttls
       raise 'openssl library not installed' unless defined?(OpenSSL)
       ssl = OpenSSL::SSL::SSLSocket.new(sock)
       ssl.sync_close = true
@@ -37,9 +40,9 @@ Net::SMTP.class_eval do
   def do_helo(helodomain)
     begin
       if @esmtp
-        ehlo helodomain
+        getokandverifytls('EHLO %s', helodomain)
       else
-        helo helodomain
+        getokandverifytls('HELO %s', helodomain)
       end
     rescue Net::ProtocolError
       if @esmtp
@@ -56,10 +59,22 @@ Net::SMTP.class_eval do
   return true
   end
   
+  def getokandverifytls( fmt, *args )
+    res = critical {
+      @socket.writeline sprintf(fmt, *args)
+      recv_response()
+    }
+    if /STARTTLS/ === res
+      @starttls_offered = true
+    end
+    return check_response(res)
+  end
+  
   def quit
     begin
       getok('QUIT')
     rescue EOFError
     end
   end
+
 end

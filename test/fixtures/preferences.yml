@@ -65,3 +65,7 @@ cc_pass:
 cc_clear_after_order:
   name: cc_clear_after_order
   value: "1"
+
+use_smtp_tls_patch:
+  name: use_smtp_tls_patch
+  value: "0"

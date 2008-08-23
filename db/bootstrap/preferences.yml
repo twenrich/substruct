@@ -67,3 +67,7 @@ preference_00017:
   name: store_test_transactions
   id: 17
   value: "1"
+use_smtp_tls_patch:
+  name: use_smtp_tls_patch
+  id: 18
+  value: "0"
