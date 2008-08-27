@@ -1,8 +1,16 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class OrderTest < ActiveSupport::TestCase
-  fixtures :orders, :order_line_items, :order_addresses, :order_users, :order_shipping_types, :items
-  fixtures :order_accounts, :order_status_codes, :countries, :promotions, :preferences
+  fixtures :all
+  
+  def setup
+    @santa_order = orders(:santa_next_christmas_order)
+  end
+  
+  def test_associations
+    assert_working_associations
+    assert_not_nil @santa_order.customer
+  end
 
   def test_can_save_cart_order
     order = Order.create
@@ -544,7 +552,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.tax = 0.0
     an_order.created_on = 1.day.ago
     an_order.shipping_address = order_addresses(:uncle_scrooge_address)
-    an_order.order_user = order_users(:uncle_scrooge)
+    an_order.customer = order_users(:uncle_scrooge)
     an_order.billing_address = order_addresses(:uncle_scrooge_address)
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_xp_critical)
@@ -857,7 +865,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.product_cost = 1.25
     an_order.created_on = 1.day.ago
     an_order.shipping_address = order_addresses(:uncle_scrooge_address)
-    an_order.order_user = order_users(:uncle_scrooge)
+    an_order.customer = order_users(:uncle_scrooge)
     an_order.billing_address = order_addresses(:uncle_scrooge_address)
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_xp_critical)
@@ -894,7 +902,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.product_cost = 1.25
     an_order.created_on = 1.day.ago
     an_order.shipping_address = order_addresses(:uncle_scrooge_address)
-    an_order.order_user = order_users(:uncle_scrooge)
+    an_order.customer = order_users(:uncle_scrooge)
     an_order.billing_address = order_addresses(:uncle_scrooge_address)
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_xp_critical)
@@ -951,7 +959,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.product_cost = 1.25
     an_order.created_on = 1.day.ago
     an_order.shipping_address = order_addresses(:uncle_scrooge_address)
-    an_order.order_user = order_users(:uncle_scrooge)
+    an_order.customer = order_users(:uncle_scrooge)
     an_order.billing_address = order_addresses(:uncle_scrooge_address)
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_xp_critical)
@@ -1038,7 +1046,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.tax = 0.0
     an_order.created_on = 1.day.ago
     an_order.shipping_address = order_addresses(:uncle_scrooge_address)
-    an_order.order_user = order_users(:uncle_scrooge)
+    an_order.customer = order_users(:uncle_scrooge)
     an_order.billing_address = order_addresses(:uncle_scrooge_address)
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_xp_critical)
@@ -1070,7 +1078,7 @@ class OrderTest < ActiveSupport::TestCase
     an_order.tax = 0.0
     an_order.created_on = 1.day.ago
     an_order.shipping_address = order_addresses(:uncle_scrooge_address)
-    an_order.order_user = order_users(:uncle_scrooge)
+    an_order.customer = order_users(:uncle_scrooge)
     an_order.billing_address = order_addresses(:uncle_scrooge_address)
     an_order.shipped_on = "" 
     an_order.order_shipping_type = order_shipping_types(:ups_ground)
@@ -1351,7 +1359,6 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal total, a_cart.total
   end
 
-
   # Test if will return the tax cost for the total in the cart.
   def test_should_return_tax_cost
     # Create a cart and add some products.
@@ -1372,6 +1379,10 @@ class OrderTest < ActiveSupport::TestCase
     
     assert_equal a_cart.line_items_total, a_cart.total
   end
-  
+
+  def test_has_downloads
+    assert_equal 1, @santa_order.downloads.count
+    assert_equal items(:towel).downloads, @santa_order.downloads
+  end
 
 end

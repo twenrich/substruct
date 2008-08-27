@@ -207,14 +207,32 @@ class CustomersController < ApplicationController
       return
     end
   end
+  
+  # Downloads a file made accessible to this customer after a successful order.
+  #
+  # Security is a little convoluted, but we're checking to make sure
+  # customer has access to the order, and that the download is contained in that order.
+  def download_for_order
+    order = Order.find(
+      :first,
+      :conditions => ["order_number = ? AND order_user_id = ?", params[:order_number], @customer.id]
+    )
+    # 404 for non found...
+    render(:file => 'public/404.html', :status => 404) and return unless order
+    
+    # Now find download...
+    file = Download.find(:first, :conditions => ["id = ?", params[:download_id]])
+    
+    # Ensure it belongs to the passed in order.
+    if file && order.downloads.include?(file)
+      send_file(file.full_filename)
+    else
+      render(:file => 'public/404.html', :status => 404) and return
+    end
+  end
 	
 	# PRIVATE METHODS ===========================================================
 	private
-
-    def log_customer_in(customer)
-      session[:customer] = customer.id
-    end
-	
     # Makes sure customer is logged in before accessing stuff here.
     #
     def login_required

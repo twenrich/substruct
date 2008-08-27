@@ -3,11 +3,16 @@ require File.dirname(__FILE__) + '/../test_helper'
 class StoreControllerTest < ActionController::TestCase
   fixtures :all
 
-  # TODO: Appears that the cart and cart_container partials arent used, the cart partial is referenced
-  # in some places of store controller, but the actions can simply render nothing returning an state of success.
-  # In the views, the form_remote_tag or link_to_remote helper methods can simply ommit the update option,
-  # then an Ajax.Request object will be created instead of an Ajax.Updater. Anyway a DOM node pointed by it
-  # is never manipulated, always an entire show_cart view inside the modal window is shown or reloaded,
+  # TODO: Appears that the cart and cart_container partials arent used, 
+  # the cart partial is referenced in some places of store controller, 
+  # but the actions can simply render nothing returning an state of success.
+  #
+  # In the views, the form_remote_tag or link_to_remote helper methods 
+  # can simply ommit the update option, then an Ajax.Request object will
+  # be created instead of an Ajax.Updater.
+  #
+  # Anyway a DOM node pointed by it is never manipulated, always an 
+  # entire show_cart view inside the modal window is shown or reloaded,
   # using showPopWin() or window.location.reload() on complete. 
   
   def setup
@@ -561,7 +566,6 @@ class StoreControllerTest < ActionController::TestCase
   
   # Test the select shipping method action.
   def test_should_select_shipping_method_without_an_order
-    # TODO: The @order == nil will never be true because of the before_filter find_order_and_redirect_if_nil.
     get :select_shipping_method
     assert_response :redirect
     assert_redirected_to :action => :index
@@ -625,7 +629,7 @@ class StoreControllerTest < ActionController::TestCase
     # Execute an earlier test as this one deppends on it.
     test_should_set_shipping_method_without_confirmation
    
-    an_order = Order.find(session[:order_id])
+    order = Order.find(session[:order_id])
 
     # Now we say that we will use authorize. Mock the method.
     assert Preference.save_settings({ "cc_processor" => "Authorize.net" })
@@ -638,7 +642,17 @@ class StoreControllerTest < ActionController::TestCase
     # Post to the finish order action.
     post :finish_order
     assert_response :success
-    assert_select "h3", :text => /Card processed successfully/
+    assert_select "p", :text => /Card processed successfully/
+    
+    # Ensure items still in order
+    assert !order.empty?, "Order items were emptied when they shouldn't be."
+    
+    # Ensure customer has been logged in, so they may download their files
+    assert_not_nil session[:customer], "Customer was not logged in after successful purchase."
+    
+    # Ensure download available to customer
+    assert_select "h2", :text => /Product Downloads/
+    assert_select "a", :text => items(:towel).name
   end
 
 
@@ -667,13 +681,12 @@ class StoreControllerTest < ActionController::TestCase
     assert_equal an_order_line_item.item.quantity, initial_quantity
   end
   
-  
   # Test the finish order action.
   def test_should_finish_order_with_paypal
     # Execute an earlier test as this one deppends on it.
     test_should_set_shipping_method_without_confirmation
    
-    an_order = Order.find(session[:order_id])
+    order = Order.find(session[:order_id])
 
     # Now we say that we will use paypal ipn. Mock the method.
     assert Preference.save_settings({ "cc_processor" => "PayPal IPN" })
@@ -686,7 +699,12 @@ class StoreControllerTest < ActionController::TestCase
     # Post to the finish order action.
     post :finish_order
     assert_response :success
-    assert_select "h3", :text => /Transaction processed successfully/
+    assert_select "p", :text => /Transaction processed successfully/
+    
+    # Ensure items still in order
+    assert !order.empty?, "Order items were emptied when they shouldn't be."
+    
+    assert_not_nil session[:customer], "Customer was not logged in after successful purchase."
   end
 
 
@@ -706,7 +724,7 @@ class StoreControllerTest < ActionController::TestCase
     # Post to the finish order action.
     post :finish_order
     assert_response :success
-    assert_select "h3", :text => /have not heard back from them yet/
+    assert_select "p", :text => /have not heard back from them yet/
 
     # Quantity should NOT be updated.
     an_order_line_item.item.reload

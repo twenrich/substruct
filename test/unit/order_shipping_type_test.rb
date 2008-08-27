@@ -1,8 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class OrderShippingTypeTest < ActiveSupport::TestCase
-  fixtures :rights, :roles, :users
-  fixtures :order_shipping_types, :order_shipping_weights
+  fixtures(
+    :rights, :roles, :users, :preferences,
+    :order_shipping_types, :order_shipping_weights
+  )
 
 
   # Test if a valid shipping type can be created with success.

@@ -4,7 +4,13 @@ Substruct Version Changelog and Update Notes
 Version 1.0 FINAL - 09/01/2008
 ---------------------------------------
 Added:
-  1. Easy way to change currency from USD
+  1. Ability to sell digital goods, through the ProductDownload model.
+    * Customers can purchase a file uploaded by store owners, and a temporary
+      download link will be created which is served from the 
+      'public' directory.
+    * The 'rake substruct:maintain' task will clean up any expired download
+      links.
+  2. Easy way to change currency from USD
      http://code.google.com/p/substruct/issues/detail?id=81
 
 Updated:

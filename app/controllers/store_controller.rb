@@ -311,7 +311,7 @@ class StoreController < ApplicationController
     order_success = @order.run_transaction
     if order_success == true
       @payment_message = "Card processed successfully"
-      clear_cart_and_order(false)
+      clean_order_success()
     elsif cc_processor == Preference::CC_PROCESSORS[1]
       case order_success
         when 4
@@ -321,10 +321,10 @@ class StoreController < ApplicationController
 			      will be ready to ship as soon as we receive 
 			      confirmation of your payment.
 			    \
-	        clear_cart_and_order(false)
+			    clean_order_success()
 	      when 5
 	        @payment_message = "Transaction processed successfully"
-	        clear_cart_and_order(false)
+          clean_order_success()
 	      else
 	        error_message = "Something went wrong and your transaction failed.<br/>"
 	        error_message << "Please try again or contact us."
@@ -337,7 +337,7 @@ class StoreController < ApplicationController
       error_message << "Please try again or contact us."
       redirect_to_checkout(error_message) and return
     end
-    render :layout => 'checkout' and return
+    render :layout => 'receipt' and return
   end
 
   #############################################################################
@@ -347,7 +347,6 @@ class StoreController < ApplicationController
   
     # Prepares store variables necessary for ordering, etc.
     def prep_store_vars
-      @customer = OrderUser.find_by_id(session[:customer])
       # Find or initialize order.
       @order ||= Order.find(
         :first,
@@ -357,7 +356,6 @@ class StoreController < ApplicationController
         @order = Order.create!
         session[:order_id] = @order.id
       end
-
     end
 
     # Sets order, but sends the customer back to the
@@ -374,15 +372,11 @@ class StoreController < ApplicationController
         redirect_to_index(redir_string) and return false
       end
     end
-    
-    # Stubbed to be overridden in your custom controller if tax
-    # is necessary.
-    #
-    # Gets called after order is successfully saved after checkout, before 
-    # going to shipping.
-    #
-    def add_tax
-      
+
+    # Cleans the cart out of memory and auto-logs a customer in.
+    def clean_order_success
+      log_customer_in(@order.customer)
+      session[:order_id] = nil
     end
 
     # Clears the cart and possibly destroys the order
@@ -470,17 +464,27 @@ class StoreController < ApplicationController
       render and return
     end
 
-  # When is a cart not a cart?
-  #
-  # When it was cleared without an open browser session.
-  # That's why we sanitize dirty carts.
-  def sanitize! 
-    if session[:order_id]
-       order = Order.find(session[:order_id])
-       if order.order_status_code_id != 1 && order.order_status_code_id != 3
-         clear_cart_and_order(false)
-       end
+    # Stubbed to be overridden in your custom controller if tax
+    # is necessary.
+    #
+    # Gets called after order is successfully saved after checkout, before 
+    # going to shipping.
+    #
+    def add_tax
+    
     end
-  end
+      
+    # When is a cart not a cart?
+    #
+    # When it was cleared without an open browser session.
+    # That's why we sanitize dirty carts.
+    def sanitize! 
+      if session[:order_id]
+         order = Order.find(session[:order_id])
+         if order.order_status_code_id != 1 && order.order_status_code_id != 3
+           clear_cart_and_order(false)
+         end
+      end
+    end
 
 end

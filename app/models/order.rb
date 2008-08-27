@@ -9,10 +9,38 @@ class Order < ActiveRecord::Base
     :class_name => 'OrderAddress',
     :foreign_key => 'shipping_address_id'
   belongs_to :order_account
+
+  # Alias better name than "order_user"
+  belongs_to :customer, :class_name => 'OrderUser', :foreign_key => 'order_user_id' 
   belongs_to :order_user
+
   belongs_to :order_shipping_type
   belongs_to :order_status_code
   belongs_to :promotion
+  
+  has_many :downloads, 
+    :finder_sql => %q\
+      SELECT * FROM user_uploads
+      WHERE user_uploads.type = 'Download'
+      AND user_uploads.id IN (
+        SELECT download_id FROM product_downloads
+        WHERE product_downloads.product_id IN (
+          SELECT item_id FROM order_line_items
+          WHERE order_id = #{id}
+        )
+      )
+    \,
+    :counter_sql => %q\
+      SELECT COUNT(*) FROM user_uploads
+      WHERE user_uploads.type = 'Download'
+      AND user_uploads.id IN (
+        SELECT download_id FROM product_downloads
+        WHERE product_downloads.product_id IN (
+          SELECT item_id FROM order_line_items
+          WHERE order_id = #{id}
+        )
+      )
+    \
 
 	attr_accessor :promotion_code
 

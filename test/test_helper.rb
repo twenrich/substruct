@@ -57,3 +57,18 @@ end
 def assert_same_elements(an_array, another_array)
   assert_equal an_array - another_array, another_array - an_array
 end
+
+# The assert_working_associations method simply walks through all of the 
+# associations on the class and sends the model the name of the association.
+# This catch-all ensures that with a single line of code per model, 
+# I can invoke all relationships on all of our model tests.
+def assert_working_associations(m=nil)
+  m ||= self.class.to_s.sub(/Test$/, '').constantize
+  @m = m.new
+  m.reflect_on_all_associations.each do |assoc|
+    assert_nothing_raised("#{assoc.name} caused an error") do
+      @m.send(assoc.name, true)
+    end
+  end
+  true
+end

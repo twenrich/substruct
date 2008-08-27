@@ -7,13 +7,16 @@ class Product < Item
       OR (items.is_discontinued = 1 AND (items.quantity > 0 OR items.variation_quantity > 0))
   /
 
-  
   has_many :product_images, :dependent => :destroy
-  has_many :variations, 
-    :dependent => :destroy, :order => 'name ASC'
   has_many :images, 
     :through => :product_images, :order => "-product_images.rank DESC",
     :dependent => :destroy
+  has_many :product_downloads, :dependent => :destroy
+  has_many :downloads, 
+    :through => :product_downloads, :order => "-product_downloads.rank DESC",
+    :dependent => :destroy
+  has_many :variations, 
+    :dependent => :destroy, :order => 'name ASC'
   
   # Join with related items...
   has_and_belongs_to_many :related_products,

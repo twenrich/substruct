@@ -116,7 +116,10 @@ beige_coat:
 towel:
   code: TOWEL
   name: Towel
-  description: The most massively useful thing an interstellar hitchhiker can have.
+  description: |-
+    The most massively useful thing an interstellar hitchhiker can have.
+    
+    Purchase now and you will immediately be able to download a TOWEL PIC. Special digital download!
   price: 9.50
   date_available: 2000-01-01 00:00
   quantity: 32

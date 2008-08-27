@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CustomersControllerTest < ActionController::TestCase
   fixtures :order_users, :orders, :wishlist_items, :items
 
-
   # Test the login action.
   def test_should_login
     a_customer = order_users(:santa)
@@ -24,8 +23,7 @@ class CustomersControllerTest < ActionController::TestCase
 
     # Assert the customer id is in the session.
     assert_equal session[:customer], a_customer.id
-    
-    
+        
     # Test the logout here too.
     post :logout
     assert_response :redirect
@@ -34,7 +32,6 @@ class CustomersControllerTest < ActionController::TestCase
     # Assert the customer id is NOT in the session.
     assert_equal session[:customer], nil
 
-  
     # Call it again asking for a modal response.
     get :login, :modal => "true"
     assert_response :success
@@ -57,7 +54,6 @@ class CustomersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :account
   end
 
-  
   # Test the login action with a wrong password.
   def test_should_not_login
     get :login
@@ -500,10 +496,28 @@ class CustomersControllerTest < ActionController::TestCase
     # is just spited out to be executed.
     # puts @response.body
 
-  
     # Post again with an invalid address.
     xhr(:post, :check_email_address, :email_address => "invalid")
   end
 
+  # Login as santa, download digital good (towel pix)
+  def test_can_download_digital_good
+    post :login, :modal => "", :login => "santa.claus@whoknowswhere.com", :password => "santa"
+    assert_response :redirect
+    assert_redirected_to :action => :orders
+
+    order = orders(:santa_next_christmas_order)    
+    # Download file
+    get :download_for_order, :order_number => order.order_number, :download_id => order.downloads.first.id
+    assert_response :success, "File wasn't downloaded after purchase."
+    
+    # Try to download with wrong order number
+    get :download_for_order, :order_number => 12345789, :download_id => order.downloads.first.id
+    assert_response :missing, "File was downloaded when it shouldn't have been."
+    
+    # Try to download with wrong download id
+    get :download_for_order, :order_number => order.order_number, :download_id => (order.downloads.first.id+10)
+    assert_response :missing, "File was downloaded when it shouldn't have been."
+  end
 
 end

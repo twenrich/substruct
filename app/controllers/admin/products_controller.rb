@@ -92,17 +92,37 @@ class Admin::ProductsController < Admin::BaseController
 			@product.tag_ids = params[:product][:tag_ids] if params[:product][:tag_ids]
       # Build product images from upload
       image_errors = []
-			params[:image].each do |i|
-        if i[:image_data] && !i[:image_data].blank?
-          new_image = Image.new
-          logger.info i[:image_data].inspect
-          new_image.uploaded_data = i[:image_data]
-          if new_image.save
-            @product.images << new_image
-          else
-            image_errors.push(new_image.filename)
+      unless params[:image].blank?
+  			params[:image].each do |i|
+          if i[:image_data] && !i[:image_data].blank?
+            new_image = Image.new
+            logger.info i[:image_data].inspect
+            new_image.uploaded_data = i[:image_data]
+            if new_image.save
+              @product.images << new_image
+            else
+              image_errors.push(new_image.filename)
+            end
           end
-       end
+        end
+      end
+
+      # Build downloads from form
+      download_errors = []
+      unless params[:download].blank?
+  			params[:download].each do |i|
+          if i[:download_data] && !i[:download_data].blank?
+            new_download = Download.new
+            logger.info i[:download_data].inspect
+          
+            new_download.uploaded_data = i[:download_data]
+            if new_download.save
+              new_download.product = @product
+            else
+              download_errors.push(new_download.filename)
+            end
+          end
+        end
       end
 
       # Build variations from form
@@ -118,6 +138,9 @@ class Admin::ProductsController < Admin::BaseController
       flash[:notice] = "Product '#{@product.name}' saved."
       if image_errors.length > 0
         flash[:notice] += "<b>Warning:</b> Failed to upload image(s) #{image_errors.join(',')}. This may happen if the size is greater than the maximum allowed of #{Image::MAX_SIZE / 1024 / 1024} MB!"
+      end
+      if download_errors.length > 0
+        flash[:notice] += "<b>Warning:</b> Failed to upload file(s) #{download_errors.join(',')}."
       end
       redirect_to :action => 'edit', :id => @product.id
     else
@@ -232,12 +255,16 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   # Removes an image from the system
-  #
   def remove_image_ajax
     Image.find_by_id(params[:id]).destroy()
     render :nothing => true
   end
-
+  
+  # Removes a download
+  def remove_download_ajax
+    Download.find_by_id(params[:id]).destroy()
+    render :nothing => true
+  end
 end
 
 private

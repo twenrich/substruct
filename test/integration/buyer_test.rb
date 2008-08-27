@@ -164,6 +164,33 @@ class BuyerTest < ActionController::IntegrationTest
     # Verify is was followed.
     assert_template 'confirm_order'
     assert_equal assigns(:title), "Please confirm your order. - Step 3 of 3"
+    
+    # Purchase
+    Order.any_instance.expects(:run_transaction_authorize).once.returns(true)
+    
+    post 'store/finish_order'
+    
+    # Ensure download available to customer
+    assert_response :success
+    assert_select "p", :text => /Card processed successfully/
+    assert_select "h2", :text => /Product Downloads/
+    url_for_download = url_for(
+      :controller => 'customers',
+      :action => 'download_for_order',
+      :params => {
+        :order_number => assigns(:order).order_number,
+        :download_id => assigns(:order).downloads.first.id
+      },
+      :only_path => true
+    )
+    assert_tag :tag => "a", 
+      :attributes => { 
+        :href => ERB::Util::html_escape(url_for_download)
+      }
+    
+    # Download file
+    get url_for_download
+    assert_response :success, "File wasn't downloaded after purchase."
   end
   
   

@@ -13,13 +13,13 @@ module SubstructApplicationController
   
   def set_substruct_view_defaults
     # TODO - Clean up this messy navigation generation stuff...
-  	#
   	@cname = self.controller_name
   	@aname = self.action_name
   	# Special handling for the home page...
   	if (@cname == 'content_nodes' && @aname == 'show_by_name' && params[:name] == 'home') then
   		@cname = 'main'
   	end
+  	@store_name = Preference.find_by_name('store_name').value rescue 'Substruct'
   	# Is this a blog post?
   	@blog_post = false
   	if (@cname == 'content_nodes' && @content_node) then
@@ -63,4 +63,11 @@ module SubstructApplicationController
       end
     end
   end
+  
+  # Used in StoreController and CustomerController
+  #  
+  def log_customer_in(customer)
+    session[:customer] = customer.id
+  end
+
 end

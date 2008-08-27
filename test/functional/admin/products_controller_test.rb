@@ -1,9 +1,7 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
 class Admin::ProductsControllerTest < ActionController::TestCase
-  fixtures :rights, :roles, :users
-  fixtures :items, :tags, :product_images, :user_uploads
-
+  fixtures :all
 
   # Test the index action.
   def test_should_show_index
@@ -149,7 +147,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
     }, {
       :image_data_temp => "",
       :image_data => ""
-    } ]
+    } ],
+    :download => []
     
     # If saved we should be redirected to edit form. 
     assert_response :redirect
@@ -195,10 +194,11 @@ class Admin::ProductsControllerTest < ActionController::TestCase
     :image => [ {
       :image_data_temp => "",
       :image_data => text_asset
-    }, {
+      }, {
       :image_data_temp => "",
       :image_data => ""
-    } ]
+    } ],
+    :download => []
     
     # If saved we should be redirected to edit form. 
     assert_response :redirect
@@ -325,7 +325,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       }, {
         :image_data_temp => "",
         :image_data => ""
-    } ]
+    } ],
+    :download => []
     
     # If saved we should be redirected to edit form. 
     assert_response :redirect
@@ -399,7 +400,8 @@ class Admin::ProductsControllerTest < ActionController::TestCase
       }, {
         :image_data_temp => "",
         :image_data => ""
-    } ]
+    } ],
+    :download => []
     
     # If saved we should be redirected to edit form. 
     assert_response :redirect
@@ -469,8 +471,7 @@ class Admin::ProductsControllerTest < ActionController::TestCase
         :name => "Yellow",
         :price => 93.50,
         :quantity => 5
-    } ],
-    :image => []
+    } ]
     
     # If saved we should be redirected to edit form. 
     assert_response :redirect
@@ -751,7 +752,7 @@ class Admin::ProductsControllerTest < ActionController::TestCase
 
   # Test if a new valid product will be saved, but create everything that can be
   # created together, images, related products, tags, variations, etc.
-  def test_should_save_new_product_with_a_lot_of_images
+  def test_should_save_new_product_with_a_lot_of_stuff
     login_as :admin
 
     # Call the new form.
@@ -798,11 +799,14 @@ class Admin::ProductsControllerTest < ActionController::TestCase
         :image_data => lightsaber_green_upload
       }, {
         :image_data_temp => "",
-        :image_data => lightsaber_red_upload
-      }, {
-        :image_data_temp => "",
         :image_data => ""
-    } ]
+    } ],
+    :download => [
+      {
+        :download_data_temp => '',
+        :download_data => lightsaber_red_upload
+      }
+    ]
     
     # If saved we should be redirected to edit form. 
     assert_response :redirect
@@ -811,15 +815,20 @@ class Admin::ProductsControllerTest < ActionController::TestCase
     # Verify that the product and everything else are there.
     a_product = Product.find_by_code('SHRUBBERY')
     assert_not_nil a_product 
-    assert_equal a_product.images.count, 6
-    assert_equal a_product.product_images.count, 6
+    assert_equal 5, a_product.images.count
+    assert_equal 5, a_product.product_images.count
+    assert_equal 1, a_product.downloads.count
 
     # Clean up system dir.
     a_product.images.destroy_all
+    a_product.downloads.destroy_all
+    
+    a_product.reload
 
     # Verify that the product and everything else are there.
-    assert_equal a_product.images.count, 0
-    assert_equal a_product.product_images.count, 0
+    assert_equal 0, a_product.images.count
+    assert_equal 0, a_product.product_images.count
+    assert_equal 0, a_product.downloads.count
 
   end
 

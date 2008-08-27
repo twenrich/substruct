@@ -3,6 +3,10 @@
     <div class="info" style="float:right;"><%= @order_time %></div>
     <%=h @title %>
   </h1>
+  
+  <%= render :partial => '/shared/product_downloads' %>
+  
+  <div class="line">&nbsp;</div>
 
 	<%= render(:partial => 'user') %>
 
