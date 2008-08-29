@@ -253,6 +253,7 @@ class StoreController < ApplicationController
     @order.shipping_cost = 0
 
     session[:order_shipping_types] = @order.get_shipping_prices
+    
     # Set default price to pick what radio button should be entered
     @default_price = session[:order_shipping_types][0].id if session[:order_shipping_types][0]
     
@@ -273,10 +274,13 @@ class StoreController < ApplicationController
     ship_id = params[:ship_type_id]
     # Convert to integers for comparison purposes!
     ship_type = session[:order_shipping_types].find { |type| type.id.to_i == ship_id.to_i }
-    ship_price = ship_type.calculated_price
-    @order.order_shipping_type_id = ship_id
-    @order.shipping_cost = ship_price
-    @order.save
+    # Might not have a shipping type set...
+    if ship_type
+      ship_price = ship_type.calculated_price
+      @order.order_shipping_type_id = ship_id
+      @order.shipping_cost = ship_price
+      @order.save
+    end
     
     if Preference.find_by_name('store_show_confirmation').is_true?
       action_after_shipping = 'confirm_order'

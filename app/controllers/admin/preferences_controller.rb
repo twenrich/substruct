@@ -54,11 +54,13 @@ class Admin::PreferencesController < Admin::BaseController
   end
   def save_shipping
     # Index is the shipping type ID.
-    params[:shipping_types].each do |id,type_attributes|
-      type = OrderShippingType.find(id)
-      type.update_attributes(type_attributes)
+    if params[:shipping_types]
+      params[:shipping_types].each do |id,type_attributes|
+        type = OrderShippingType.find(id)
+        type.update_attributes(type_attributes)
+      end
+      flash[:notice] = "Shipping rates updated."
     end
-    flash[:notice] = "Shipping rates updated."
     redirect_to :action => 'shipping'
   end
   def add_new_rate_ajax
