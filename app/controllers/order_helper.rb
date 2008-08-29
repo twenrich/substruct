@@ -32,8 +32,8 @@ module OrderHelper
     if @customer
       logger.info('Order user is @customer')
       @order_user = @customer
-      @billing_address = @customer.last_billing_address
-      @shipping_address = @customer.last_shipping_address
+      @billing_address = @customer.last_billing_address || OrderAddress.new
+      @shipping_address = @customer.last_shipping_address || OrderAddress.new
       @use_separate_shipping_address = @billing_address != @shipping_address
     else
       logger.info('Order user coming from @order')
