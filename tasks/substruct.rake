@@ -210,13 +210,16 @@ namespace :substruct do
       # copy from ss config dir into real config
       config_dir = File.join(tmp_dir, 'config')
       FileUtils.cp(File.join(ss_dir, 'config', 'environment.rb'), config_dir)
-      FileUtils.cp(File.join(ss_dir, 'config', 'routes.rb'), config_dir)
       FileUtils.cp(File.join(ss_dir, 'config', 'database.yml'), config_dir)
       
       # application.rb
       # necessary to include substruct engine before filters
       app_rb = File.join(ss_dir, 'config', 'application.rb.example')
       FileUtils.cp(app_rb, File.join(tmp_dir, 'app', 'controllers', 'application.rb'))
+
+      # Insert standard substruct routes into default routes.rb
+      routes = File.read(File.join(config_dir, 'routes.rb'))
+      File.open(File.join(config_dir, 'routes.rb'), 'wb') { |f| f.write(routes.to_a.insert(1, "  map.from_plugin :substruct\n\n")) }
       
       # touch loading.html - necessary for submodal
       FileUtils.touch(File.join(tmp_dir, 'public', 'loading.html'))
