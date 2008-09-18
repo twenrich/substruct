@@ -46,7 +46,7 @@ class UserUploadSwitchToAttachmentFu < ActiveRecord::Migration
     old_prefix = 'public/system/user_upload/path/'
     new_prefix = 'public/system/0000'
     
-    FileUtils.mkdir(new_prefix) if Dir.glob(new_prefix).size == 0
+    FileUtils.mkdir_p(new_prefix) if Dir.glob(new_prefix).size == 0
 
     UserUpload.find(:all).each do |user_upload|
       path = File.join(RAILS_ROOT, old_prefix, user_upload.id.to_s, user_upload.filename)
