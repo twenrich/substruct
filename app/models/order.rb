@@ -635,7 +635,7 @@ class Order < ActiveRecord::Base
     # AM requires it's purchaes in CENTS, so adjust accordingly.
     response = gateway.purchase(self.total.to_f*100, credit_card, {:address => address})
   	# Save transaction id for later
-  	self.auth_transaction_id = response.params[:transaction_id]
+  	self.auth_transaction_id = response.authorization
   			
 		# Handle the response
 		if response.success?
