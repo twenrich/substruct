@@ -805,3 +805,8 @@ body {
 .user_id {
 	color: #B9808B;
 }
+
+.textAreaCode {
+  font-family:'Andale Mono', 'Courier New', Courier, monospace !important;
+  font-size: 11px;
+}
