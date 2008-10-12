@@ -121,7 +121,9 @@ class Admin::OrdersController < Admin::BaseController
   #
   def totals
     @title = 'Sales Totals'
-    sql = "SELECT DISTINCT YEAR(created_on) as year "
+    # should become model function - e.g. Order.get_totals :year
+    # sql = "SELECT DISTINCT YEAR(created_on) as year "
+    sql = "SELECT DISTINCT EXTRACT(year from created_on) as year "
     sql << "FROM orders "
     sql << "ORDER BY year ASC"
     @year_rows = Order.find_by_sql(sql)
@@ -195,7 +197,7 @@ class Admin::OrdersController < Admin::BaseController
       :all,
       :conditions => [
         "id NOT IN(?)", 
-        @order.order_line_items.collect {|i| i.item_id}.join(',')
+        @order.order_line_items.collect {|i| i.item_id}
       ]
     )
     # If this order is "finished" send them to the view page instead of the edit one...

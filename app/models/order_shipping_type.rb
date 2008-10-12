@@ -24,7 +24,7 @@ class OrderShippingType < ActiveRecord::Base
   def self.get_domestic
     find(
       :all, 
-      :conditions => "is_domestic = 1",
+      :conditions => ["is_domestic = ?", true],
       :order => "price ASC"
     )
   end
@@ -32,7 +32,7 @@ class OrderShippingType < ActiveRecord::Base
   def self.get_foreign
     find(
       :all, 
-      :conditions => "is_domestic = 0",
+      :conditions => ["is_domestic = ?", false],
       :order => "price ASC"
     )
   end

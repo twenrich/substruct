@@ -11,7 +11,7 @@ uranium_portion:
   size_depth: 20
   weight: 200.87
   type: Product
-  is_discontinued: 0
+  is_discontinued: false
   variation_quantity: 0
   related_products: lightsaber, holy_grenade
   tags: weapons, mass_destruction, weird
@@ -28,7 +28,7 @@ lightsaber:
   size_depth: 2
   weight: 1.45
   type: Product
-  is_discontinued: 0
+  is_discontinued: false
   variation_quantity: 15
   related_products: uranium_portion, holy_grenade
   tags: weapons
@@ -72,7 +72,7 @@ holy_grenade:
   size_depth: 5
   weight: 0.87
   type: Product
-  is_discontinued: 0
+  is_discontinued: false
   variation_quantity: 0
   related_products: uranium_portion, lightsaber
   tags: weapons
@@ -91,7 +91,7 @@ chinchilla_coat:
   size_depth: 3
   weight: 4.45
   type: Product
-  is_discontinued: 0
+  is_discontinued: false
   variation_quantity: 9
   tags: fluffy
 
@@ -128,7 +128,7 @@ towel:
   size_depth: 0.01
   weight: 0.45
   type: Product
-  is_discontinued: 0
+  is_discontinued: false
   variation_quantity: 0
   tags: weapons, weird, on_sale
 
@@ -147,7 +147,7 @@ the_stuff:
   weight: 1.52
   type: Product
   product_id: 0
-  is_discontinued: 0
+  is_discontinued: false
   variation_quantity: 1034
 
 small_stuff:

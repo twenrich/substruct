@@ -62,7 +62,8 @@ class OrderUser < ActiveRecord::Base
     
     if !password.blank? && user.password == password
       return user
-    elsif user.orders.find_by_order_number(password)
+    elsif ((password.kind_of?(Fixnum) || password.match(/^[0-9]+$/)) &&
+          user.orders.find_by_order_number(password))
       return user
     else
       return nil

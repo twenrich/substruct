@@ -2,9 +2,11 @@ class Product < Item
   # Conditions that the product is in stock, or available 
   # and just out of stock.
   CONDITIONS_AVAILABLE = %Q/
-      CURRENT_DATE() >= DATE(items.date_available)
-      AND items.is_discontinued = 0
-      OR (items.is_discontinued = 1 AND (items.quantity > 0 OR items.variation_quantity > 0))
+      (CURRENT_DATE >= date_trunc('day', items.date_available)
+      AND (items.is_discontinued = false
+           OR (items.is_discontinued = true
+               AND (items.quantity > 0 OR items.variation_quantity > 0))
+          ))
   /
 
   has_many :product_images, :dependent => :destroy
@@ -24,6 +26,7 @@ class Product < Item
     :join_table => 'related_products',
     :association_foreign_key => 'related_id',
     :foreign_key => 'product_id',
+    :order => 'name',
     :after_add => :add_return_relation,
     :after_remove => :remove_return_relation
     
@@ -57,13 +60,13 @@ class Product < Item
 		end
 		sql << "FROM items "
 		sql << "WHERE ("
-		sql << "  name LIKE ? "
-		sql << "  OR items.description LIKE ? "
-		sql << "  OR items.code LIKE ? "
+		sql << "  upper(name) LIKE upper(:term)"
+		sql << "  OR upper(items.description) LIKE upper(:term)"
+		sql << "  OR upper(items.code) LIKE upper(:term)"
 		sql << ") AND items.type = 'Product' "
 		sql << "ORDER BY date_available DESC "
 		sql << "LIMIT #{limit_sql}" if limit_sql
-		arg_arr = [sql, "%#{search_term}%", "%#{search_term}%", "%#{search_term}%"]
+		arg_arr = [sql, { :term => "%#{search_term}%" }]
 		if (count == true) then
 		  count_by_sql(arg_arr)
 	  else
@@ -79,10 +82,18 @@ class Product < Item
 	def self.find_by_tags(tag_ids, find_available=false, order_by="items.date_available DESC")
 		sql =  "SELECT * "
 		sql << "FROM items "
-		sql << "JOIN products_tags on items.id = products_tags.product_id "
-		sql << "WHERE products_tags.tag_id IN (#{tag_ids.join(",")}) "
-		sql << "AND #{CONDITIONS_AVAILABLE}" if find_available==true
-		sql << "GROUP BY items.id HAVING COUNT(*)=#{tag_ids.length} "
+                if self.connection.adapter_name == "MySQL"
+		  sql << " JOIN products_tags on items.id = products_tags.product_id "
+		  sql << " WHERE products_tags.tag_id IN (#{tag_ids.join(",")}) "
+		  sql << " GROUP BY items.id HAVING COUNT(*)=#{tag_ids.length} "
+                else
+                  sql << " WHERE #{tag_ids.length} = ("
+                  sql << "     SELECT count(*) FROM products_tags"
+                  sql << "      WHERE products_tags.product_id = items.id"
+                  sql << "        AND products_tags.tag_id IN (#{tag_ids.join(",")})"
+                  sql << "     )"
+                end
+                sql << " AND #{CONDITIONS_AVAILABLE}" if find_available==true
 		sql << "ORDER BY #{order_by};"
 		find_by_sql(sql)
 	end
@@ -141,10 +152,9 @@ class Product < Item
 	# Is this product new?
 	#
 	def is_new?
-	  @cached_is_new ||=
-	    begin
-	      self.date_available >= 2.weeks.ago
-      end
+    # better to use date as datatype!
+    # "new" condition should be configurable!
+    @cached_is_new ||= self.date_available.to_date >= 2.weeks.ago.to_date
   end
   
   # Is this product on sale?

@@ -54,7 +54,7 @@ class StoreController < ApplicationController
     @title = "Search Results for: #{@search_term}"
     @products = Product.paginate(
       :order => 'name ASC',
-      :conditions => ["(name LIKE ? OR code = ?) AND #{Product::CONDITIONS_AVAILABLE}", "%#{@search_term}%", @search_term],
+      :conditions => ["(upper(name) LIKE upper(?) OR code = ?) AND #{Product::CONDITIONS_AVAILABLE}", "%#{@search_term}%", @search_term],
       :page => params[:page],
       :per_page => 10
     )

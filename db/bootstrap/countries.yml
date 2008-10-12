@@ -6,1474 +6,1474 @@ AF:
   code: AF
   name: Afghanistan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AX:
   code: AX
   name: Åland Islands
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AL:
   code: AL
   name: Albania 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 DZ:
   code: DZ
   name: Algeria 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AS:
   code: AS
   name: American Samoa 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AD:
   code: AD
   name: Andorra 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AO:
   code: AO
   name: Angola 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AI:
   code: AI
   name: Anguilla 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AQ:
   code: AQ
   name: Antarctica
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AG:
   code: AG
   name: Antigua and Barbuda 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AR:
   code: AR
   name: Argentina 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AM:
   code: AM
   name: Armenia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AW:
   code: AW
   name: Aruba 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AU:
   code: AU
   name: Australia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AT:
   code: AT
   name: Austria 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AZ:
   code: AZ
   name: Azerbaijan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BS:
   code: BS
   name: Bahamas 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BH:
   code: BH
   name: Bahrain 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BD:
   code: BD
   name: Bangladesh 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BB:
   code: BB
   name: Barbados 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BY:
   code: BY
   name: Belarus 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BE:
   code: BE
   name: Belgium 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BZ:
   code: BZ
   name: Belize 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BJ:
   code: BJ
   name: Benin 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BM:
   code: BM
   name: Bermuda 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BT:
   code: BT
   name: Bhutan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BO:
   code: BO
   name: Bolivia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BA:
   code: BA
   name: Bosnia and Herzegovina 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BW:
   code: BW
   name: Botswana 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BV:
   code: BV
   name: Bouvet Island
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BR:
   code: BR
   name: Brazil
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IO:
   code: IO
   name: British Indian Ocean Territory
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BN:
   code: BN
   name: Brunei Darussalam 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BG:
   code: BG
   name: Bulgaria 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BF:
   code: BF
   name: Burkina Faso 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BI:
   code: BI
   name: Burundi 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KH:
   code: KH
   name: Cambodia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CM:
   code: CM
   name: Cameroon 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CA:
   code: CA
   name: Canada 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CV:
   code: CV
   name: Cape Verde 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KY:
   code: KY
   name: Cayman Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CF:
   code: CF
   name: Central African Republic 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TD:
   code: TD
   name: Chad 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CL:
   code: CL
   name: Chile 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CN:
   code: CN
   name: China 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CX:
   code: CX
   name: Christmas Island
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CC:
   code: CC
   name: Cocos (Keeling) Islands
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CO:
   code: CO
   name: Colombia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KM:
   code: KM
   name: Comoros 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CD:
   code: CD
   name: Congo, Democratic Republic of the
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CG:
   code: CG
   name: Congo, Republic of the
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CK:
   code: CK
   name: Cook Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CR:
   code: CR
   name: Costa Rica 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CI:
   code: CI
   name: Côte d'Ivoire 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 HR:
   code: HR
   name: Croatia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CU:
   code: CU
   name: Cuba 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CY:
   code: CY
   name: Cyprus 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CZ:
   code: CZ
   name: Czech Republic 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 DK:
   code: DK
   name: Denmark 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 DJ:
   code: DJ
   name: Djibouti 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 DM:
   code: DM
   name: Dominica 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 DO:
   code: DO
   name: Dominican Republic 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 EC:
   code: EC
   name: Ecuador 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 EG:
   code: EG
   name: Egypt 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SV:
   code: SV
   name: El Salvador 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GQ:
   code: GQ
   name: Equatorial Guinea 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ER:
   code: ER
   name: Eritrea 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 EE:
   code: EE
   name: Estonia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ET:
   code: ET
   name: Ethiopia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 FK:
   code: FK
   name: Falkland Islands (Malvinas) 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 FO:
   code: FO
   name: Faroe Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 FJ:
   code: FJ
   name: Fiji 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 FI:
   code: FI
   name: Finland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 FR:
   code: FR
   name: France 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GF:
   code: GF
   name: French Guiana 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PF:
   code: PF
   name: French Polynesia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TF:
   code: TF
   name: French Southern Territories
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GA:
   code: GA
   name: Gabon 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GM:
   code: GM
   name: Gambia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GE:
   code: GE
   name: Georgia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 DE:
   code: DE
   name: Germany 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GH:
   code: GH
   name: Ghana 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GI:
   code: GI
   name: Gibraltar 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GR:
   code: GR
   name: Greece 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GL:
   code: GL
   name: Greenland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GD:
   code: GD
   name: Grenada 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GP:
   code: GP
   name: Guadeloupe 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GU:
   code: GU
   name: Guam 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GT:
   code: GT
   name: Guatemala 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GG:
   code: GG
   name: Guernsey
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GN:
   code: GN
   name: Guinea 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GW:
   code: GW
   name: Guinea-Bissau 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GY:
   code: GY
   name: Guyana 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 HT:
   code: HT
   name: Haiti 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 HM:
   code: HM
   name: Heard Island and McDonald Islands
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 HN:
   code: HN
   name: Honduras 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 HK:
   code: HK
   name: Hong Kong
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 HU:
   code: HU
   name: Hungary 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IS:
   code: IS
   name: Iceland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IN:
   code: IN
   name: India 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ID:
   code: ID
   name: Indonesia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IR:
   code: IR
   name: Iran, Islamic Republic of
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IQ:
   code: IQ
   name: Iraq 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IE:
   code: IE
   name: Ireland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IM:
   code: IM
   name: Isle of Man 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IL:
   code: IL
   name: Israel 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 IT:
   code: IT
   name: Italy 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 JM:
   code: JM
   name: Jamaica 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 JP:
   code: JP
   name: Japan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 JE:
   code: JE
   name: Jersey
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 JO:
   code: JO
   name: Jordan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KZ:
   code: KZ
   name: Kazakhstan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KE:
   code: KE
   name: Kenya 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KI:
   code: KI
   name: Kiribati 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KP:
   code: KP
   name: Korea, North
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KR:
   code: KR
   name: Korea, South
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KW:
   code: KW
   name: Kuwait 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KG:
   code: KG
   name: Kyrgyzstan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LA:
   code: LA
   name: Lao People's Democratic Republic 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LV:
   code: LV
   name: Latvia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LB:
   code: LB
   name: Lebanon 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LS:
   code: LS
   name: Lesotho 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LR:
   code: LR
   name: Liberia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LY:
   code: LY
   name: Libyan Arab Jamahiriya 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LI:
   code: LI
   name: Liechtenstein 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LT:
   code: LT
   name: Lithuania 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LU:
   code: LU
   name: Luxembourg 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MO:
   code: MO
   name: Macao
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MK:
   code: MK
   name: Macedonia
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MG:
   code: MG
   name: Madagascar 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MW:
   code: MW
   name: Malawi 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MY:
   code: MY
   name: Malaysia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MV:
   code: MV
   name: Maldives 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ML:
   code: ML
   name: Mali 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MT:
   code: MT
   name: Malta 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MH:
   code: MH
   name: Marshall Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MQ:
   code: MQ
   name: Martinique 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MR:
   code: MR
   name: Mauritania 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MU:
   code: MU
   name: Mauritius 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 YT:
   code: YT
   name: Mayotte
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MX:
   code: MX
   name: Mexico 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 FM:
   code: FM
   name: Micronesia, Federated States of
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MD:
   code: MD
   name: Moldova 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MC:
   code: MC
   name: Monaco 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MN:
   code: MN
   name: Mongolia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ME:
   code: ME
   name: Montenegro
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MS:
   code: MS
   name: Montserrat 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MA:
   code: MA
   name: Morocco 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MZ:
   code: MZ
   name: Mozambique 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MM:
   code: MM
   name: Myanmar 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NA:
   code: NA
   name: Namibia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NR:
   code: NR
   name: Nauru 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NP:
   code: NP
   name: Nepal 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NL:
   code: NL
   name: Netherlands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AN:
   code: AN
   name: Netherlands Antilles 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NC:
   code: NC
   name: New Caledonia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NZ:
   code: NZ
   name: New Zealand 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NI:
   code: NI
   name: Nicaragua 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NE:
   code: NE
   name: Niger 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NG:
   code: NG
   name: Nigeria 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NU:
   code: NU
   name: Niue 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NF:
   code: NF
   name: Norfolk Island 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MP:
   code: MP
   name: Northern Mariana Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 NO:
   code: NO
   name: Norway 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 OM:
   code: OM
   name: Oman 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PK:
   code: PK
   name: Pakistan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PW:
   code: PW
   name: Palau 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PS:
   code: PS
   name: Palestinian Territory, Occupied
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PA:
   code: PA
   name: Panama 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PG:
   code: PG
   name: Papua New Guinea 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PY:
   code: PY
   name: Paraguay 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PE:
   code: PE
   name: Peru 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PH:
   code: PH
   name: Philippines 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PN:
   code: PN
   name: Pitcairn 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PL:
   code: PL
   name: Poland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PT:
   code: PT
   name: Portugal 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PR:
   code: PR
   name: Puerto Rico 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 QA:
   code: QA
   name: Qatar 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 RE:
   code: RE
   name: Réunion
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 RO:
   code: RO
   name: Romania 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 RU:
   code: RU
   name: Russian Federation 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 RW:
   code: RW
   name: Rwanda 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 BL:
   code: BL
   name: Saint Barthélemy
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SH:
   code: SH
   name: Saint Helena 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 KN:
   code: KN
   name: Saint Kitts and Nevis 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LC:
   code: LC
   name: Saint Lucia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 MF:
   code: MF
   name: Saint Martin
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 PM:
   code: PM
   name: Saint Pierre and Miquelon 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VC:
   code: VC
   name: Saint Vincent and the Grenadines 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 WS:
   code: WS
   name: Samoa 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SM:
   code: SM
   name: San Marino 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ST:
   code: ST
   name: Sao Tome and Principe 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SA:
   code: SA
   name: Saudi Arabia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SN:
   code: SN
   name: Senegal 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 RS:
   code: RS
   name: Serbia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SC:
   code: SC
   name: Seychelles 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SL:
   code: SL
   name: Sierra Leone 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SG:
   code: SG
   name: Singapore 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SK:
   code: SK
   name: Slovakia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SI:
   code: SI
   name: Slovenia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SB:
   code: SB
   name: Solomon Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SO:
   code: SO
   name: Somalia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ZA:
   code: ZA
   name: South Africa 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GS:
   code: GS
   name: South Georgia and the South Sandwich Islands
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ES:
   code: ES
   name: Spain 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 LK:
   code: LK
   name: Sri Lanka 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SD:
   code: SD
   name: Sudan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SR:
   code: SR
   name: Suriname 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SJ:
   code: SJ
   name: Svalbard
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SZ:
   code: SZ
   name: Swaziland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SE:
   code: SE
   name: Sweden 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 CH:
   code: CH
   name: Switzerland 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 SY:
   code: SY
   name: Syrian Arab Republic 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TW:
   code: TW
   name: Taiwan
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TJ:
   code: TJ
   name: Tajikistan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TZ:
   code: TZ
   name: Tanzania
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TH:
   code: TH
   name: Thailand 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TL:
   code: TL
   name: Timor-Leste
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TG:
   code: TG
   name: Togo 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TK:
   code: TK
   name: Tokelau 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TO:
   code: TO
   name: Tonga 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TT:
   code: TT
   name: Trinidad and Tobago 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TN:
   code: TN
   name: Tunisia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TR:
   code: TR
   name: Turkey 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TM:
   code: TM
   name: Turkmenistan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TC:
   code: TC
   name: Turks and Caicos Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 TV:
   code: TV
   name: Tuvalu 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 UG:
   code: UG
   name: Uganda 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 UA:
   code: UA
   name: Ukraine 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 AE:
   code: AE
   name: United Arab Emirates 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 GB:
   code: GB
   name: United Kingdom
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 UM:
   code: UM
   name: United States Minor Outlying Islands
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 US:
   code: US
   name: United States of America
   rank: 0
-  is_obsolete: 0
+  is_obsolete: false
 
 UY:
   code: UY
   name: Uruguay 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 UZ:
   code: UZ
   name: Uzbekistan 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VU:
   code: VU
   name: Vanuatu 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VA:
   code: VA
   name: Vatican City State
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VE:
   code: VE
   name: Venezuela
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VN:
   code: VN
   name: Viet Nam 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VG:
   code: VG
   name: Virgin Islands, British
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 VI:
   code: VI
   name: Virgin Islands, U.S.
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 WF:
   code: WF
   name: Wallis and Futuna Islands 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 EH:
   code: EH
   name: Western Sahara 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 YE:
   code: YE
   name: Yemen 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ZM:
   code: ZM
   name: Zambia 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false
 
 ZW:
   code: ZW
   name: Zimbabwe 
   rank: 10
-  is_obsolete: 0
+  is_obsolete: false

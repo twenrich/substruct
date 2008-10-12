@@ -20,7 +20,7 @@ class BuyerTest < ActionController::IntegrationTest
       :order_user => {
         :email_address => "uncle.scrooge@whoknowswhere.com"
       },
-      :use_separate_shipping_address => "false"
+      :use_separate_shipping_address => false
     )
   end
 

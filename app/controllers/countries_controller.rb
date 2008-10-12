@@ -8,7 +8,7 @@ class CountriesController < ApplicationController
     # Here we order the list by rank then by name, so, first lower ranks, then
     # equal ranks ordered by name. 
     @countries = Country.find(:all,
-                              :conditions => ['is_obsolete != ?', 1],
+                              :conditions => ['is_obsolete != ?', true],
                               :order => 'rank, name ASC')
   end
 

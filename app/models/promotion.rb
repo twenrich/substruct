@@ -59,7 +59,7 @@ class Promotion < ActiveRecord::Base
 	def self.any_active?
 	  !Promotion.find(
 	    :first, 
-	    :conditions => "NOW() BETWEEN start AND end"
+	    :conditions => "NOW() BETWEEN start AND \"end\""
 	  ).nil?
   end
   

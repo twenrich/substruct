@@ -43,8 +43,8 @@ class StoreControllerTest < ActionController::TestCase
     assert_equal assigns(:products).size, 2
     assert_template 'index'
 
-
     # Now with a term, that returns only one result.
+    # (ensures also that search is case-insensitive)
     a_term = "lightsaber"
     get :search, :search_term => a_term
     assert_response :redirect

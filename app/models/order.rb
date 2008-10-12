@@ -134,9 +134,11 @@ class Order < ActiveRecord::Base
   
   # CLASS METHODS =============================================================
 
-  # Searches an order
-  # Uses order number, first name, last name
+  # Searches an order by order number or first name or last name.
   def self.search(search_term, count=false, limit_sql=nil)
+    order_number = -1
+    order_number = search_term if (search_term.kind_of?(Fixnum) || search_term.match(/^\s*[0-9]\s*$/))
+    
     if (count == true) then
       sql = "SELECT COUNT(*) "
     else
@@ -145,12 +147,17 @@ class Order < ActiveRecord::Base
 		sql << "FROM orders "
     sql << "INNER JOIN order_addresses AS billing_address ON (orders.billing_address_id = billing_address.id)"
     sql << "INNER JOIN order_addresses AS shipping_address ON (orders.shipping_address_id = shipping_address.id)"
-    sql << "WHERE orders.order_number = ? "
-    sql << "OR CONCAT(billing_address.first_name, ' ', billing_address.last_name) LIKE ? "
-    sql << "OR CONCAT(shipping_address.first_name, ' ', shipping_address.last_name) LIKE ? "
-    sql << "ORDER BY orders.created_on DESC "
+    sql << "WHERE (orders.order_number = :number "
+    # sql << "OR CONCAT(billing_address.first_name, ' ', billing_address.last_name) LIKE ? "
+    # sql << "OR CONCAT(shipping_address.first_name, ' ', shipping_address.last_name) LIKE ? "
+    sql << "OR upper(billing_address.first_name||' '||billing_address.last_name) LIKE upper(:term) "
+    sql << "OR upper(shipping_address.first_name||' '||shipping_address.last_name) LIKE upper(:term) "
+    sql << ")"
 		sql << "LIMIT #{limit_sql}" if limit_sql
-		arg_arr = [sql, search_term, "%#{search_term}%", "%#{search_term}%"]
+    if (!count)
+      sql << "ORDER BY orders.created_on DESC "
+    end
+    arg_arr = [sql, { :number => order_number, :term => "%#{search_term}%" }]
 		if (count == true) then
 		  count_by_sql(arg_arr)
 	  else
@@ -202,12 +209,16 @@ class Order < ActiveRecord::Base
       sql = "SELECT COUNT(*) AS number_of_sales, SUM(product_cost) AS sales_total, "
       sql << "SUM(tax) AS tax, SUM(shipping_cost) AS shipping "
       sql << "FROM orders "
-      sql << "WHERE YEAR(created_on) = ? "
+      # sql << "WHERE YEAR(created_on) = ? "
+      sql << "WHERE EXTRACT(YEAR FROM created_on) = ? "
       if i != 0 then
-        sql << "AND MONTH(created_on) = ? "
+        # sql << "AND MONTH(created_on) = ? "
+        sql << "AND EXTRACT(month FROM created_on) = ? "
       end
-      sql << "AND (order_status_code_id = 5 OR order_status_code_id = 6 OR order_status_code_id = 7) "
-      sql << "LIMIT 0,1"
+      # sql << "AND (order_status_code_id = 5 OR order_status_code_id = 6 OR order_status_code_id = 7) "
+      sql << "AND order_status_code_id IN (5,6,7)"
+      # speed optimization for mysql ?
+      # sql << "LIMIT 0,1"
       if i != 0 then
         months[i] = self.find_by_sql([sql, year, i])[0]
       else

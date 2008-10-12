@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     @title = "FAQ (Frequently Asked Questions)"
     @questions = Question.find(
       :all,
-      :conditions => "featured = 1",
+      :conditions => [ "featured = ?", true ],
       :order => "-rank DESC, times_viewed DESC"
     )
   end

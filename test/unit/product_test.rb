@@ -223,13 +223,17 @@ class ProductTest < ActiveSupport::TestCase
   def test_should_search
     # It should find products.
     assert_equal [items(:lightsaber)], Product.search("LIGHTSABER")
+    assert_equal [items(:lightsaber)], Product.search("LIGHTsaber")
+    
     # It should NOT find variations.
     assert_equal [], Product.search("Red")
+    
     # Find in description.
     assert_equal [items(:uranium_portion)], Product.search("nuke you always wanted")
+    assert_equal [items(:uranium_portion)], Product.search("Nuke you ALWAYS wanted")
+    
     # Find in name.
     assert_equal [items(:uranium_portion)], Product.search("Enriched")
-    # Find in name. It should NOT be case sensitive.
     assert_equal [items(:uranium_portion)], Product.search("enriched")
   end
 
