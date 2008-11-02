@@ -148,7 +148,7 @@ class Order < ActiveRecord::Base
 			new_note << "<span class=\"info\">"
 			new_note << "[#{time}]"
 			new_note << "</span></p>"
-			write_attribute(:notes, self.notes + self.new_notes)
+			write_attribute(:notes, self.notes + new_note)
 			self.new_notes = nil
 		end
 		return true
