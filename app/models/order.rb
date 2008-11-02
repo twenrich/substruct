@@ -354,7 +354,7 @@ class Order < ActiveRecord::Base
     if item
       # Always set price, as it might have changed...
       item.update_attributes(
-        :quantity => item.quantity += 1,
+        :quantity => item.quantity += quantity,
         :price => product.price
       )
     else

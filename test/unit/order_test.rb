@@ -1283,12 +1283,12 @@ class OrderTest < ActiveSupport::TestCase
   def test_add_product
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 1)
-    # Test adding the same item again...quantity should only change.
-    a_cart.add_product(items(:red_lightsaber), 1)
-    assert_equal a_cart.items.length, 1, "Cart added multiple order line items for the same product. #{a_cart.items.inspect}"
-    
+    a_cart.add_product(items(:red_lightsaber), 3)
+    assert_equal 1, a_cart.items.length, "Cart added multiple order line items for the same product. #{a_cart.items.inspect}"
     assert a_cart.save
-    assert_equal a_cart.items.length, 1
+    a_cart.reload()
+    assert_equal 1, a_cart.items.length
+    assert_equal 4, a_cart.items[0].quantity
   end
 
   # Test if a product can be removed from the cart.
