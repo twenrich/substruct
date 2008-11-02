@@ -20,7 +20,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   # Test if a valid order can be created with success.
-  def test_should_create_order
+  def test_create_order
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
 
     an_order = Order.new
@@ -48,7 +48,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if an order can be found with success.
-  def test_should_find_order
+  def test_find_order
     an_order_id = orders(:santa_next_christmas_order).id
     assert_nothing_raised {
       Order.find(an_order_id)
@@ -57,14 +57,14 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if an order can be updated with success.
-  def test_should_update_order
+  def test_update_order
     an_order = orders(:santa_next_christmas_order)
     assert an_order.update_attributes(:notes => '<p>Order completed.<br/><span class="info">[04-04-08 05:18 PM]</span><br/>New note.</p>')
   end
 
 
   # Test if an order can be destroyed with success.
-  def test_should_destroy_order
+  def test_destroy_order
     an_order = orders(:santa_next_christmas_order)
     an_order.destroy
     assert_raise(ActiveRecord::RecordNotFound) {
@@ -74,7 +74,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if an invalid order really will NOT be created.
-  def dont_test_should_not_create_invalid_order
+  def dont_test_not_create_invalid_order
 #    # TODO: By now theres no way to make an order invalid, it accepts any blank values and saves it.
 #    an_order = Order.new
 #    assert !an_order.valid?
@@ -86,7 +86,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if the product cost is being set before save.
-  def test_should_set_product_cost
+  def test_set_product_cost
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
 
     an_order = Order.new
@@ -127,7 +127,7 @@ class OrderTest < ActiveSupport::TestCase
   # if a shipping service was already choosed it will be different, executing the checkout, choosing a
   # shipping service, coming back adding another product and doing checkout again it will be different
   # etc.
-  def test_should_set_promo_code
+  def test_set_promo_code
     a_coat_line_item = OrderLineItem.for_product(items(:grey_coat))
     a_stuff_line_item = OrderLineItem.for_product(items(:small_stuff))
 
@@ -198,7 +198,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if it will properly delete a previous promotion before apply a new one.
-  def test_should_delete_previous_promotion_line_item
+  def test_delete_previous_promotion_line_item
     a_coat_line_item = OrderLineItem.for_product(items(:grey_coat))
     a_stuff_line_item = OrderLineItem.for_product(items(:small_stuff))
 
@@ -295,7 +295,7 @@ class OrderTest < ActiveSupport::TestCase
 
   
   # Test if orders can found using the search method.
-  def test_should_search_order
+  def test_search_order
     # Test a search.
     assert_same_elements Order.search("Santa"), orders(:santa_next_christmas_order, :an_order_on_cart, :an_order_to_charge, :an_order_on_hold_payment_failed, :an_order_on_hold_awaiting_payment, :an_order_ordered_paid_shipped, :an_order_sent_to_fulfillment, :an_order_cancelled, :an_order_returned)
     # Test with changed case. (it should be case insensitive)
@@ -306,7 +306,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if orders can found by country using the search method.
-  def test_should_search_order_by_country
+  def test_search_order_by_country
     # Test a search.
     assert_same_elements Order.find_by_country(countries(:US).id), orders(:santa_next_christmas_order, :an_order_on_cart, :an_order_to_charge, :an_order_on_hold_payment_failed, :an_order_on_hold_awaiting_payment, :an_order_ordered_paid_shipped, :an_order_sent_to_fulfillment, :an_order_cancelled, :an_order_returned)
     # Test a select count.
@@ -315,14 +315,14 @@ class OrderTest < ActiveSupport::TestCase
 
   
   # Test if a random unique number will be generated.
-  def test_should_generate_random_unique_order_number
+  def test_generate_random_unique_order_number
     sample_number = Order.generate_order_number
     assert_nil Order.find(:first, :conditions => ["order_number = ?", sample_number])
   end
   
   
   # Test if the sales totals for a given year will be generated.
-  def test_should_get_sales_totals_for_year
+  def test_get_sales_totals_for_year
     sales_totals = Order.get_totals_for_year(Date.today.year)
     an_order = orders(:santa_next_christmas_order)
     a_month = an_order.created_on.month
@@ -334,7 +334,7 @@ class OrderTest < ActiveSupport::TestCase
 
   
   # Test if a csv file with a list of orders will be generated.
-  def test_should_get_csv_for_orders
+  def test_get_csv_for_orders
     # We don't have more than one order to test now.
     an_order = orders(:santa_next_christmas_order)
 
@@ -420,7 +420,7 @@ class OrderTest < ActiveSupport::TestCase
   
   # Test if a xml file with a list of orders will be generated.
   # TODO: Get rid of the reference to fedex code. 
-  def test_should_get_xml_for_orders
+  def test_get_xml_for_orders
     # We don't have more than one order to test now.
     an_order = orders(:santa_next_christmas_order)
     
@@ -461,7 +461,7 @@ class OrderTest < ActiveSupport::TestCase
   
   # Test if the line item that represents a promotion is returned if present.
   # FIXME: This method doesn't find the promotion line item if the promotion has an associated item (get 1 free promotions).
-  def test_should_return_promotion_line_item
+  def test_return_promotion_line_item
     a_promotion = promotions(:percent_rebate)
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
  
@@ -493,14 +493,14 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test if the current status of an order will be shown with success.
-  def test_should_get_order_status
+  def test_get_order_status
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.status, order_status_codes(:ordered_paid_to_ship).name
   end
   
   
   # Test if we can refer to order_line_items simply using items.
-  def test_should_return_items
+  def test_return_items
     # TODO: Why not use an alias here?
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.order_line_items, an_order.items
@@ -508,7 +508,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test if we can get the total order value.
-  def test_should_get_total_order_value
+  def test_get_total_order_value
     # TODO: Why log this?
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.total, an_order.line_items_total + an_order.shipping_cost + an_order.tax_cost
@@ -516,7 +516,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test if we can get the tax total cost for the order.
-  def test_should_get_total_tax_cost
+  def test_get_total_tax_cost
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.tax_cost, (an_order.line_items_total) * (an_order.tax/100)
   end
@@ -532,7 +532,7 @@ class OrderTest < ActiveSupport::TestCase
   end
   
   # Test if we can refer to order_account simply using account.
-  def test_should_return_account
+  def test_return_account
     # TODO: Why not use an alias here?
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.order_account, an_order.account
@@ -542,7 +542,7 @@ class OrderTest < ActiveSupport::TestCase
   # Test if a hash containing item ids and quantities can be used to fill the list.
   # TODO: Doing that the name of the line item isn't set.
   # TODO: Get rid of this method if it will not be used.
-  def test_should_build_line_items_from_hash
+  def test_build_line_items_from_hash
     # Create a new order and put just one line item.
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
 
@@ -579,7 +579,7 @@ class OrderTest < ActiveSupport::TestCase
 
   
   # Test an order to see if it will correctly say if has a valid transaction id.
-  def test_should_show_if_contains_valid_transaction_id
+  def test_show_if_contains_valid_transaction_id
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.contains_valid_transaction_id?, false
     
@@ -591,7 +591,7 @@ class OrderTest < ActiveSupport::TestCase
   # Test an order to see if it will correctly say if has an specific line item.
   # TODO: The comment about how to use this method and how it should really be used are different.
   # TODO: Get rid of this method if it will not be used.
-  def test_should_show_if_has_line_item
+  def test_show_if_has_line_item
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.has_line_item?(an_order.order_line_items.find_by_name(items(:towel).name).id), true
 
@@ -609,7 +609,7 @@ class OrderTest < ActiveSupport::TestCase
   # Test an order to see if it will correctly say how many products it have in a line item.
   # TODO: The comment about how to use this method and how it is really being used are different.
   # Why use a line item id, it is meaningless. Probably the current use and the method code are wrong.
-  def test_should_get_line_item_quantity
+  def test_get_line_item_quantity
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.get_line_item_quantity(an_order.order_line_items.find_by_name(items(:towel).name).id), order_line_items(:santa_next_christmas_order_item_6).quantity
 
@@ -627,7 +627,7 @@ class OrderTest < ActiveSupport::TestCase
   # Test an order to see if it will correctly show a specific line item total.
   # TODO: The comment about how to use this method and how it is really being used are different.
   # Why use a line item id, it is meaningless. Probably the current use and the method code are wrong.
-  def test_should_get_line_item_total
+  def test_get_line_item_total
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.get_line_item_total(an_order.order_line_items.find_by_name(items(:towel).name).id), order_line_items(:santa_next_christmas_order_item_6).total
 
@@ -643,34 +643,22 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test an order to see if it will correctly show all line items total.
-  def test_should_get_all_line_items_total
+  def test_get_all_line_items_total
     an_order = orders(:santa_next_christmas_order)
     assert_equal an_order.line_items_total, an_order.order_line_items.collect{ |p| p.unit_price * p.quantity }.sum
   end
 
-
-  # Test an order to see if its possible to add a new note.
-  def test_should_add_new_note
-    an_order = orders(:santa_next_christmas_order)
-    # By now we need to duplicate it to not simply hold a reference, even concat method changes the
-    # string in place and don't have a trailing !.
-    notes_before = an_order.notes.dup
-    an_order.new_notes = "Bla Bla Bla."
-    notes_after = an_order.notes
+  def test_new_notes_update_attr
+    notes_before = @santa_order.notes.dup
+    @santa_order.update_attributes({
+      :new_notes => 'Hello world.'
+    })
+    notes_after = @santa_order.reload.notes
     assert_not_equal notes_before, notes_after
-
-    # Try again with it clean.
-    an_order.notes = ""
-    notes_before = an_order.notes.dup
-    an_order.new_notes = "Bla Bla Bla."
-    notes_after = an_order.notes
-    assert_not_equal notes_before, notes_after
-  end
-  
-  
+  end  
 
   # Test an order to see if the correct total weight will be returned.
-  def test_should_return_total_weight
+  def test_return_total_weight
     an_order = orders(:santa_next_christmas_order)
     calculated_weight = 0
     an_order.order_line_items.each do |item|
@@ -681,7 +669,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test an order to see if a flat shipping price will be returned.
-  def test_should_get_flat_shipping_price
+  def test_get_flat_shipping_price
     # TODO: Should this method really be here?
     an_order = Order.new
     assert_equal an_order.get_flat_shipping_price, Preference.find_by_name('store_handling_fee').value.to_f
@@ -689,7 +677,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test an order to see if the correct shipping prices will be returned.
-  def test_should_get_shipping_prices
+  def test_get_shipping_prices
     # Test a national shipping order.
     an_order = orders(:santa_next_christmas_order)
     assert_same_elements an_order.get_shipping_prices, OrderShippingType.get_domestic
@@ -713,7 +701,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Run a payment transaction of the type defined in preferences.
-  def test_should_run_transaction
+  def test_run_transaction
     # Get any order.
     an_order = orders(:santa_next_christmas_order)
     
@@ -734,21 +722,21 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test an order to see if the cc processor will be returned.
-  def test_should_get_cc_processor
+  def test_get_cc_processor
     # TODO: Should this method really be here?
     assert_equal Order.get_cc_processor, Preference.find_by_name('cc_processor').value.to_s
   end
 
 
   # Test an order to see if the cc login will be returned.
-  def test_should_get_cc_login
+  def test_get_cc_login
     # TODO: Should this method really be here?
     assert_equal Order.get_cc_login, Preference.find_by_name('cc_login').value.to_s
   end
 
 
   # Run an Authorize.net payment transaction with success.
-  def test_should_run_transaction_authorize_with_success
+  def test_run_transaction_authorize_with_success
     # Setup the mailer.
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -800,7 +788,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Run an Authorize.net payment transaction with failure.
-  def test_should_run_transaction_authorize_with_failure
+  def test_run_transaction_authorize_with_failure
     # Setup the mailer.
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -854,7 +842,7 @@ class OrderTest < ActiveSupport::TestCase
   # Run an Paypal IPN payment transaction.
   # TODO: This method don't run a transaction, it only change the status code and add a note.
   # TODO: Could't configure Paypal IPN to work.
-  def test_should_run_transaction_paypal_ipn
+  def test_run_transaction_paypal_ipn
     # Create a new order, incomplete, just to work with.
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
 
@@ -891,7 +879,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test the cleaning of a successful order.
-  def test_should_cleanup_successful
+  def test_cleanup_successful
     # Create a new order.
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
 
@@ -948,7 +936,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test the cleaning of a failed order.
-  def test_should_cleanup_failed
+  def test_cleanup_failed
     # Create a new order.
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
 
@@ -987,7 +975,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test the deliver of the e-mail message in case of success.
-  def test_should_deliver_receipt
+  def test_deliver_receipt
     # Setup the mailer.
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -1019,7 +1007,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test the deliver of the e-mail message in case of error.
-  def test_should_deliver_failed
+  def test_deliver_failed
     # Setup the mailer.
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -1036,7 +1024,7 @@ class OrderTest < ActiveSupport::TestCase
   
 
   # Test the order have a promotion applied.
-  def test_should_say_if_is_discounted
+  def test_say_if_is_discounted
     a_promotion = promotions(:percent_rebate)
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
  
@@ -1066,7 +1054,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test if the contents of the IPN posted back are in conformity with what was sent, here the IPN is validated.
-  def test_should_say_if_matches_ipn
+  def test_say_if_matches_ipn
     # Create a new order.
     an_order_line_item = OrderLineItem.for_product(items(:small_stuff))
     another_order_line_item = OrderLineItem.for_product(items(:towel))
@@ -1179,7 +1167,7 @@ class OrderTest < ActiveSupport::TestCase
 
   # Test the method that mark the order with a success status, if everything is fine with the IPN received.
   # TODO: Should this method really be here?
-  def test_should_pass_ipn
+  def test_pass_ipn
     # Setup the mailer.
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -1225,7 +1213,7 @@ class OrderTest < ActiveSupport::TestCase
 
   # Test the method that mark the order with a fail status, if something is wrong with the IPN received.
   # TODO: Should this method really be here?
-  def test_should_fail_ipn
+  def test_fail_ipn
     # Setup the mailer.
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -1281,7 +1269,7 @@ class OrderTest < ActiveSupport::TestCase
   end
   
   # When created the cart should be empty.
-  def test_when_created_should_be_empty
+  def test_when_created_be_empty
     a_cart = Order.new
     
     assert_equal a_cart.items.size, 0
@@ -1292,7 +1280,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if a product can be added to the cart.
-  def test_should_add_product
+  def test_add_product
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 1)
     # Test adding the same item again...quantity should only change.
@@ -1304,7 +1292,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   # Test if a product can be removed from the cart.
-  def test_should_remove_product
+  def test_remove_product
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 2)
     a_cart.add_product(items(:blue_lightsaber), 2)
@@ -1324,7 +1312,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   # Test if what is in the cart is really available in the inventory.
-  def test_should_check_inventory
+  def test_check_inventory
     # Create a cart and add some products.
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 2)
@@ -1344,7 +1332,7 @@ class OrderTest < ActiveSupport::TestCase
   
   
   # Test if will return the total price of products in the cart.
-  def test_should_return_total_price
+  def test_return_total_price
     # Create a cart and add some products.
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 2)
@@ -1360,7 +1348,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   # Test if will return the tax cost for the total in the cart.
-  def test_should_return_tax_cost
+  def test_return_tax_cost
     # Create a cart and add some products.
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 2)
@@ -1371,7 +1359,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   # Test if will return the line items total.
-  def test_should_return_line_items_total
+  def test_return_line_items_total
     # Create a cart and add some products.
     a_cart = Order.new
     a_cart.add_product(items(:red_lightsaber), 2)

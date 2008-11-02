@@ -1,13 +1,10 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
 class Admin::OrdersControllerTest < ActionController::TestCase
-  fixtures :rights, :roles, :users
-  fixtures :orders, :order_line_items, :order_addresses, :order_users, :order_shipping_types, :items
-  fixtures :order_accounts, :order_status_codes, :countries, :promotions, :preferences
-
-
+  fixtures :all
+  
   # Test the index action.
-  def test_should_show_index
+  def test_show_index
     login_as :admin
 
     get :index
@@ -17,7 +14,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # Test the list action.
-  def test_should_show_list
+  def test_show_list
     login_as :admin
 
     # Call it first without a key, it will use the first value of list_options array.
@@ -64,7 +61,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # We should get a list of orders searching by name or number.
-  def test_should_search
+  def test_search
     login_as :admin
 
     a_term = "santa"
@@ -86,7 +83,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # We should get a list of orders searching by e-mail.
-  def test_should_search_by_email
+  def test_search_by_email
     login_as :admin
 
     a_term = "whoknowswhere"
@@ -108,7 +105,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # We should get a list of orders searching by notes.
-  def test_should_search_by_notes
+  def test_search_by_notes
     login_as :admin
 
     a_term = "Order failed"
@@ -130,7 +127,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # Test if the sales totals by year will be generated. 
-  def test_should_get_sales_totals
+  def test_get_sales_totals
     login_as :admin
 
     get :totals
@@ -165,7 +162,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # We should get a list of orders by country.
-  def test_should_get_orders_by_country
+  def test_get_orders_by_country
     login_as :admin
 
     get :by_country
@@ -179,7 +176,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # We should get a list of orders for a specific country.
-  def test_should_get_orders_for_country
+  def test_get_orders_for_country
     login_as :admin
 
     a_country = countries(:US)
@@ -209,7 +206,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
   # TODO: Maybe is not good idea to change the order_user's e-mail address from here.
   # TODO: The @products array is not being used.
   # May exist others orders that uses the same record.
-  def test_should_allow_edit_order
+  def test_allow_edit_order
     login_as :admin
 
     an_order = orders(:santa_next_christmas_order)
@@ -226,7 +223,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
     post :update, 
     :id => an_order.id,
     :order => {
-      :new_notes => "",
+      :new_notes => "Hello friend",
       :order_shipping_type_id => an_order_shipping_type.id,
       :shipping_cost => an_order_shipping_type.price,
       :order_status_code_id => an_order_status_code.id
@@ -274,6 +271,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
     assert_equal an_order.billing_address.city, "South Pole"
     assert_equal an_order.shipping_address.zip, "123456"
     assert_equal an_order.order_account.expiration_month, 12
+    assert an_order.notes.include?("Hello friend")
 
     # As the order was finished, make it show again, it should use the show template now.
     # Call the show form.
@@ -284,7 +282,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # Should NOT change the order attributes.
-  def test_should_not_allow_edit_wrong_order
+  def test_not_allow_edit_wrong_order
     login_as :admin
 
     an_order = orders(:santa_next_christmas_order)
@@ -316,12 +314,12 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
   
   # TODO: This is an empty method.
-  def test_should_void_order
+  def test_void_order
   end
 
 
   # Test if an order can be marked as returned.
-  def test_should_return_order
+  def test_return_order
     login_as :admin
 
     an_order = orders(:santa_next_christmas_order)
@@ -340,7 +338,7 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # Test if a receipt message will be sent again.
-  def test_should_resend_receipt
+  def test_resend_receipt
     login_as :admin
 
     # Setup the mailer.
@@ -364,14 +362,11 @@ class Admin::OrdersControllerTest < ActionController::TestCase
 
 
   # Test if we can remove an order.
-  def test_should_remove_order
+  def test_remove_order
     login_as :admin
 
     an_order = orders(:santa_next_christmas_order)
     an_order_line_item = an_order.order_line_items.find(:first)
-#    an_order_account = an_order.order_account
-#    an_order_billing_address = an_order.billing_address
-#    an_order_shipping_address = an_order.shipping_address
 
     post :destroy, :id => an_order.id
     assert_response :redirect
@@ -383,24 +378,12 @@ class Admin::OrdersControllerTest < ActionController::TestCase
     }
     assert_raise(ActiveRecord::RecordNotFound) {
       OrderLineItem.find(an_order_line_item.id)
-    }
-    
-     # TODO: Shouldn't these associated objects shown below be destroyed too?
-
-#    assert_raise(ActiveRecord::RecordNotFound, "The order_account is still there.") {
-#      OrderAccount.find(an_order_account.id)
-#    }
-#    assert_raise(ActiveRecord::RecordNotFound, "The billing_address is still there.") {
-#      OrderAddress.find(an_order_billing_address.id)
-#    }
-#    assert_raise(ActiveRecord::RecordNotFound, "The shipping_address is still there.") {
-#      OrderAddress.find(an_order_shipping_address.id)
-#    }
+    }    
   end
 
 
   # Test if we can download an order list.
-  def test_should_download_orders_csv
+  def test_download_orders_csv
     login_as :admin
     
     ids_array = Order.find(:all).collect {|p| p.id}

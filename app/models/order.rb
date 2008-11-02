@@ -61,12 +61,14 @@ class Order < ActiveRecord::Base
   before_create :set_order_number
   def set_order_number
     self.order_number = Order.generate_order_number
+    return true
   end
   
   # Sets product cost based on line items total before a save.
   before_save :set_product_cost
   def set_product_cost
     self.product_cost = self.line_items_total
+    return true
   end
   
   # Modifies the order based on any promotion codes passed in.
@@ -130,7 +132,27 @@ class Order < ActiveRecord::Base
     end
     
     self.order_line_items << oli
+    return true
   end
+  
+  
+	# Adds a new order note from the edit page.
+	# We display notes as read-only, so we only have to use a text field
+	# instead of multiple records.
+	attr_accessor :new_notes
+	before_save :set_new_notes
+	def set_new_notes()
+		unless self.new_notes.blank?
+			time = Time.now.strftime("%m-%d-%y %I:%M %p")
+			new_note = "<p>#{self.new_notes}<br/>"
+			new_note << "<span class=\"info\">"
+			new_note << "[#{time}]"
+			new_note << "</span></p>"
+			write_attribute(:notes, self.notes + self.new_notes)
+			self.new_notes = nil
+		end
+		return true
+	end
   
   # CLASS METHODS =============================================================
 
@@ -513,25 +535,6 @@ class Order < ActiveRecord::Base
 		return total
 	end
 
-	# Adds a new order note from the edit page.
-	#
-	# We display notes as read-only, so we only have to use a text field
-	# instead of multiple records.
-	def new_notes=(note)
-		if !note.blank? then
-			time = Time.now.strftime("%m-%d-%y %I:%M %p")
-			new_note = "<p>#{note}<br/>"
-			new_note << "<span class=\"info\">"
-			new_note << "[#{time}]"
-			new_note << "</span></p>"
-			if self.notes.blank? then
-				self.notes = new_note
-			else
-				self.notes << new_note
-			end
-		end
-	end
-
 	# Calculates the weight of an order
 	def weight
 		weight = 0
@@ -686,9 +689,7 @@ class Order < ActiveRecord::Base
     end
 
     self.save
-
     self.order_status_code.id
- 
   end
 
 	# Cleans up a successful order
@@ -796,13 +797,15 @@ class Order < ActiveRecord::Base
 
     if details[:address_street] && 
        details[:address_street] != order.shipping_address.address
-      order.new_notes ="The shipping address supplied by PayPal doesn't match
-                        the shipping address for this order. PayPal
-			sent the following address:<br/>
-			#{details[:address_street]}<br/>
-			#{details[:address_city]}, #{details[:address_state]}<br/>
-			#{details[:address_zip]}<br/>
-			<b>Please contact the customer for clarification.<b>"
+      order.new_notes = %Q\
+        The shipping address supplied by PayPal doesn't match
+        the shipping address for this order. PayPal
+  			sent the following address:<br/>
+  			#{details[:address_street]}<br/>
+  			#{details[:address_city]}, #{details[:address_state]}<br/>
+  			#{details[:address_zip]}<br/>
+  			<b>Please contact the customer for clarification.<b>
+			\
     end
 
     passed

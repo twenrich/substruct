@@ -251,8 +251,7 @@ class Admin::ContentNodesControllerTest < ActionController::TestCase
     } ]
     
     # If saved we should be redirected to list. 
-    assert_response :redirect
-    assert_redirected_to :action => :list
+    assert_response :success
     
     # Verify that the change was made.
     a_content_node.reload
