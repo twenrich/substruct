@@ -5,17 +5,12 @@ santa_next_christmas_order:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
   notes: <%= "<p>Order completed.<br/><span class=\"info\">[#{1.year.ago.strftime("%m-%d-%y %I:%M %p")}]</span></p>" %>
-  referer: 
   shipping_cost: 30.0
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 5
-
 
 an_order_on_cart: 
   tax: 0.0
@@ -24,15 +19,10 @@ an_order_on_cart:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type_id: 1
-  promotion:
-  notes:
-  referer: 
   shipping_cost: 0
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 1
 
 an_order_to_charge: 
@@ -42,15 +32,10 @@ an_order_to_charge:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
-  notes:
-  referer: 
   shipping_cost: 30
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 2
   
 an_order_on_hold_payment_failed: 
@@ -60,15 +45,11 @@ an_order_on_hold_payment_failed:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
   notes: <%= "<p>Order failed!<br/>(TESTMODE) The merchant login ID or password is invalid or the account is inactive<br/><span class=\"info\">[#{1.hour.ago.strftime("%m-%d-%y %I:%M %p")}]</span></p>" %>
-  referer: 
   shipping_cost: 30
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 3
   
 an_order_on_hold_awaiting_payment: 
@@ -78,15 +59,11 @@ an_order_on_hold_awaiting_payment:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
   notes: <%= "<p>The order was processed at PayPal but not yet confirmed.<br/><span class=\"info\">[05#{1.hour.ago.strftime("%m-%d-%y %I:%M %p")}]</span></p>" %>
-  referer: 
   shipping_cost: 30
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 4
 
 an_order_ordered_paid_shipped: 
@@ -96,17 +73,12 @@ an_order_ordered_paid_shipped:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
   notes: <%= "<p>Order completed.<br/><span class=\"info\">[#{1.hour.ago.strftime("%m-%d-%y %I:%M %p")}]</span></p>" %>
-  referer: 
   shipping_cost: 0
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 6
-
 
 an_order_sent_to_fulfillment: 
   tax: 0.0
@@ -115,15 +87,10 @@ an_order_sent_to_fulfillment:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
-  notes:
-  referer: 
   shipping_cost: 30
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 7
 
 an_order_cancelled: 
@@ -133,15 +100,10 @@ an_order_cancelled:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
-  notes:
-  referer: 
   shipping_cost: 30
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 8
 
 an_order_returned: 
@@ -151,13 +113,9 @@ an_order_returned:
   shipping_address: santa_address
   order_user: santa
   billing_address: santa_address
-  shipped_on: 
   order_shipping_type: ups_xp_critical
-  promotion:
   notes: <%= "<p>Order completed.<br/><span class=\"info\">[#{1.month.ago.strftime("%m-%d-%y %I:%M %p")}]</span></p>" %>
-  referer: 
   shipping_cost: 30.0
   order_number: <%= Order.generate_order_number %>
   order_account: santa_account
-  auth_transaction_id: 
   order_status_code_id: 9

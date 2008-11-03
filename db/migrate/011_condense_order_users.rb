@@ -27,7 +27,7 @@ class CondenseOrderUsers < ActiveRecord::Migration
 
     # Now set order_id's for other items in the DB
     puts "Updating order_id's for OrderAccounts..."
-    accounts = OrderAccount.find_all
+    accounts = OrderAccount.find(:all)
     orphan_accounts = 0
     for a in accounts
       if a.order_id == 0 && a.order_user && a.order_user.last_order
@@ -38,7 +38,7 @@ class CondenseOrderUsers < ActiveRecord::Migration
     end
 
     puts "Updating order_id's for OrderAddresses..."
-    addresses = OrderAddress.find_all
+    addresses = OrderAddress.find(:all)
     orphan_addresses = 0
     for a in addresses
       if a.order_id == 0 && a.order_user && a.order_user.last_order

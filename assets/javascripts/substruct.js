@@ -177,3 +177,14 @@ function showSubTab(pane_id, tab_link) {
 function highlightItem(item_id) {
 	new Effect.Highlight($(item_id));
 }
+
+
+// Adds an empty file upload html element to the form.
+// Used in conjunction with the /shared/multiple_upload partial.
+function addEmptyUpload(kind) {
+	var new_upload_box = $(kind+'_empty_file_upload').cloneNode(true);
+	new_upload_box.style.display = "none";
+	new_upload_box.id = '';
+	$(kind+'_file_upload_container').appendChild(new_upload_box);
+	new Effect.Appear(new_upload_box);
+}

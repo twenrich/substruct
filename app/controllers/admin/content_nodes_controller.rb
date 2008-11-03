@@ -120,16 +120,15 @@ class Admin::ContentNodesController < Admin::BaseController
 
   def update
     @content_node = ContentNode.find(params[:id])
-    @content_node.type = params[:content_node][:type]
-    
+    @content_node.type = params[:content_node][:type]    
     if @content_node.update_attributes(params[:content_node])
       save_uploads_and_replace_paths()
-      flash[:notice] = 'ContentNode was successfully updated.'
-      redirect_to :action => 'list'
+      flash.now[:notice] = 'ContentNode was successfully updated.'
     else
-      set_recent_uploads
-      render :action => 'edit'
+      flash.now[:notice] = 'ContentNode was NOT updated. Please check the form below.'
     end
+    set_recent_uploads
+    render :action => 'edit'
   end
 
 	# Shows a preview of our content from the edit / create pages
