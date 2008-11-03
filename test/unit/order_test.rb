@@ -648,13 +648,17 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal an_order.line_items_total, an_order.order_line_items.collect{ |p| p.unit_price * p.quantity }.sum
   end
 
+
   def test_new_notes_update_attr
-    notes_before = @santa_order.notes.dup
+    # Notes need to be NIL in order to test an edge case error.
+    @santa_order.update_attribute(:notes, nil)
+    # ^^ DONT REMOVE THIS
     @santa_order.update_attributes({
       :new_notes => 'Hello world.'
     })
-    notes_after = @santa_order.reload.notes
-    assert_not_equal notes_before, notes_after
+    @santa_order.reload
+    assert_not_nil @santa_order.notes
+    assert @santa_order.notes.include?("<span class=\"info\">")
   end  
 
   # Test an order to see if the correct total weight will be returned.
